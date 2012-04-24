@@ -7,6 +7,12 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+web/assets/*
+vendor/*
 
 # Configuration files
 app/config/parameters.ini
+
+# IDE directories and files
+build/
+nbproject/
