@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
             new Mopa\BootstrapBundle\MopaBootstrapBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Btask\UserBundle\BtaskUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
