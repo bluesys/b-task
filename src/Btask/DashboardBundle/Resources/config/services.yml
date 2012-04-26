@@ -1,0 +1,7 @@
+parameters:
+#    btask_dashboard.example.class: Btask\DashboardBundle\Example
+
+services:
+#    btask_dashboard.example:
+#        class: %btask_dashboard.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

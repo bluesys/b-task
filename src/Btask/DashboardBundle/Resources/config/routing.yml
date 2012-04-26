@@ -1,0 +1,3 @@
+BtaskDashboardBundle_homepage:
+    pattern:  /prototype
+    defaults: { _controller: BtaskDashboardBundle:Default:prototype }

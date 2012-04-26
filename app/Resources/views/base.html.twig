@@ -2,12 +2,50 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}B-Task{% endblock %}</title> 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            {% stylesheets filter='less'
+                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+                '@BtaskDashboardBundle/Resources/public/less/main.less'
+            %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+            {% endstylesheets %}
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#">B-task</a>
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid main">
+        {% block body %}
+        {% endblock %}
+        </div>
+        {% block javascripts %}
+            {% javascripts output="assets/sys-javascripts.js"
+                '@BtaskDashboardBundle/Resources/public/js/jquery-1.7.2.min.js'
+                '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+                '@BtaskDashboardBundle/Resources/public/js/application.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>
