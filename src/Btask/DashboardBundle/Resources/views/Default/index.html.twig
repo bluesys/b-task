@@ -63,7 +63,7 @@
 				<div class="accordion-heading">
 					<a href="#task6" data-parent="#opened" data-toggle="collapse" class="accordion-toggle">Task 6</a>
 				</div>
-				<div class="accordion-body collapse in" id="task6">
+				<div class="accordion-body collapse" id="task6">
 					<div class="accordion-inner">
 						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
 					</div>
@@ -112,6 +112,29 @@
       	</div>
 	</div>
 	<div class="span4">
+		<h2>Closed tasks</h2>
+		<div id="closed" class="accordion">
+            <div id="task-group11" class="accordion-group">
+				<div class="accordion-heading meta">
+					<span class="workgroup" style="background-color: #B94A48;">&nbsp;</span>
+					<span class="project">Project</span>
+					<span class="title">Title</span>
+					<div class="action">
+						<a href="#" class="btn delete">Delete</a>
+						<a href="#task11" data-parent="#opened" data-toggle="collapse" class="btn edit">Edit</a>
+					</div>
+				</div>
+				<div class="accordion-body collapse" id="task11">
+					<div class="accordion-inner bla">
+						<input class="title" type="text" value="The title"/><br/>
+						<textarea class="description">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						</textarea>
+						<button class="btn">Update</button>
+					</div>
+				</div>
+            </div>
+      	</div>
 	</div>
 </div>
 {% endblock %}
@@ -122,4 +145,11 @@
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script>
+    $(function() {
+        $( "#overdue" ).sortable({connectWith:['#opened', '#closed']});
+        $( "#opened" ).sortable({connectWith:['#overdue', '#closed']});
+        $( "#closed" ).sortable({connectWith:['#overdue','#opened']});
+    });
+    </script>
 {% endblock %}
