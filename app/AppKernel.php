@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Mopa\BootstrapBundle\MopaBootstrapBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Btask\UserBundle\BtaskUserBundle(),
+            new Btask\DashboardBundle\BtaskDashboardBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,3 +1,7 @@
+BtaskDashboardBundle:
+    resource: "@BtaskDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
+
 BtaskUserBundle:
     resource: "@BtaskUserBundle/Resources/config/routing.yml"
     prefix:   /
