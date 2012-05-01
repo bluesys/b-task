@@ -4,7 +4,7 @@ security:
 
 
     role_hierarchy:
-        ROLE_USER:       ROLE_GUEST
+        ROLE_USER:   ROLE_GUEST
 
     providers:
         fos_userbundle:
@@ -14,11 +14,6 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # Firewall for inscription and login page
-        login:
-            pattern:   ^/(login$|register|resetting)
-            anonymous: true
-
         # Main firewall
         main:
             pattern: ^/
@@ -32,5 +27,7 @@ security:
 
     access_control:
         # URL of FOSUserBundle which need to be available to anonymous users
-        - { path: ^/login$|register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: IS_AUTHENTICATED }

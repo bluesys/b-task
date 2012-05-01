@@ -2,6 +2,15 @@ parameters:
 #    btask_user.example.class: Btask\UserBundle\Example
 
 services:
-#    btask_user.example:
-#        class: %btask_user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    # Define our UserManager as service
+    btask_user.my_user_manager:
+        class: Btask\UserBundle\Model\MyUserManager
+        public: false
+        parent: fos_user.user_manager.default
+
+    # Define our registration template as service
+    btask_user.registration.form.type:
+        class: Btask\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: btask_user_registration }

@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     charset:         UTF-8
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -64,3 +64,12 @@ fos_user:
     db_driver:     orm
     firewall_name: main
     user_class:    Btask\UserBundle\Entity\User
+
+    # Override the UserManager from FOSUserBundle
+    service:
+        user_manager: btask_user.my_user_manager
+
+    # Override the registration template from FOSUserBundle
+    registration:
+        form:
+            type: btask_user_registration

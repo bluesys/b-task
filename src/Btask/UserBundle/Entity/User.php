@@ -32,4 +32,14 @@ class User extends BaseUser
     {
         return $this->id;
     }
+
+    /**
+     * Set email and username as email
+     *
+     * @param string $email
+     */
+    public function setEmail($email) {
+        $this->setUsername($email);
+        $this->email = $email;
+    }
 }
