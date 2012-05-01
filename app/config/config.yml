@@ -67,7 +67,7 @@ fos_user:
 
     # Override the UserManager from FOSUserBundle
     service:
-        user_manager: btask_user.my_user_manager
+        user_manager: btask_user.onsite_user_manager
 
     # Override the registration template from FOSUserBundle
     registration:

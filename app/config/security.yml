@@ -2,9 +2,9 @@ security:
     encoders:
         "FOS\UserBundle\Model\UserInterface": sha512
 
-
     role_hierarchy:
-        ROLE_USER:   ROLE_GUEST
+        ROLE_GUEST:    ROLE_GUEST
+        ROLE_MEMBER:   ROLE_GUEST
 
     providers:
         fos_userbundle:

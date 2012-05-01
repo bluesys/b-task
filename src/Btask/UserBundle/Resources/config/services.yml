@@ -3,8 +3,8 @@ parameters:
 
 services:
     # Define our UserManager as service
-    btask_user.my_user_manager:
-        class: Btask\UserBundle\Model\MyUserManager
+    btask_user.onsite_user_manager:
+        class: Btask\UserBundle\Model\OnsiteUserManager
         public: false
         parent: fos_user.user_manager.default
 
