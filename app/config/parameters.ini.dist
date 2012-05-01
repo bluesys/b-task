@@ -9,5 +9,7 @@
     mailer_host="localhost"
     mailer_user=""
     mailer_password=""
+    mailer_sender_email=""
+    mailer_sender_title=""
     locale="en"
     secret="XXXXXXX"

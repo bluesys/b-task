@@ -1,0 +1,12 @@
+{% block subject %}Confirm your subscription{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Hello {{ user.username }} !
+
+Please confirm your subscription by accessing {{ confirmationUrl }}
+
+Greetings,
+The team
+{% endautoescape %}
+{% endblock %}

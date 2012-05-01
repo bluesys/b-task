@@ -65,11 +65,23 @@ fos_user:
     firewall_name: main
     user_class:    Btask\UserBundle\Entity\User
 
+    # Define the parameters for sended email about users from the system
+    from_email:
+        address:        %mailer_sender_email%
+        sender_name:    %mailer_sender_title%
+
     # Override the UserManager from FOSUserBundle
     service:
         user_manager: btask_user.onsite_user_manager
+        mailer: fos_user.mailer.twig_swift
 
     # Override the registration template from FOSUserBundle
     registration:
+        # Define the registration template
         form:
             type: btask_user_registration
+
+        confirmation:
+            enabled:    true
+            # Define the email template for the registration confirmation
+            template: BtaskUserBundle:User:registration.email.twig
