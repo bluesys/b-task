@@ -10,6 +10,7 @@ class RegistrationFormType  extends BaseType
     public function buildForm(FormBuilder $builder, array $options)
     {
         parent::buildForm($builder, $options);
+        // Do not allow a user to enter a username (the username will be the email)
         $builder->remove('username');
     }
 

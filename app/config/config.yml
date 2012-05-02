@@ -75,6 +75,12 @@ fos_user:
         user_manager: btask_user.onsite_user_manager
         mailer: fos_user.mailer.twig_swift
 
+    # Configuration for the profile
+    profile:
+        # Override the profile template from FOSUserBundle
+        form:
+            type: btask_user_profile
+
     # Configuration for the registration
     registration:
         # Override the registration template from FOSUserBundle

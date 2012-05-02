@@ -8,6 +8,13 @@ services:
         public: false
         parent: fos_user.user_manager.default
 
+    # Define our profile template as service
+    btask_user_profile.form.type:
+        class: Btask\UserBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: btask_user_profile }
+
     # Define our registration template as service
     btask_user.registration.form.type:
         class: Btask\UserBundle\Form\Type\RegistrationFormType
