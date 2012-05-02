@@ -1,0 +1,12 @@
+# Security
+"Bad credentials": Invalid email or password
+
+security:
+    login:
+        password_reset: "Can't access your account?"
+
+# Password resetting
+resetting:
+    request:
+        invalid_username: Email address "%username%" does not exist.
+        username: "Email address:"

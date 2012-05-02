@@ -24,14 +24,14 @@ class OnsiteUserManager extends UserManager
     }
 
     /**
-     * Finds a user by username or email
+     * Return a user by his email
      *
      * @param string $username
      * @return UserInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->findUserByUsernameOrEmail($username);
+        $user = $this->findUserByEmail($username);
 
         if (!$user) {
             throw new UsernameNotFoundException(sprintf('No user with name "%s" was found.', $username));
