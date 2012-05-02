@@ -84,11 +84,11 @@ fos_user:
         confirmation:
             enabled:    true
             # Define the email template for the registration confirmation
-            template: BtaskUserBundle:User:registration.email.twig
+            template: BtaskUserBundle:Registration:email.html.twig
 
     # Configuration for the password resetting
     resetting:
         token_ttl: 86400
         email:
             # Define the email template for the password resetting
-            template: BtaskUserBundle:User:resetting.email.twig
+            template: BtaskUserBundle:Resetting:email.html.twig

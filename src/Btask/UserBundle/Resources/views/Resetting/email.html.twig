@@ -1,0 +1,12 @@
+{% block subject %}Resetting your password{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Hello {{ user.username }} !
+
+You can reset your password by accessing {{ confirmationUrl }}
+
+Greetings,
+the team
+{% endautoescape %}
+{% endblock %}
