@@ -75,9 +75,9 @@ fos_user:
         user_manager: btask_user.onsite_user_manager
         mailer: fos_user.mailer.twig_swift
 
-    # Override the registration template from FOSUserBundle
+    # Configuration for the registration
     registration:
-        # Define the registration template
+        # Override the registration template from FOSUserBundle
         form:
             type: btask_user_registration
 
@@ -85,3 +85,10 @@ fos_user:
             enabled:    true
             # Define the email template for the registration confirmation
             template: BtaskUserBundle:User:registration.email.twig
+
+    # Configuration for the password resetting
+    resetting:
+        token_ttl: 86400
+        email:
+            # Define the email template for the password resetting
+            template: BtaskUserBundle:User:resetting.email.twig
