@@ -5,3 +5,5 @@ BtaskDashboardBundle_homepage:
 limited_dashboard:
     pattern:  /dashboard/limited/{token}
     defaults: { _controller: BtaskDashboardBundle:Default:showLimitedDashboard }
+    requirements:
+        page:  \w+

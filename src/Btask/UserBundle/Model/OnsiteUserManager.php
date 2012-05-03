@@ -17,7 +17,7 @@ class OnsiteUserManager extends UserManager
         $class = $this->getClass();
         $user = new $class;
 
-        // Add ROLE_MEMBER to user who registers
+        // Add ROLE_MEMBER by default
         $user->addRole('ROLE_MEMBER');
 
         return $user;
@@ -28,6 +28,7 @@ class OnsiteUserManager extends UserManager
      *
      * @param string $username
      * @return UserInterface
+     * @author https://github.com/FriendsOfSymfony/FOSUserBundle/blob/1.2.0/Resources/doc/logging_by_username_or_email.md
      */
     public function loadUserByUsername($username)
     {
