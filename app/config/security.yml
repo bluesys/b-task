@@ -14,6 +14,7 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         # Main firewall
         main:
             pattern: ^/
@@ -26,7 +27,8 @@ security:
             logout:          true
 
     access_control:
-        # URL of FOSUserBundle which need to be available to anonymous users
+        # Limited dashboard
+        - { path: ^/dashboard/limited, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

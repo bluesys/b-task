@@ -1,3 +1,7 @@
 BtaskDashboardBundle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: BtaskDashboardBundle:Default:index }
+
+limited_dashboard:
+    pattern:  /dashboard/limited/{token}
+    defaults: { _controller: BtaskDashboardBundle:Default:showLimitedDashboard }
