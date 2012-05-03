@@ -26,7 +26,7 @@ class User extends BaseUser
      * Random string sent to the user email address in order to verify it
      *
      * @var string
-     * @ORM\Column(name="limited_dashboard_token", type="integer")
+     * @ORM\Column(name="limited_dashboard_token", type="integer", nullable=true)
      */
     protected $limitedDashboardToken;
 
