@@ -3,6 +3,7 @@
 namespace Btask\UserBundle\Model;
 
 use FOS\UserBundle\Entity\UserManager;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class OnsiteUserManager extends UserManager
@@ -39,5 +40,28 @@ class OnsiteUserManager extends UserManager
         }
 
         return $user;
+    }
+
+    /**
+     * Updates a user.
+     *
+     * @param UserInterface $user
+     * @param Boolean       $andFlush Whether to flush the changes (default true)
+     */
+    public function updateUser(UserInterface $user, $andFlush = true)
+    {
+        $this->updateCanonicalFields($user);
+        $this->updatePassword($user);
+
+        // An guest become a member when he edit his profile
+        if ($user->hasRole('ROLE_GUEST') && $user->isEnabled()) {
+            $user->removeRole('ROLE_GUEST');
+            $user->addRole('ROLE_MEMBER');
+        }
+
+        $this->em->persist($user);
+        if ($andFlush) {
+            $this->em->flush();
+        }
     }
 }
