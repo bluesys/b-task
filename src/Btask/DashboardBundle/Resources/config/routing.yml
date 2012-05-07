@@ -1,3 +1,7 @@
-BtaskDashboardBundle_homepage:
-    pattern:  /prototype
-    defaults: { _controller: BtaskDashboardBundle:Default:prototype }
+BtaskDashboardBundle_today:
+    pattern:  /today
+    defaults: { _controller: BtaskDashboardBundle:Default:today }
+
+BtaskDashboardBundle_projet1:
+    pattern:  /projet1
+    defaults: { _controller: BtaskDashboardBundle:Default:projet1 }

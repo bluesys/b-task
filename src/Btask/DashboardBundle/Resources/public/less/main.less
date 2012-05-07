@@ -1,115 +1,187 @@
-.clear(@height: 1px) {
-	clear: both;
-	height: @height;
-}
+// General space beetween each section
+@whitespace-general: 20px;
 
-#task {
-	margin: 0;
+// Property of fixed section
+@notifications-width: 500px;
+@navigation-width: @notifications-width/2;
 
-	.accordion-group {
-		background-color: #EFEFEF;
-
-		.accordion-heading {
-			input {
-				display: inline;
-				margin: 0;
-			}
-
-			.action {
-				display: inline;
-			}
-		}
-	}	
-}
-
-#task2 {
-	float: right;
-}
-
-// Task styling
-.task() {
-	.accordion-group {
-		background-color: #EFEFEF;
-
-		.meta {
-
-			.workgroup{
-				height: 34px;
-				width: 8px;
-				float: left;
-
-				@radius: 4px;
-			  	-webkit-border-top-left-radius: @radius;
-			    -moz-border-top-left-radius: @radius;
-			    border-top-left-radius: @radius;
-			  	-webkit-border-bottom-left-radius: @radius;
-			    -moz-border-bottom-left-radius: @radius;
-			    border-bottom-left-radius: @radius;
-
-				&.bluesystem {
-					background-color: #468847;
-				}
-
-			    &.bluesystem {
-					background-color: #F89406;
-				}
-
-				&.bluesystem {
-					background-color: #B94A48;
-				}
-			}
-
-			.project, .title {
-				float: left;
-				padding: 8px 5px;	
-				color: #999;
-			}
-
-			.project {
-				text-transform:uppercase;
-			}
-
-			.action {
-				display: block;
-				padding: 8px 15px;
-				text-align: right;
-
-				.btn {
-					display: inline;
-				}
-			}
-		}
-
-		.informations {
-			.title {
-
-				height: auto;
-				width: 100%;
-			}
-
-			.description {
-				display: block;
-				width: 100%;
-			}
-		}
-	}
-}
-
-.container-fluid.main {
+#content {
+	padding: 0;
 	background-color: white;
-	box-shadow: 0 2px 4px #555;
-}
 
-#overdue {
-	.task();	
-}
+	// Dashboard elements
+	#dashboard {
+		background-color: grey;
+		border-bottom: solid 3px #333;
 
-#done {
+		#posts-it {
+			margin-right: @notifications-width + @whitespace-general*2;
+			padding: @whitespace-general;
 
-	.task();
+			.post-it {
+				float: left;
+				width: 200px;
+				height: 150px;
+				margin: 0 @whitespace-general @whitespace-general 0;
+				overflow: hidden;
+				text-align: justify;
+			}
+		}
 
-	.meta .project, 
-	.meta .title {
-		text-decoration: line-through;
+		#notifications {
+			float: right;
+			width: @notifications-width;
+			padding: @whitespace-general;
+
+			.followed {
+				float: left;
+				position: relative;
+				width: 50%;
+
+				.notification {
+					margin: 0 0 @whitespace-general/4 0;
+				}
+
+				.notification:last-child {
+					margin-bottom: 0;
+				}
+			}
+
+			.general {
+				float: right;
+				width: 50%;
+
+				.notification {
+					margin: 0 0 @whitespace-general/4 @whitespace-general;
+				}
+
+				.notification:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
 	}
-}
+
+	// Streamline and overview elements
+	#overview {
+		background-color: #eee;
+
+		#streamline {
+			padding: @whitespace-general 0 @whitespace-general @whitespace-general;
+			margin-right: @navigation-width + @whitespace-general;
+
+			#summary {
+				padding: 0 @whitespace-general @whitespace-general 0;
+
+				h2 {
+					display: inline-block;
+				}
+
+				#users {
+					float: right;
+				}
+			}
+
+			#tasks {
+				float: left;
+				position: relative;
+				width: 70%;
+
+				.status {
+					margin: 0 @whitespace-general 0 0;
+					border-top: none;
+					border-left: none;
+					border-right: none;
+					border-bottom: 1px solid #999;
+					border-radius: 0;
+
+					.accordion-heading a {
+						text-transform: none;
+						text-transform: uppercase;
+						font-weight: bold;
+						color: #0f0f0f;
+					}
+
+					.accordion-inner {
+						padding: 5px 0;
+
+						.task {
+							background-color: #fff;
+							border-left: 10px solid #B94A48;
+							border-radius: 4px 4px 4px 4px;
+							
+							.meta {
+
+							}
+
+							.accordion-inner {
+								padding: 9px 15px;
+							}
+						}
+					}
+				}
+
+				.status:last-child {
+					margin-bottom: @whitespace-general;
+				}
+			}
+
+			#notes {
+				width: 30%;
+				float: right;
+
+				.note {
+					margin: 0 @whitespace-general @whitespace-general 0;
+					background-color: #fff;
+					border-color: #999;
+					text-align: justify;
+					color: #0f0f0f;
+				}
+			}
+		}
+
+		#navigation {
+			padding-right: @whitespace-general;
+			float: right;
+			width: @navigation-width;
+			background-color: #fff;
+			overflow: visible;
+
+			.workgroup {
+				border-top: none;
+				border-left: none;
+				border-right: none;
+				border-bottom: 1px solid #333;
+				border-radius: 0;
+				text-transform: uppercase;
+
+				.accordion-heading {
+					a {
+						display: inline-block;
+					}
+
+					.add-project {
+						display: none;
+						float: right;
+						margin-top: 3px;
+					}
+				}
+
+				.accordion-inner {
+					padding: 5px 0;
+					border-top: none;
+
+					.project {
+						display: block;
+						margin: 5px;
+						padding: 5px;
+					}
+				}
+			}
+
+			.workgroup:hover .add-project {
+				display: inline-block;
+			}
+		}
+	}
+	}

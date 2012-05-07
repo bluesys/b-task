@@ -1,0 +1,88 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+<div id="overview" class="row-fluid">
+	<div id="navigation" class="accordion">
+		{% for i in range(0, 5) %}
+		<div class="workgroup accordion-group">
+			<div class="accordion-heading">
+				<a href="#workgroup{{ i }}" data-parent="#navigation" data-toggle="collapse" class="accordion-toggle">
+				Workgroup {{ i }}
+				</a>
+				<i class="icon-search icon-white"></i>
+			</div>
+			<div class="accordion-body collapse {{ i == 1 ? 'in' : '' }}" id="workgroup{{ i }}">
+				<div class="accordion-inner">
+					{% for j in range(0, 10) %}
+					<a href="#" class="project label">Projet {{ j }}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<div id="streamline">
+		<div id="summary">
+			<h2>Today, 30 April 2012</h2>
+			<select id="users" name="users">
+				{% for i in range(0, 5) %}
+				<option>Person {{ i }}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div id="tasks" class="accordion">
+			<div class="status accordion-group">
+				<div class="accordion-heading">
+					<a href="#overdue" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">
+					Overdue
+					</a>
+				</div>
+				<div class="accordion-body collapse" id="overdue">
+					<div class="accordion-inner">
+	    				<div id="overdue-tasks" class="accordion">
+		        			{% for j in range(0, 5) %}
+			        		<div class="task accordion-group">
+								<div class="meta accordion-heading">
+									<a href="#task{{ j }}" data-parent="#overdue-tasks" data-toggle="collapse" class="accordion-toggle">Task {{ j }}</a>
+								</div>
+								<div class="accordion-body collapse" id="task{{ j }}">
+									<div class="accordion-inner">
+									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+				            </div>
+			        		{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="status accordion-group">
+				<div class="accordion-heading">
+					<a href="#todo" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">
+					To do
+					</a>
+				</div>
+				<div class="accordion-body collapse" id="todo">
+					<div class="accordion-inner"></div>
+				</div>
+			</div>
+			<div class="status accordion-group">
+				<div class="accordion-heading">
+					<a href="#done" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">
+					Done
+					</a>
+				</div>
+				<div class="accordion-body collapse" id="done">
+					<div class="accordion-inner"></div>
+				</div>
+			</div>
+		</div>
+		<div id="notes">
+	        {% for i in range(0, 3) %}
+	        <div class="note alert alert-info">
+				There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+	        </div>
+	        {% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

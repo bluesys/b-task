@@ -7,14 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    
-    public function indexAction()
+    public function todayAction()
     {
-        return $this->render('BtaskDashboardBundle:Default:index.html.twig');
+        return $this->render('BtaskDashboardBundle:Default:today.html.twig');
     }
 
-    public function prototypeAction()
+    public function projet1Action()
     {
-        return $this->render('BtaskDashboardBundle:Default:index.html.twig');
+        return $this->render('BtaskDashboardBundle:Default:projet1.html.twig');
     }
 }

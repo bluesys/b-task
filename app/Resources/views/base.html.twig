@@ -25,29 +25,76 @@
                         <span class="icon-bar"></span>
                     </a>
                     <div class="nav-collapse">
+                        <ul class="nav nav-pills">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
+                                    Add a post-it
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><input type="text" /></li>
+                                </ul>
+                            </li>
+                        </ul>
+
                         <ul class="nav">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Today</a></li>
+                        </ul>
+                        <ul class="nav pull-right">
                             <li><a href="#">Logout</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container-fluid main">
-        {% block body %}
-        {% endblock %}
+        <div id="content" class="container-fluid">
+            <div id="dashboard" class="row-fluid">
+                <div id="notifications">
+                    <div class="followed">
+                        {% for i in range(0, 3) %}
+                        <div class="notification alert alert-info">
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            It is a long established fact.
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="general">
+                        {% for i in range(0, 4) %}
+                        <div class="notification alert alert-info">
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            It is a long established fact.
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="posts-it">
+                    {% for i in range(0, 5) %}
+                    <div class="post-it alert">
+                        <a class="close" data-dismiss="alert" href="#">×</a>
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% block body %}
+            {% endblock %}
         </div>
         {% block javascripts %}
             {% javascripts output="assets/sys-javascripts.js"
                 '@BtaskDashboardBundle/Resources/public/js/jquery-1.7.1.min.js'
-                '@BtaskDashboardBundle/Resources/public/js/jquery-ui-1.8.19.custom.min.js'
                 '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+                '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-collapse.js'
+                '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
                 '@BtaskDashboardBundle/Resources/public/js/application.js'
-                '@BtaskDashboardBundle/Resources/public/js/jquery.ui.touch.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            <script type="text/javascript">
+                $(function() {
+                    $('.dropdown-toggle').dropdown();
+                    //$(".accordion").collapse('toggle');
+                });
+            </script>
         {% endblock %}
     </body>
 </html>
