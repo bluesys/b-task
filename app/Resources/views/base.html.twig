@@ -6,7 +6,7 @@
         <title>{% block title %}B-Task{% endblock %}</title> 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
-            {% stylesheets filter='less'
+            {% stylesheets filter='less' output="assets/style.css"
                 '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
                 '@BtaskDashboardBundle/Resources/public/less/main.less'
             %}
@@ -23,7 +23,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </a>
+                    </a>    
                     <div class="nav-collapse">
                         <ul class="nav nav-pills">
                             <li class="dropdown">

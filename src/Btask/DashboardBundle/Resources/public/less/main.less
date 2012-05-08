@@ -86,6 +86,7 @@
 				float: left;
 				position: relative;
 				width: 70%;
+				overflow: visible;
 
 				.status {
 					margin: 0 @whitespace-general 0 0;
@@ -106,12 +107,55 @@
 						padding: 5px 0;
 
 						.task {
+							margin-bottom: @whitespace-general/4;
+							border: none;
 							background-color: #fff;
 							border-left: 10px solid #B94A48;
 							border-radius: 4px 4px 4px 4px;
-							
-							.meta {
 
+							.meta {
+								padding: 5px 10px;
+								font-size: 1.1em;
+								h6 {
+									display: inline-block;
+									width: 100px;
+									padding-right: 20px;
+								}
+
+								h5 {
+									display: inline-block;
+								}
+
+								.infos {
+									em {
+										display: inline-block;
+										width: 100px;
+										padding-right: 20px;
+										font-style: normal;
+										font-size: 0.7em;
+									}
+
+									em.overdue {
+										font-weight: bold;
+										color: #B94A48;
+									}
+
+									a {
+										font-size: 0.7em;
+										text-transform: lowercase;
+									}
+								}
+
+								.btn {
+									float: right;
+									display: none;
+									padding: 4px 10px;
+									margin-left: 5px;
+								}
+							}
+
+							.meta:hover .btn {
+								display: inline-block;
 							}
 
 							.accordion-inner {
@@ -184,4 +228,41 @@
 			}
 		}
 	}
+}
+
+.clear {
+	clear: both;
+}
+
+@media (max-width: 480px) {
+	#content {
+		#dashboard {
+			#notifications { 
+				float: none;
+				
+				.followed {
+					float: none;
+					width: auto;
+				}
+
+				.general {
+					float: none;
+					width: auto;
+				}
+			}
+		}
 	}
+}
+
+[class^="icon-"] {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	vertical-align: text-top;
+	background-image: url(/bundles/mopabootstrap/img/glyphicons-halflings.png);
+	background-repeat: no-repeat;
+}
+
+.icon-white {
+  background-image: url(/bundles/mopabootstrap/img/glyphicons-halflings-white.png);
+}

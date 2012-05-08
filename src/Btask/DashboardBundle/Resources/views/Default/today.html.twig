@@ -42,7 +42,21 @@
 		        			{% for j in range(0, 5) %}
 			        		<div class="task accordion-group">
 								<div class="meta accordion-heading">
-									<a href="#task{{ j }}" data-parent="#overdue-tasks" data-toggle="collapse" class="accordion-toggle">Task {{ j }}</a>
+									<h6>Project {{ j }}</h6>
+									<h5>Task {{ j }}</h5>
+									<a href="#task{{ j }}" data-parent="#overdue-tasks" data-toggle="collapse" class="btn accordion-toggle">
+										<i class="icon-cog"></i>
+									</a>
+									<a href="#" class="btn">
+										<i class="icon-remove"></i>
+									</a>
+									<a href="#" class="btn">
+										<i class="icon-ok"></i>
+									</a>
+									<div class="infos">
+										<em>30 April 2012</em>
+										<a href="#">geoffroy.perriard@gmail.com</a>
+									</div>
 								</div>
 								<div class="accordion-body collapse" id="task{{ j }}">
 									<div class="accordion-inner">

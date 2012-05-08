@@ -27,6 +27,7 @@ assetic:
     use_controller: false
     # java: /usr/bin/java
     filters:
+        cssrewrite: ~
         less:
             node: /usr/local/bin/node
             node_paths: [/usr/local/lib/node_modules]
