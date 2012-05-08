@@ -5,10 +5,7 @@
 		{% for i in range(0, 5) %}
 		<div class="workgroup accordion-group">
 			<div class="accordion-heading">
-				<a href="#workgroup{{ i }}" data-parent="#navigation" data-toggle="collapse" class="accordion-toggle">
-				Workgroup {{ i }}
-				</a>
-				<i class="icon-search icon-white"></i>
+				<a href="#workgroup{{ i }}" data-parent="#navigation" data-toggle="collapse" class="accordion-toggle">Workgroup {{ i }}</a>
 			</div>
 			<div class="accordion-body collapse {{ i == 1 ? 'in' : '' }}" id="workgroup{{ i }}">
 				<div class="accordion-inner">
@@ -31,14 +28,12 @@
 		</div>
 		<div id="tasks" class="accordion" data-collapse-type="manual">
 			<div class="status accordion-group">
-				<div class="accordion-heading">
-					<a href="#overdue" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">
-					Overdue
-					</a>
+				<div class="title accordion-heading">
+					<a href="#overdue" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">Overdue</a>
 				</div>
-				<div class="accordion-body collapse container-content" id="overdue">
+				<div id="overdue" class="accordion-body collapse in">
 					<div class="accordion-inner">
-	    				<div id="overdue-tasks" class="accordion" data-collapse-type="manual">
+	    				<div id="overdues" class="accordion" data-collapse-type="manual">
 		        			{% for j in range(0, 5) %}
 			        		<div class="task accordion-group">
 								<div class="meta accordion-heading">
@@ -52,7 +47,7 @@
 											<i class="icon-remove"></i>
 										</a>
 								    	<div class="btn-group">
-											<a href="#task{{ j }}" data-parent="#overdue-tasks" data-toggle="collapse" class="btn accordion-toggle">
+											<a class="btn accordion-toggle" href="#task{{ j }}" data-parent="#overdues" data-toggle="collapse">
 												<i class="icon-cog"></i>
 											</a>
 										    <button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -65,8 +60,8 @@
 									    </div>
 									</div>
 									<div class="infos">
-										<em>30 April 2012</em>
-										<a href="#">geoffroy.perriard@gmail.com</a>
+										<em class="duedate">30 April 2012</em>
+										<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
 									</div>
 								</div>
 								<div class="accordion-body collapse" id="task{{ j }}">
@@ -81,23 +76,99 @@
 				</div>
 			</div>
 			<div class="status accordion-group">
-				<div class="accordion-heading">
-					<a href="#todo" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">
-					To do
-					</a>
+				<div class="title accordion-heading">
+					<a href="#todo" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">To do</a>
 				</div>
-				<div class="accordion-body collapse" id="todo">
-					<div class="accordion-inner"></div>
+				<div id="todo" class="accordion-body collapse in">
+					<div class="accordion-inner">
+	    				<div id="todos" class="accordion" data-collapse-type="manual">
+		        			{% for j in range(6, 13) %}
+			        		<div class="task accordion-group">
+								<div class="meta accordion-heading">
+									<h6>Project {{ j }}</h6>
+									<h5>Task {{ j }}</h5>
+								    <div class="actions">
+										<a href="#" class="btn">
+											<i class="icon-ok"></i>
+										</a>
+										<a href="#" class="btn">
+											<i class="icon-remove"></i>
+										</a>
+								    	<div class="btn-group">
+											<a class="btn accordion-toggle" href="#task{{ j }}" data-parent="#todos" data-toggle="collapse">
+												<i class="icon-cog"></i>
+											</a>
+										    <button class="btn dropdown-toggle" data-toggle="dropdown">
+									    		<span class="caret"></span>
+										    </button>
+										    <ul class="dropdown-menu pull-left">
+										    	<li><a href="#">Action</a></li>
+										    	<li><a href="#">Action</a></li>
+										    </ul>
+									    </div>
+									</div>
+									<div class="infos">
+										<em class="duedate">30 April 2012</em>
+										<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
+									</div>
+								</div>
+								<div class="accordion-body collapse" id="task{{ j }}">
+									<div class="accordion-inner">
+									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+				            </div>
+			        		{% endfor %}
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="status accordion-group">
-				<div class="accordion-heading">
-					<a href="#done" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">
-					Done
-					</a>
+				<div class="title accordion-heading">
+					<a href="#done" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">Recently done</a>
 				</div>
-				<div class="accordion-body collapse" id="done">
-					<div class="accordion-inner"></div>
+				<div id="done" class="accordion-body collapse in">
+					<div class="accordion-inner">
+	    				<div id="dones" class="accordion" data-collapse-type="manual">
+		        			{% for j in range(14, 20) %}
+			        		<div class="task accordion-group">
+								<div class="meta accordion-heading">
+									<h6>Project {{ j }}</h6>
+									<h5>Task {{ j }}</h5>
+								    <div class="actions">
+										<a href="#" class="btn">
+											<i class="icon-ok"></i>
+										</a>
+										<a href="#" class="btn">
+											<i class="icon-remove"></i>
+										</a>
+								    	<div class="btn-group">
+											<a class="btn accordion-toggle" href="#task{{ j }}" data-parent="#dones" data-toggle="collapse">
+												<i class="icon-cog"></i>
+											</a>
+										    <button class="btn dropdown-toggle" data-toggle="dropdown">
+									    		<span class="caret"></span>
+										    </button>
+										    <ul class="dropdown-menu pull-left">
+										    	<li><a href="#">Action</a></li>
+										    	<li><a href="#">Action</a></li>
+										    </ul>
+									    </div>
+									</div>
+									<div class="infos">
+										<em class="duedate">30 April 2012</em>
+										<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
+									</div>
+								</div>
+								<div class="accordion-body collapse" id="task{{ j }}">
+									<div class="accordion-inner">
+									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+				            </div>
+			        		{% endfor %}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

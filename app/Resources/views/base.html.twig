@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div id="content" class="container-fluid">
+        <div id="main-content" class="container-fluid">
             <div id="dashboard" class="row-fluid">
                 <div id="notifications">
                     <div class="followed">
@@ -89,12 +89,6 @@
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
-            <script type="text/javascript">
-                $(function() {
-                    $('.dropdown-toggle').dropdown();
-                    //$(".accordion").collapse('toggle');
-                });
-            </script>
         {% endblock %}
     </body>
 </html>
