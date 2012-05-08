@@ -1,13 +1,21 @@
+/**
+ * Main stylesheet
+ *
+ * @author geoffroy.perriard@gmail.com
+ *
+ */
+
+@import "dashboard.less";
+@import "overview.less";
+@import "spritesheet.less";
+@import "responsive.less";
+
 // General space beetween each section
 @whitespace-general: 20px;
 
 // Property of fixed section
 @notifications-width: 500px;
 @navigation-width: @notifications-width/2;
-
-@import "dashboard.less";
-@import "overview.less";
-@import "spritesheet.less";
 
 #main-content {
 	padding: 0;
@@ -16,24 +24,4 @@
 
 .clear {
 	clear: both;
-}
-
-@media (max-width: 480px) {
-	#content {
-		#dashboard {
-			#notifications { 
-				float: none;
-				
-				.followed {
-					float: none;
-					width: auto;
-				}
-
-				.general {
-					float: none;
-					width: auto;
-				}
-			}
-		}
-	}
 }

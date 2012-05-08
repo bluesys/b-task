@@ -53,25 +53,24 @@
 				.accordion-inner {
 					padding: 5px 0;
 				
-				#overdue,
-				#todo,
-				#done {
-					height: auto;
-				}
 
-				// Color in red the date of overdue tasks
-				#overdues .duedate {
-					font-weight: bold;
-					color: #B94A48;
-				}
+					.container-content {
+						height: auto;
+					}
 
-				// Line trough done tasks
-				#dones .task .meta h6,
-				#dones .task .meta h5,
-				#dones .task .meta .duedate,
-				#dones .task .meta .underling {
-					text-decoration: line-through;
-				}
+					// Color in red the date of overdue tasks
+					#overdues .duedate {
+						font-weight: bold;
+						color: #B94A48;
+					}
+
+					// Line trough done tasks
+					#dones .task .meta h6,
+					#dones .task .meta h5,
+					#dones .task .meta .duedate,
+					#dones .task .meta .underling {
+						text-decoration: line-through;
+					}
 
 					.task {
 						margin-bottom: @whitespace-general/4;
@@ -98,6 +97,12 @@
 								display: inline-block;
 							}
 
+							input.title,
+							input.duedate,
+							input.underling {
+								margin: 0;
+							}
+
 							.infos {
 
 								.duedate {
@@ -120,7 +125,6 @@
 
 								.btn-group {
 									display: inline-block;
-									margin-left: 5px;
 
 									.dropdown-menu a{
 										clear: both;
@@ -130,10 +134,18 @@
 										line-height: 18px;
 										padding: 3px 15px;
 										white-space: nowrap;
+
+										&:hover {
+										    background-color: #0088CC;
+										    color: #FFFFFF;
+										    text-decoration: none;
+										}
 									}
 								}
 
 								a.btn {
+									float: left;
+									margin-left: 5px;
 									display: inline-block;
 									padding: 4px 10px;
 								}
@@ -142,6 +154,10 @@
 
 						.accordion-inner {
 							padding: 9px 15px;
+
+							textarea {
+								width: 99%;
+							}
 						}
 					}
 				}
@@ -153,7 +169,7 @@
 			float: right;
 
 			.note {
-				margin: 0 @whitespace-general @whitespace-general 0;
+				margin: 0 @whitespace-general @whitespace-general/4 0;
 				background-color: #fff;
 				border-color: #999;
 				text-align: justify;
