@@ -146,17 +146,35 @@
 									}
 								}
 
-								.btn {
+								.actions {
 									float: right;
-									display: none;
-									padding: 4px 10px;
-									margin-left: 5px;
+									//display: none;
+
+									.btn-group {
+										display: inline-block;
+										margin-left: 5px;
+
+										.dropdown-menu a{
+											clear: both;
+											color: #333333;
+											display: block;
+											font-weight: normal;
+											line-height: 18px;
+											padding: 3px 15px;
+											white-space: nowrap;
+										}
+									}
+
+									a.btn {
+										display: inline-block;
+										padding: 4px 10px;
+									}
 								}
 							}
-
-							.meta:hover .btn {
+							/*
+							.meta:hover .actions {
 								display: inline-block;
-							}
+							}*/
 
 							.accordion-inner {
 								padding: 9px 15px;

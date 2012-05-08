@@ -29,7 +29,7 @@
 				{% endfor %}
 			</select>
 		</div>
-		<div id="tasks" class="accordion">
+		<div id="tasks" class="accordion" data-collapse-type="manual">
 			<div class="status accordion-group">
 				<div class="accordion-heading">
 					<a href="#overdue" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">
@@ -38,21 +38,32 @@
 				</div>
 				<div class="accordion-body collapse" id="overdue">
 					<div class="accordion-inner">
-	    				<div id="overdue-tasks" class="accordion">
+	    				<div id="overdue-tasks" class="accordion" data-collapse-type="manual">
 		        			{% for j in range(0, 5) %}
 			        		<div class="task accordion-group">
 								<div class="meta accordion-heading">
 									<h6>Project {{ j }}</h6>
 									<h5>Task {{ j }}</h5>
-									<a href="#task{{ j }}" data-parent="#overdue-tasks" data-toggle="collapse" class="btn accordion-toggle">
-										<i class="icon-cog"></i>
-									</a>
-									<a href="#" class="btn">
-										<i class="icon-remove"></i>
-									</a>
-									<a href="#" class="btn">
-										<i class="icon-ok"></i>
-									</a>
+								    <div class="actions">
+										<a href="#" class="btn">
+											<i class="icon-ok"></i>
+										</a>
+										<a href="#" class="btn">
+											<i class="icon-remove"></i>
+										</a>
+								    	<div class="btn-group">
+											<a href="#task{{ j }}" data-parent="#overdue-tasks" data-toggle="collapse" class="btn accordion-toggle">
+												<i class="icon-cog"></i>
+											</a>
+										    <button class="btn dropdown-toggle" data-toggle="dropdown">
+									    		<span class="caret"></span>
+										    </button>
+										    <ul class="dropdown-menu pull-left">
+										    	<li><a href="#">Action</a></li>
+										    	<li><a href="#">Action</a></li>
+										    </ul>
+									    </div>
+									</div>
 									<div class="infos">
 										<em>30 April 2012</em>
 										<a href="#">geoffroy.perriard@gmail.com</a>
