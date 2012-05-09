@@ -1,6 +1,23 @@
-@media (max-width: 960px) {
+/**
+ * Special style for different terminal
+ *
+ * @author geoffroy.perriard@gmail.com
+ *
+ */
 
+@media (min-width: 960px) {
+	.hidden-desktop {
+	    display: none !important;
+	}
+}
+
+@media (max-width: 960px) {
 	#main-content {
+
+		.hidden-desktop {
+		    display: block !important;
+		}
+
 		#dashboard {
 
 			#notifications { 
