@@ -9,7 +9,7 @@
   "use strict"
 
   var Collapse = function ( element, options ) {
-      this.$element = $(element)
+    this.$element = $(element)
     this.options = $.extend({}, $.fn.collapse.defaults, options)
 
     if (this.options["parent"]) {
@@ -33,10 +33,10 @@
         , scroll = $.camelCase(['scroll', dimension].join('-'))
         , actives = this.$parent && this.$parent.find('.in')
         , hasData
-      
-      //Here is the trick
-      //Check for data collapse attribute then trigger hide
-      if ( this.$parent.attr("data-collapse-type") !== "manual" && actives && actives.length) {
+
+      // Here is the trick
+      // Check for data collapse type attribute then trigger hide
+      if (actives && actives.length && this.$parent.attr("data-collapse-type") !== "manual") {
         hasData = actives.data('collapse')
         actives.collapse('hide')
         hasData || actives.data('collapse', null)
@@ -63,9 +63,7 @@
         [dimension](size || 'auto')
         [0].offsetWidth
 
-      this.$element[size ? 'addClass' : 'removeClass']('collapse')
-
-      return this
+      this.$element.addClass('collapse')
     }
 
   , transition: function ( method, startEvent, completeEvent ) {
@@ -82,11 +80,11 @@
       $.support.transition && this.$element.hasClass('collapse') ?
         this.$element.one($.support.transition.end, complete) :
         complete()
-      }
+    }
 
   , toggle: function () {
       this[this.$element.hasClass('in') ? 'hide' : 'show']()
-      }
+    }
 
   }
 
@@ -124,4 +122,4 @@
     })
   })
 
-}( window.jQuery );
+}( window.jQuery )
