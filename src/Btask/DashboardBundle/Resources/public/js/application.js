@@ -51,4 +51,19 @@ $(function() {
 			postItToggle = false;
 		}
 	});
+
+	// Get the height of the navbar, the dashboard and the padding-bottom of the posts-it section
+	var defaultHeight = $('#dashboard').outerHeight() + $('.navbar.navbar-fixed-top').outerHeight() + parseInt($('#posts-it').css('padding-bottom').replace("px", ""));
+	$('#navigation').css({ top: dashboardHeight });
+
+	$(window).scroll(function () {
+		var topper = $(window).scrollTop();
+
+		if (defaultHeight - topper > 60) {
+			$('#navigation').css({ top: defaultHeight - topper });
+		}
+		else {
+			$('#navigation').css({ top: $('.navbar.navbar-fixed-top').outerHeight() + parseInt($('#posts-it').css('padding-bottom').replace("px", "")) });
+		}
+	});
 });

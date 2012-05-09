@@ -8,7 +8,7 @@
 	background-color: #eee;
 
 	#streamline {
-		margin-right: @navigation-width + @whitespace-general;
+		margin-right: @navigation-width;
 		padding: @whitespace-general 0 @whitespace-general @whitespace-general;
 
 		/* Informations about the project or today */
@@ -40,7 +40,7 @@
 				border-radius: 0;
 
 				&:last-child {
-					margin-bottom: @whitespace-general;
+					margin-bottom: 0;
 				}
 
 				.title a {
@@ -183,11 +183,17 @@
 	}
 
 	#navigation {
-		padding-right: @whitespace-general;
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
 		float: right;
 		width: @navigation-width;
+		margin-bottom: @whitespace-general;
 		background-color: #fff;
-		overflow: visible;
+		border-radius: 4px 0 0 4px;
+		overflow: scroll;
+		overflow-x: hidden;
 
 		.workgroup {
 			border-top: none;
@@ -199,6 +205,7 @@
 
 			.accordion-heading a {
 				display: inline-block;
+				color: #0f0f0f;
 			}
 
 			.accordion-inner {
@@ -209,6 +216,14 @@
 					display: block;
 					margin: 5px;
 					padding: 5px;
+				}
+			}
+
+			&:last-child {
+				border-bottom: 0;
+
+				.accordion-inner {
+					padding-bottom: 0;
 				}
 			}
 		}

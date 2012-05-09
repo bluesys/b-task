@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block body %}
 <div id="overview" class="row-fluid">
-	<div id="navigation" class="accordion">
+	<div id="navigation" class="accordion" data-collapse-type="manual">
 		{% for i in range(0, 5) %}
 		<div class="workgroup accordion-group">
 			<div class="accordion-heading">
@@ -185,7 +185,7 @@
 			</div>
 		</div>
 		<div id="notes">
-			<h2 class="title hidden-desktop">Notes</h2>
+			<h2 class="title">Notes</h2>
 	        {% for i in range(0, 3) %}
 	        <div class="note alert alert-info">
 				There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
