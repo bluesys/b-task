@@ -26,18 +26,8 @@
                     <a class="brand" href="#">B-task</a>
                     <div class="nav-collapse">
                         <ul class="nav">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
-                                    Add a post-it
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><input type="text" /></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav">
-                            <li><a href="#">Today</a>
+                            <li class="post-it-add"><a href="#">+ Add a post-it</a></li>
+                            <li><a href="#">Today</a></li>
                             <li class="dashboard-toggle hidden-desktop"><a href="#">Hide the dashboard</a></li>
                         </ul>
                         <ul class="nav pull-right">
@@ -49,6 +39,10 @@
         </div>
         <div id="main-content" class="container-fluid">
             <div id="dashboard" class="row-fluid">
+                <h2 class="title hidden-desktop">
+                    <a href="#">Notifications</a>
+                    <span class="caret"></span>
+                </h2>
                 <div id="notifications">
                     <div class="followed">
                         {% for i in range(0, 3) %}
@@ -67,7 +61,15 @@
                         {% endfor %}
                     </div>
                 </div>
+                <h2 class="title hidden-desktop">
+                    <a href="#">Posts-it</a>
+                    <span class="caret"></span>
+                </h2>
                 <div id="posts-it">
+                    <div class="post-it add alert">
+                        <a class="close" data-dismiss="alert" href="#">×</a>
+                        <textarea></textarea>
+                    </div>
                     {% for i in range(0, 5) %}
                     <div class="post-it alert">
                         <a class="close" data-dismiss="alert" href="#">×</a>

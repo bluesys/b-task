@@ -19,4 +19,36 @@ $(function() {
 			dashboardToggle = false;
 		}
 	});
+
+	$('.post-it-add a').click(function () {
+		$('#dashboard #posts-it .add').css({ display: "inline-block" });
+	});
+
+	$('#dashboard #posts-it .add .close').click(function () {
+		$('#dashboard #posts-it .add').css({ display: "none" });
+	});
+
+	var notificationsItToggle = true;
+	$('#dashboard .title:first a').click(function () {
+		if (notificationsItToggle == false) {
+			$('#dashboard #notifications').css({ display: "none" });
+			notificationsItToggle = true;
+		}
+		else {
+			$('#dashboard #notifications').css({ display: "block" });
+			notificationsItToggle = false;
+		}
+	});
+
+	var postItToggle = true;
+	$('#dashboard .title:last a').click(function () {
+		if (postItToggle == false) {
+			$('#dashboard #posts-it').css({ display: "none" });
+			postItToggle = true;
+		}
+		else {
+			$('#dashboard #posts-it').css({ display: "block" });
+			postItToggle = false;
+		}
+	});
 });

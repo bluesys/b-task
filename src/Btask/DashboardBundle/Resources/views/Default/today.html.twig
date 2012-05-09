@@ -7,7 +7,7 @@
 			<div class="accordion-heading">
 				<a href="#workgroup{{ i }}" data-parent="#navigation" data-toggle="collapse" class="accordion-toggle">Workgroup {{ i }}</a>
 			</div>
-			<div class="accordion-body collapse {{ i == 1 ? 'in' : '' }}" id="workgroup{{ i }}">
+			<div class="accordion-body collapse" id="workgroup{{ i }}">
 				<div class="accordion-inner">
 					{% for j in range(0, 10) %}
 					<a href="#" class="project label">Projet {{ j }}</a>
@@ -185,6 +185,7 @@
 			</div>
 		</div>
 		<div id="notes">
+			<h2 class="title hidden-desktop">Notes</h2>
 	        {% for i in range(0, 3) %}
 	        <div class="note alert alert-info">
 				There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.

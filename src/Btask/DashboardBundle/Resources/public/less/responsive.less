@@ -20,10 +20,28 @@
 
 		#dashboard {
 
+			.title.hidden-desktop {
+				padding: 0 10px 10px 10px;
+
+				&:first-child {
+					padding-top: 10px;
+				}
+
+				a {
+					font-weight: bold;
+					color: #0f0f0f;
+				}
+
+				.caret {
+					vertical-align: middle;
+				}
+			}
+
 			#notifications { 
 				float: none;
+				display: none;
 				width: auto;
-				padding: 10px 10px 0 10px;
+				padding: 0 10px 10px 10px;
 
 				.notification {
 					margin: 0 0 10px 0;
@@ -53,8 +71,9 @@
 			}
 
 			#posts-it {
+				display: none;
 				margin: 0;
-				padding: 10px 10px 0 10px;
+				padding: 0 10px 0 10px;
 
 				.post-it {
 					float: none;
@@ -76,7 +95,7 @@
 				width: auto;
 				display: block;
 				padding: 0;
-				margin: 0;
+				margin: 0 0 20px 0;
 			}
 
 			#streamline {
@@ -87,12 +106,12 @@
 					float: none;
 					width: auto;
 					display: block;
-					padding: 10px 10px 0 10px;
+					padding: 0 10px 0 10px;
 
 					#users {
-						float: none;
-						width: auto;
-						display: block;				
+					    display: inline-block;
+					    float: right;
+						width: auto;			
 					}
 				}
 
@@ -118,7 +137,7 @@
 					float: none;
 					width: auto;
 					display: block;	
-					padding: 10px 10px 0 10px;
+					padding: 0 10px 0 10px;
 
 					.note {
 						float: none;
