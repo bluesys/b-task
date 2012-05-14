@@ -7,7 +7,6 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
             {% stylesheets filter='less' output="assets/style.css"
-                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
                 '@BtaskDashboardBundle/Resources/public/less/main.less'
             %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
