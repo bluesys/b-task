@@ -3,8 +3,7 @@ security:
         "FOS\UserBundle\Model\UserInterface": sha512
 
     role_hierarchy:
-        ROLE_GUEST:    ROLE_GUEST
-        ROLE_MEMBER:   ROLE_GUEST
+        ROLE_USER: ROLE_USER
 
     providers:
         fos_userbundle:
@@ -27,8 +26,6 @@ security:
             logout:          true
 
     access_control:
-        # Limited dashboard
-        - { path: ^/dashboard/limited, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

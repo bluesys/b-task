@@ -7,9 +7,10 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class OnsiteUserManager extends UserManager
-{    
+{
+
     /**
-     * Returns an user instance with ROLE_MEMBER
+     * Returns an user instance with ROLE_USER
      *
      * @return UserInterface
      */
@@ -18,8 +19,8 @@ class OnsiteUserManager extends UserManager
         $class = $this->getClass();
         $user = new $class;
 
-        // Add ROLE_MEMBER by default
-        $user->addRole('ROLE_MEMBER');
+        // Add ROLE_USER by default
+        $user->addRole('ROLE_USER');
 
         return $user;
     }
@@ -40,28 +41,5 @@ class OnsiteUserManager extends UserManager
         }
 
         return $user;
-    }
-
-    /**
-     * Updates a user.
-     *
-     * @param UserInterface $user
-     * @param Boolean       $andFlush Whether to flush the changes (default true)
-     */
-    public function updateUser(UserInterface $user, $andFlush = true)
-    {
-        $this->updateCanonicalFields($user);
-        $this->updatePassword($user);
-
-        // An guest become a member when he edit his profile
-        if ($user->hasRole('ROLE_GUEST') && $user->isEnabled()) {
-            $user->removeRole('ROLE_GUEST');
-            $user->addRole('ROLE_MEMBER');
-        }
-
-        $this->em->persist($user);
-        if ($andFlush) {
-            $this->em->flush();
-        }
     }
 }

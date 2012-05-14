@@ -23,14 +23,6 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * Random string sent to the user email address in order to verify it
-     *
-     * @var string
-     * @ORM\Column(name="limited_dashboard_token", type="integer", nullable=true)
-     */
-    protected $limitedDashboardToken;
-
-    /**
      * Get id
      *
      * @return integer 
@@ -38,28 +30,6 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Sets the dashboard limited token
-     *
-     * @return string
-     */
-    public function getLimitedDashboardToken()
-    {
-        return $this->limitedDashboardToken;
-    }
-
-    /**
-     * Sets the dashboard limited token
-     *
-     * @param string $limitedDashboardToken
-     * @return User
-     */
-    public function setLimitedDashboardToken($limitedDashboardToken)
-    {
-        $this->limitedDashboardToken = $limitedDashboardToken;
-        return $this;
     }
 
     /**
