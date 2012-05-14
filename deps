@@ -77,7 +77,7 @@
 [TwitterBootstrap2]
     git=git://github.com/twitter/bootstrap.git
     target=/bundles/Mopa/BootstrapBundle/Resources/bootstrap
-    version=v2.0.3
+    version=v2.0.0
 
 [FOSUserBundle]
     git=git://github.com/FriendsOfSymfony/FOSUserBundle.git

@@ -1,0 +1,153 @@
+/**
+ * Special style for different terminal
+ *
+ * @author geoffroy.perriard@gmail.com
+ *
+ */
+
+@media (min-width: 960px) {
+	.hidden-desktop {
+	    display: none;
+	}
+}
+
+@media (max-width: 960px) {
+	#main-content {
+
+		.hidden-desktop {
+		    display: block;
+		}
+
+		#dashboard {
+
+			.title.hidden-desktop {
+				padding: 0 10px 10px 10px;
+
+				&:first-child {
+					padding-top: 10px;
+				}
+
+				a {
+					font-weight: bold;
+					color: #0f0f0f;
+				}
+
+				.caret {
+					vertical-align: middle;
+				}
+			}
+
+			#notifications { 
+				float: none;
+				display: none;
+				width: auto;
+				padding: 0 10px 10px 10px;
+
+				.notification {
+					margin: 0 0 10px 0;
+				}
+
+				.followed {
+					float: none;
+					width: auto;
+					display: block;
+					margin: 0;
+
+					&:after {
+						clear: both;
+					}
+				}
+
+				.general {
+					float: none;
+					width: auto;
+					display: block;
+					margin: 0;
+
+					&:after {
+						clear: both;
+					}
+				}
+			}
+
+			#posts-it {
+				display: none;
+				margin: 0;
+				padding: 0 10px 0 10px;
+
+				.post-it {
+					float: none;
+					width: auto;
+					display: block;
+					width: auto;
+					margin: 0 0 10px 0;
+
+					&:after {
+						clear: both;
+					}
+				}
+			}
+		}
+
+		#overview {
+			#navigation {
+				float: none;
+				width: auto;
+				position: relative;
+				display: block;
+				padding: 0;
+				margin: 0 0 20px 0;
+			}
+
+			#streamline {
+				margin: 0;
+				padding: 0;
+
+				#summary {
+					float: none;
+					width: auto;
+					display: block;
+					padding: 0 10px 0 10px;
+
+					#users {
+					    display: inline-block;
+					    float: right;
+						width: auto;			
+					}
+				}
+
+				#tasks {
+					float: none;
+					width: auto;
+					display: block;
+
+					.status {
+						margin: 0;
+					}
+
+					.task {
+						border-radius: 0 4px 4px 0;
+						float: none;
+						width: auto;
+						display: block;
+						margin: 0 10px 10px 10px;	
+					}
+				}
+
+				#notes {
+					float: none;
+					width: auto;
+					display: block;	
+					padding: 0 10px 0 10px;
+
+					.note {
+						float: none;
+						width: auto;
+						display: block;
+						margin: 0 0 10px 0;
+					}	
+				}
+			}
+		}
+	}
+}

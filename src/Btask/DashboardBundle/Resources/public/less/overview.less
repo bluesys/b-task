@@ -1,0 +1,235 @@
+/**
+ * Stylize the overview section
+ *
+ * @author geoffroy.perriard@gmail.com
+ *
+ */
+#overview {
+	background-color: #eee;
+
+	#streamline {
+		margin-right: @navigation-width;
+		padding: @whitespace-general 0 @whitespace-general @whitespace-general;
+
+		/* Informations about the project or today */
+		#summary {
+			padding: 0 @whitespace-general @whitespace-general 0;
+
+			h2 {
+				display: inline-block;
+			}
+
+			/* List of users */
+			#users {
+				float: right;
+			}
+		}
+
+		#tasks {
+			float: left;
+			position: relative;
+			width: 70%;
+			overflow: visible;
+
+			.status {
+				margin: 0 @whitespace-general 0 0;
+				border-top: none;
+				border-left: none;
+				border-right: none;
+				border-bottom: 1px solid #999;
+				border-radius: 0;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				.title a {
+					text-transform: none;
+					text-transform: uppercase;
+					font-weight: bold;
+					color: #0f0f0f;
+				}
+
+				.accordion-inner {
+					padding: 5px 0;
+				
+
+					.container-content {
+						height: auto;
+					}
+
+					// Color in red the date of overdue tasks
+					#overdues .duedate {
+						font-weight: bold;
+						color: #B94A48;
+					}
+
+					// Line trough done tasks
+					#dones .task .meta h6,
+					#dones .task .meta h5,
+					#dones .task .meta .duedate,
+					#dones .task .meta .underling {
+						text-decoration: line-through;
+					}
+
+					.task {
+						margin-bottom: @whitespace-general/4;
+						border: none;
+						background-color: #fff;
+						border-left: 10px solid #B94A48;
+						border-radius: 4px 4px 4px 4px;
+
+						.meta {
+							padding: 5px 10px;
+							font-size: 1.1em;
+
+							&:hover .actions {
+								display: inline-block;
+							}
+
+							h6 {
+								display: inline-block;
+								width: 100px;
+								padding-right: 20px;
+							}
+
+							h5 {
+								display: inline-block;
+							}
+
+							input.title,
+							input.duedate,
+							input.underling {
+								margin: 0;
+							}
+
+							.infos {
+
+								.duedate {
+									display: inline-block;
+									width: 100px;
+									padding-right: 20px;
+									font-style: normal;
+									font-size: 0.7em;
+								}
+
+								.underling {
+									font-size: 0.7em;
+									color: #0f0f0f;
+								}
+							}
+
+							.actions {
+								float: right;
+								display: none;
+
+								.btn-group {
+									display: inline-block;
+
+									.dropdown-menu a{
+										clear: both;
+										color: #333333;
+										display: block;
+										font-weight: normal;
+										line-height: 18px;
+										padding: 3px 15px;
+										white-space: nowrap;
+
+										&:hover {
+										    background-color: #0088CC;
+										    color: #FFFFFF;
+										    text-decoration: none;
+										}
+									}
+								}
+
+								a.btn {
+									float: left;
+									margin-left: 5px;
+									display: inline-block;
+									padding: 4px 10px;
+								}
+							}
+						}
+
+						.accordion-inner {
+							padding: 9px 15px;
+
+							textarea {
+								width: 99%;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		#notes {
+			width: 30%;
+			float: right;
+
+			.title.hidden-desktop {
+				padding-bottom: 10px;
+			}
+
+			.note {
+				margin: 0 @whitespace-general @whitespace-general/4 0;
+				background-color: #fff;
+				border-color: #999;
+				text-align: justify;
+				color: #0f0f0f;
+			}
+		}
+	}
+
+	#navigation {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		float: right;
+		width: @navigation-width;
+		margin-bottom: @whitespace-general;
+		background-color: #fff;
+		border-radius: 4px 0 0 4px;
+		overflow: scroll;
+		overflow-x: hidden;
+
+		.workgroup {
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: 1px solid #333;
+			border-radius: 0;
+			text-transform: uppercase;
+
+			.accordion-heading a {
+				display: inline-block;
+				color: #0f0f0f;
+			}
+
+			.accordion-inner {
+				padding: 5px 0;
+				border-top: none;
+
+				.project {
+					display: block;
+					margin: 5px;
+					padding: 5px;
+				}
+			}
+
+			&:last-child {
+				border-bottom: 0;
+
+				.accordion-inner {
+					padding-bottom: 0;
+				}
+			}
+		}
+
+		.workgroup:hover .add-project {
+			display: inline-block;
+		}
+	}
+}

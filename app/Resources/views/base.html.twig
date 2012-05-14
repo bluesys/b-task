@@ -2,12 +2,97 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}B-Task{% endblock %}</title> 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            {% stylesheets filter='less' output="assets/style.css"
+                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+                '@BtaskDashboardBundle/Resources/public/less/main.less'
+            %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+            {% endstylesheets %}
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">B-task</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li class="post-it-add"><a href="#">+ Add a post-it</a></li>
+                            <li><a href="#">Today</a></li>
+                            <li class="dashboard-toggle hidden-desktop"><a href="#">Hide the dashboard</a></li>
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-content" class="container-fluid">
+            <div id="dashboard" class="row-fluid">
+                <h2 class="title hidden-desktop">
+                    <a href="#">Notifications</a>
+                    <span class="caret"></span>
+                </h2>
+                <div id="notifications">
+                    <div class="followed">
+                        {% for i in range(0, 3) %}
+                        <div class="notification alert alert-info">
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            It is a long established fact.
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="general">
+                        {% for i in range(0, 4) %}
+                        <div class="notification alert alert-info">
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            It is a long established fact.
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <h2 class="title hidden-desktop">
+                    <a href="#">Posts-it</a>
+                    <span class="caret"></span>
+                </h2>
+                <div id="posts-it">
+                    <div class="post-it add alert">
+                        <a class="close" data-dismiss="alert" href="#">×</a>
+                        <textarea></textarea>
+                    </div>
+                    {% for i in range(0, 5) %}
+                    <div class="post-it alert">
+                        <a class="close" data-dismiss="alert" href="#">×</a>
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% block body %}
+            {% endblock %}
+        </div>
+        {% block javascripts %}
+            {% javascripts output="assets/sys-javascripts.js"
+                '@BtaskDashboardBundle/Resources/public/js/jquery-1.7.1.min.js'
+                '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+                '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
+                '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
+                '@BtaskDashboardBundle/Resources/public/js/bootstrap-collapse.js'
+                '@BtaskDashboardBundle/Resources/public/js/navigation.js'
+                '@BtaskDashboardBundle/Resources/public/js/application.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>
