@@ -1,5 +1,7 @@
-# Security
-"Bad credentials": Invalid email or password
+# Global strings
+layout:
+    logout: Logout
+    login: Login
 
 security:
     login:

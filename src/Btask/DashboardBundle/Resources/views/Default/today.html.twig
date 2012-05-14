@@ -1,5 +1,45 @@
 {% extends '::base.html.twig' %}
 {% block body %}
+<div id="dashboard" class="row-fluid">
+    <h2 class="title hidden-desktop">
+        <a href="#">Notifications</a>
+        <span class="caret"></span>
+    </h2>
+    <div id="notifications">
+        <div class="followed">
+            {% for i in range(0, 3) %}
+            <div class="notification alert alert-info">
+                <a class="close" data-dismiss="alert" href="#">×</a>
+                It is a long established fact.
+            </div>
+            {% endfor %}
+        </div>
+        <div class="general">
+            {% for i in range(0, 4) %}
+            <div class="notification alert alert-info">
+                <a class="close" data-dismiss="alert" href="#">×</a>
+                It is a long established fact.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <h2 class="title hidden-desktop">
+        <a href="#">Posts-it</a>
+        <span class="caret"></span>
+    </h2>
+    <div id="posts-it">
+        <div class="post-it add alert">
+            <a class="close" data-dismiss="alert" href="#">×</a>
+            <textarea></textarea>
+        </div>
+        {% for i in range(0, 5) %}
+        <div class="post-it alert">
+            <a class="close" data-dismiss="alert" href="#">×</a>
+            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+        </div>
+        {% endfor %}
+    </div>
+</div>
 <div id="overview" class="row-fluid">
 	<div id="navigation" class="accordion" data-collapse-type="manual">
 		{% for i in range(0, 5) %}

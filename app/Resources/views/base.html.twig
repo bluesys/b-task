@@ -25,59 +25,18 @@
                     </a>
                     <a class="brand" href="#">B-task</a>
                     <div class="nav-collapse">
-                        <ul class="nav">
-                            <li class="post-it-add"><a href="#">+ Add a post-it</a></li>
-                            <li><a href="#">Today</a></li>
-                            <li class="dashboard-toggle hidden-desktop"><a href="#">Hide the dashboard</a></li>
-                        </ul>
                         <ul class="nav pull-right">
-                            <li><a href="#">Logout</a></li>
+                            {% if is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}layout.logout{% endtrans %}</a></li>
+                            {% else %}
+                             <li><a href="{{ path('fos_user_security_login') }}">{% trans %}layout.login{% endtrans %}</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <div id="main-content" class="container-fluid">
-            <div id="dashboard" class="row-fluid">
-                <h2 class="title hidden-desktop">
-                    <a href="#">Notifications</a>
-                    <span class="caret"></span>
-                </h2>
-                <div id="notifications">
-                    <div class="followed">
-                        {% for i in range(0, 3) %}
-                        <div class="notification alert alert-info">
-                            <a class="close" data-dismiss="alert" href="#">×</a>
-                            It is a long established fact.
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="general">
-                        {% for i in range(0, 4) %}
-                        <div class="notification alert alert-info">
-                            <a class="close" data-dismiss="alert" href="#">×</a>
-                            It is a long established fact.
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <h2 class="title hidden-desktop">
-                    <a href="#">Posts-it</a>
-                    <span class="caret"></span>
-                </h2>
-                <div id="posts-it">
-                    <div class="post-it add alert">
-                        <a class="close" data-dismiss="alert" href="#">×</a>
-                        <textarea></textarea>
-                    </div>
-                    {% for i in range(0, 5) %}
-                    <div class="post-it alert">
-                        <a class="close" data-dismiss="alert" href="#">×</a>
-                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
             {% block body %}
             {% endblock %}
         </div>
@@ -88,8 +47,6 @@
                 '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
                 '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
                 '@BtaskDashboardBundle/Resources/public/js/bootstrap-collapse.js'
-                '@BtaskDashboardBundle/Resources/public/js/navigation.js'
-                '@BtaskDashboardBundle/Resources/public/js/application.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
