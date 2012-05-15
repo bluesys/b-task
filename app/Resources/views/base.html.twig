@@ -7,7 +7,8 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
             {% stylesheets filter='less' output="assets/style.css"
-                '@BtaskDashboardBundle/Resources/public/less/main.less'
+                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+                'bundles/btaskdashboard/less/main.less'
             %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
             {% endstylesheets %}
@@ -24,6 +25,11 @@
                     </a>
                     <a class="brand" href="#">B-task</a>
                     <div class="nav-collapse">
+                        {% if is_granted('ROLE_USER') %}
+                        <ul class="nav">
+                            <li><a class="plus" href="#">{% trans %}+{% endtrans %}</a></li>
+                        </ul>
+                        {% endif %}
                         <ul class="nav pull-right">
                             {% if is_granted('ROLE_USER') %}
                             <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}layout.logout{% endtrans %}</a></li>
@@ -46,6 +52,7 @@
                 '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
                 '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
                 '@BtaskDashboardBundle/Resources/public/js/bootstrap-collapse.js'
+                '@BtaskDashboardBundle/Resources/public/js/application.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}

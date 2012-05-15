@@ -1,0 +1,8 @@
+<form action="{{ path('BtaskDashboardBundle_postit_add') }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+
+    {{ form_errors(form.subject) }}
+    {{ form_widget(form.subject) }}
+	{{ form_rest(form) }}
+	<input type="submit" />
+</form>

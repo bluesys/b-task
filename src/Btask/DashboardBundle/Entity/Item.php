@@ -52,35 +52,35 @@ class Item
     /**
      * @var text $detail
      *
-     * @ORM\Column(name="detail", type="text")
+     * @ORM\Column(name="detail", type="text", nullable=true)
      */
     private $detail;
 
     /**
      * @var boolean $priority
      *
-     * @ORM\Column(name="priority", type="boolean")
+     * @ORM\Column(name="priority", type="boolean", nullable=true)
      */
     private $priority;
 
     /**
      * @var boolean $status
      *
-     * @ORM\Column(name="status", type="boolean")
+     * @ORM\Column(name="status", type="boolean", nullable=true)
      */
     private $status;
 
     /**
      * @var datetime $plannedAt
      *
-     * @ORM\Column(name="planned_at", type="datetime")
+     * @ORM\Column(name="planned_at", type="datetime", nullable=true)
      */
     private $plannedAt;
 
     /**
      * @var datetime $dueAt
      *
-     * @ORM\Column(name="due_at", type="datetime")
+     * @ORM\Column(name="due_at", type="datetime", nullable=true)
      */
     private $dueAt;
 
@@ -93,7 +93,7 @@ class Item
 
     /**
      * @ORM\ManyToOne(targetEntity="itemType", inversedBy="items", cascade={"remove"})
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      */
     protected $type;
 

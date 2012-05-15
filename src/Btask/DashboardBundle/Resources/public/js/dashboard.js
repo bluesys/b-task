@@ -7,13 +7,14 @@
 
 $(function() {
 
-	// Display the post-it form to add a post-it on click on a nav button
-	$('.post-it-add a').click(function () {
-		$('#dashboard #posts-it .add').css({ display: "inline-block" });
+	// Show the form to create a post-it in dashboard
+	$('.plus').click(function () {
+		$('.post-it.form').css({ 'display' : 'inline-block' });
 	});
 
-	$('#dashboard #posts-it .add .close').click(function () {
-		$('#dashboard #posts-it .add').css({ display: "none" });
+	// Hide the form to create a post-it in dashboard
+	$('.post-it.form .close').click(function () {
+		$('.post-it.form').css({ 'display' : 'none' });
 	});
 
 	// Hide the dashboard on click in the nav button (only for mobile)

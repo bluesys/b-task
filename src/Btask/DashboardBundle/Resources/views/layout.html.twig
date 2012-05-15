@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div id="dashboard" class="row-fluid">
+    <div id="notifications">
+    </div>
+    <div id="post-it">
+        <div class="post-it form alert">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+        {% render "BtaskDashboardBundle:Default:addPostIt" %}
+        </div>
+    </div>
+</div>
+<div id="overview" class="row-fluid">
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    
+    {% javascripts output="assets/sys-javascripts.js"
+        '@BtaskDashboardBundle/Resources/public/js/dashboard.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
