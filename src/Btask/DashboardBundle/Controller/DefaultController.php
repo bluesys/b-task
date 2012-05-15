@@ -20,16 +20,25 @@ class DefaultController extends Controller
         return $this->render('BtaskDashboardBundle:Default:today.html.twig');
     }
 
-    public function addPostItAction()
+    public function showBoardAction()
+    {
+        return $this->render('BtaskDashboardBundle::layout.html.twig');
+    }
+
+    public function showPostItAction()
+    {
+    }
+
+    public function createItemAction()
 	{
 	    $item = new Item;
-	    $itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->find(1);
+    	$itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->find(1);
 	    $item->setType($itemType);
 	   	$item->setVersion(1);
 	   	$item->setCurrent(true);
 	   	$item->setcreatedAt(new \Datetime());
 	   	$item->setValidationToken('123');
-	    $form = $this->createForm(new PostItType, $item);
+	    $form = $this->createForm(new PostItType(), $item);
 
 	    $request = $this->get('request');
 	    if( $request->getMethod() == 'POST' )
@@ -41,11 +50,11 @@ class DefaultController extends Controller
 	            $em->persist($item);
 	            $em->flush();
 
-	            return $this->redirect( $this->generateUrl('BtaskDashboardBundle_homepage') );
+	            return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
 	        }
 	    }
 
-	    return $this->render('BtaskDashboardBundle:Dashboard:post-it.html.twig', array(
+	    return $this->render('BtaskDashboardBundle:Dashboard:add_item.html.twig', array(
 	        'form' => $form->createView(),
 	    ));
 	}

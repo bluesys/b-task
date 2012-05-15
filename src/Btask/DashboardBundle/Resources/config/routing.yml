@@ -6,6 +6,12 @@ BtaskDashboardBundle_homepage:
     pattern:  /
     defaults: { _controller: BtaskDashboardBundle:Default:index }
 
-BtaskDashboardBundle_postit_add:
-    pattern:  /post-it/add
-    defaults: { _controller: BtaskDashboardBundle:Default:addPostIt }
+BtaskDashboardBundle_board:
+    pattern:  /board
+    defaults: { _controller: BtaskDashboardBundle:Default:showBoard }
+
+BtaskDashboardBundle_item_add:
+    pattern:  /dashboard/item/add
+    defaults: { _controller: BtaskDashboardBundle:Default:createItem }
+    requirements:
+        _method: POST
