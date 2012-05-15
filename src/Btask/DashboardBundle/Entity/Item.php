@@ -92,7 +92,7 @@ class Item
     private $validationToken;
 
     /**
-     * @ORM\ManyToOne(targetEntity="itemType", inversedBy="items", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="ItemType", inversedBy="items", cascade={"remove"})
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      */
     protected $type;

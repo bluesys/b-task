@@ -8,7 +8,7 @@
 $(function() {
 
 	// Show the form to create a post-it in dashboard
-	$('.plus').click(function () {
+	$('.post-it.add').click(function () {
 		$('.post-it.form').css({ 'display' : 'inline-block' });
 	});
 
@@ -16,6 +16,8 @@ $(function() {
 	$('.post-it.form .close').click(function () {
 		$('.post-it.form').css({ 'display' : 'none' });
 	});
+
+
 
 	// Hide the dashboard on click in the nav button (only for mobile)
 	var dashboardToggle = false;

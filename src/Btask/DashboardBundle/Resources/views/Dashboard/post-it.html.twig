@@ -1,0 +1,6 @@
+{% for post_it in posts_it %}
+<div class="post-it alert">
+    <a class="close" data-dismiss="alert" href="#">×</a>
+	{{ post_it.subject }}
+</div>
+{% endfor %}

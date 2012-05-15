@@ -66,7 +66,7 @@ class ItemType
     {
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add items
      *

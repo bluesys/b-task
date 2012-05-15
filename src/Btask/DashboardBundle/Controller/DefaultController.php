@@ -3,6 +3,7 @@
 namespace Btask\DashboardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 use Btask\DashboardBundle\Entity\Item;
 use Btask\DashboardBundle\Entity\ItemType;
@@ -25,8 +26,26 @@ class DefaultController extends Controller
         return $this->render('BtaskDashboardBundle::layout.html.twig');
     }
 
+    /**
+     * Return all the post-it
+     *
+     */
     public function showPostItAction()
     {
+    	$request = $this->container->get('request');
+
+   		if($request->isXmlHttpRequest()) {
+   			
+   			// Get all the post-it
+			$em = $this->getDoctrine()->getEntityManager();
+			$posts_it = $em->getRepository('BtaskDashboardBundle:Item')->findByItemType('post-it');
+
+			if ($posts_it) {
+		        return $this->render('BtaskDashboardBundle:Dashboard:post-it.html.twig', array(
+		            'posts_it' => $posts_it
+	            ));
+			}
+		}
     }
 
     public function createItemAction()

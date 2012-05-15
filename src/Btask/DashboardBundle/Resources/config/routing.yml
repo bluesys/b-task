@@ -10,6 +10,12 @@ BtaskDashboardBundle_board:
     pattern:  /board
     defaults: { _controller: BtaskDashboardBundle:Default:showBoard }
 
+BtaskDashboardBundle_postit_list:
+    pattern: /board/posts-it
+    defaults: { _controller: BtaskDashboardBundle:Default:showPostIt }
+    requirements:
+        _method: GET
+
 BtaskDashboardBundle_item_add:
     pattern:  /dashboard/item/add
     defaults: { _controller: BtaskDashboardBundle:Default:createItem }

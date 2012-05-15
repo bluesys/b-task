@@ -23,4 +23,19 @@
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    <script type="text/javascript">
+    $(function() {
+
+        // Get all the post-it and display them
+        $.ajax({
+            type: "GET",
+            url: "{{ path('BtaskDashboardBundle_postit_list')}}",
+            cache: false,
+            success: function(data){
+                $('#post-it').append(data);
+            }
+        });
+    });
+    </script>
 {% endblock %}
