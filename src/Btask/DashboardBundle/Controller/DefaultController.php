@@ -38,12 +38,15 @@ class DefaultController extends Controller
    			
    			// Get all the post-it
 			$em = $this->getDoctrine()->getEntityManager();
-			$posts_it = $em->getRepository('BtaskDashboardBundle:Item')->findByItemType('post-it');
+			$posts_it = $em->getRepository('BtaskDashboardBundle:Item')->findByItemType('Post-it');
 
 			if ($posts_it) {
 		        return $this->render('BtaskDashboardBundle:Dashboard:post-it.html.twig', array(
 		            'posts_it' => $posts_it
 	            ));
+			}
+			else {
+				return new Response(null);
 			}
 		}
     }
@@ -61,10 +64,6 @@ class DefaultController extends Controller
 	        $form->bindRequest($request);
 
 	        if( $form->isValid() ) {
-
-	        	// Set the creation date of the current item
-		        $item->setcreatedAt(new \Datetime());
-
 	            $em = $this->getDoctrine()->getEntityManager();
 	            $em->persist($item);
 	            $em->flush();

@@ -23,7 +23,7 @@ class ItemRepository extends EntityRepository
            		->setParameter('type', $itemType);
         }
 
-        $qb->orderBy('i.createdAt', 'DESC');
+        $qb->orderBy('i.created', 'DESC');
 
         return $qb->getQuery()->getArrayResult();
     }

@@ -25,14 +25,24 @@ class Item
     private $id;
 
     /**
-     * @var datetime $createdAt
-     * @Gedmo\Versioned
+     * @var datetime $created
+     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    private $created;
+
+    /**
+     * @var datetime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updated;
 
     /**
      * @var text $subject
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="subject", type="text")
      */
@@ -40,6 +50,7 @@ class Item
 
     /**
      * @var text $detail
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="detail", type="text", nullable=true)
      */
@@ -47,6 +58,7 @@ class Item
 
     /**
      * @var boolean $priority
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="priority", type="boolean", nullable=true)
      */
@@ -54,27 +66,31 @@ class Item
 
     /**
      * @var boolean $status
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="status", type="boolean", nullable=true)
      */
     private $status;
 
     /**
-     * @var datetime $plannedAt
+     * @var datetime $planned
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="planned_at", type="datetime", nullable=true)
      */
-    private $plannedAt;
+    private $planned;
 
     /**
-     * @var datetime $dueAt
+     * @var datetime $due
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="due_at", type="datetime", nullable=true)
      */
-    private $dueAt;
+    private $due;
 
     /**
      * @var string $validationToken
+     *
      * @Gedmo\Versioned
      * @ORM\Column(name="validation_token", type="string", length=255, nullable=true)
      */
@@ -82,10 +98,19 @@ class Item
 
     /**
      * @Gedmo\Versioned
+     *
      * @ORM\ManyToOne(targetEntity="ItemType", inversedBy="items", cascade={"remove"})
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      */
     protected $type;
+
+    /**
+     * @Gedmo\Versioned
+     *
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="items", cascade={"remove"})
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     */
+    protected $project;
 
     /**
      * Get id
@@ -95,26 +120,6 @@ class Item
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param datetime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return datetime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
     }
 
     /**
@@ -199,53 +204,13 @@ class Item
     }
 
     /**
-     * Set plannedAt
-     *
-     * @param datetime $plannedAt
-     */
-    public function setPlannedAt($plannedAt)
-    {
-        $this->plannedAt = $plannedAt;
-    }
-
-    /**
-     * Get plannedAt
-     *
-     * @return datetime 
-     */
-    public function getPlannedAt()
-    {
-        return $this->plannedAt;
-    }
-
-    /**
-     * Set dueAt
-     *
-     * @param datetime $dueAt
-     */
-    public function setDueAt($dueAt)
-    {
-        $this->dueAt = $dueAt;
-    }
-
-    /**
-     * Get dueAt
-     *
-     * @return datetime 
-     */
-    public function getDueAt()
-    {
-        return $this->dueAt;
-    }
-
-    /**
      * Set validationToken
      * Generate the token by mixing crypted user and item information
      * @param User $user
      */
     public function setValidationToken(User $user)
     {
-        $userId = hash('sha256', $user->getId()));
+        $userId = hash('sha256', $user->getId());
         $itemId = hash('sha256', $this->getId());
         $itemCreationDate = hash('sha256', $this->getCreatedAt());
         $salt = hash('sha256', uniqid(mt_rand(), true), true);
@@ -281,5 +246,105 @@ class Item
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * Get created
+     *
+     * @return datetime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param datetime $updated
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return datetime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set planned
+     *
+     * @param datetime $planned
+     */
+    public function setPlanned($planned)
+    {
+        $this->planned = $planned;
+    }
+
+    /**
+     * Get planned
+     *
+     * @return datetime 
+     */
+    public function getPlanned()
+    {
+        return $this->planned;
+    }
+
+    /**
+     * Set due
+     *
+     * @param datetime $due
+     */
+    public function setDue($due)
+    {
+        $this->due = $due;
+    }
+
+    /**
+     * Get due
+     *
+     * @return datetime 
+     */
+    public function getDue()
+    {
+        return $this->due;
+    }
+
+    /**
+     * Set project
+     *
+     * @param Btask\DashboardBundle\Entity\Project $project
+     */
+    public function setProject(\Btask\DashboardBundle\Entity\Project $project)
+    {
+        $this->project = $project;
+    }
+
+    /**
+     * Get project
+     *
+     * @return Btask\DashboardBundle\Entity\Project 
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 }

@@ -29,7 +29,7 @@ class ItemType
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="item", mappedBy="type", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="type", cascade={"remove", "persist"})
      */
     protected $items;
 
@@ -68,16 +68,6 @@ class ItemType
     }
 
     /**
-     * Add items
-     *
-     * @param Btask\DashboardBundle\Entity\item $items
-     */
-    public function additem(\Btask\DashboardBundle\Entity\item $items)
-    {
-        $this->items[] = $items;
-    }
-
-    /**
      * Get items
      *
      * @return Doctrine\Common\Collections\Collection 
@@ -85,5 +75,15 @@ class ItemType
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Add items
+     *
+     * @param Btask\DashboardBundle\Entity\Item $items
+     */
+    public function addItem(\Btask\DashboardBundle\Entity\Item $items)
+    {
+        $this->items[] = $items;
     }
 }
