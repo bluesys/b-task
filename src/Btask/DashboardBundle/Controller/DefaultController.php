@@ -61,8 +61,10 @@ class DefaultController extends Controller
 	        $form->bindRequest($request);
 
 	        if( $form->isValid() ) {
+
+	        	// Set the creation date of the current item
 		        $item->setcreatedAt(new \Datetime());
-		        $item->setValidationToken('123');
+
 	            $em = $this->getDoctrine()->getEntityManager();
 	            $em->persist($item);
 	            $em->flush();
@@ -71,7 +73,7 @@ class DefaultController extends Controller
 	        }
 	    }
 
-	    return $this->render('BtaskDashboardBundle:Dashboard:add_item.html.twig', array(
+	    return $this->render('BtaskDashboardBundle:Dashboard:form_item.html.twig', array(
 	        'form' => $form->createView(),
 	       	'actionUrl' => $actionUrl,
 	    ));

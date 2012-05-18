@@ -4,6 +4,7 @@ namespace Btask\DashboardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Btask\UserBundle\Entity\User;
 
 /**
  * Btask\DashboardBundle\Entity\Item
@@ -75,7 +76,7 @@ class Item
     /**
      * @var string $validationToken
      * @Gedmo\Versioned
-     * @ORM\Column(name="validation_token", type="string", length=255)
+     * @ORM\Column(name="validation_token", type="string", length=255, nullable=true)
      */
     private $validationToken;
 
@@ -239,12 +240,17 @@ class Item
 
     /**
      * Set validationToken
-     *
-     * @param string $validationToken
+     * Generate the token by mixing crypted user and item information
+     * @param User $user
      */
-    public function setValidationToken($validationToken)
+    public function setValidationToken(User $user)
     {
-        $this->validationToken = $validationToken;
+        $userId = hash('sha256', $user->getId()));
+        $itemId = hash('sha256', $this->getId());
+        $itemCreationDate = hash('sha256', $this->getCreatedAt());
+        $salt = hash('sha256', uniqid(mt_rand(), true), true);
+
+        $this->validationToken = md5($userEmail.$itemId.$itemCreationDate.$salt);
     }
 
     /**
