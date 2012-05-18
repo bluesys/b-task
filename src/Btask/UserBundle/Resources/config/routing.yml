@@ -1,3 +1,0 @@
-BtaskUserBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: BtaskUserBundle:Default:index }
