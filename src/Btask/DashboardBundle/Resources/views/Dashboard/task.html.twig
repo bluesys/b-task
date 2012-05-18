@@ -1,0 +1,37 @@
+{% for task in tasks %}
+<div class="task accordion-group">
+	<div class="meta accordion-heading">
+		<h6>Project</h6>
+		<h5>{{ task.subject }}</h5>
+	    <div class="actions">
+			<a href="#" class="btn">
+				<i class="icon-ok"></i>
+			</a>
+			<a href="#" class="btn">
+				<i class="icon-remove"></i>
+			</a>
+	    	<div class="btn-group">
+				<a class="btn accordion-toggle" href="#task-{{ task.id }}" data-parent="#parent" data-toggle="collapse">
+					<i class="icon-cog"></i>
+				</a>
+			    <button class="btn dropdown-toggle" data-toggle="dropdown">
+		    		<span class="caret"></span>
+			    </button>
+			    <ul class="dropdown-menu pull-right">
+			    	<li><a href="#">Action</a></li>
+			    	<li><a href="#">Action</a></li>
+			    </ul>
+		    </div>
+		</div>
+		<div class="infos">
+			<em class="duedate">{{ task.due | date('F dS Y') }}</em>
+			<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
+		</div>
+	</div>
+	<div class="accordion-body collapse" id="task-{{ task.id }}">
+		<div class="accordion-inner">
+			{{ task.detail }}
+		</div>
+	</div>
+</div>
+{% endfor %}

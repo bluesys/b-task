@@ -51,6 +51,29 @@ class DefaultController extends Controller
 		}
     }
 
+     /**
+     * Return overdue, to do and recently done tasks for a specific date
+     *
+     * @param string status
+     * @param date date
+     */
+    public function showTasksByStatusAction($status, $date)
+    {
+		$request = $this->container->get('request');
+		$em = $this->getDoctrine()->getEntityManager();
+
+		// Get tasks by their status (overdue, to do or done)
+		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksByStatus($status, $date);
+
+		if (!$tasks) {
+			return new Response(null);
+		}
+
+        return $this->render('BtaskDashboardBundle:Dashboard:task.html.twig', array(
+            'tasks' => $tasks
+        ));
+    }
+
     public function newItemAction()
 	{
 	    $item = new Item;

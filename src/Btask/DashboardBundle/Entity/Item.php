@@ -108,7 +108,7 @@ class Item
      * @Gedmo\Versioned
      *
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="items", cascade={"remove"})
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
      */
     protected $project;
 

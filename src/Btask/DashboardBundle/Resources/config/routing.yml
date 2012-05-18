@@ -23,3 +23,10 @@ BtaskDashboardBundle_item_add:
 BtaskDashboardBundle_item_edit:
     pattern:  /board/item/{id}/edit
     defaults: { _controller: BtaskDashboardBundle:Default:editItem }
+
+BtaskDashboardBundle_daily_tasks_by_status:
+    pattern:  /board/tasks/{status}/{date}
+    defaults: { _controller: BtaskDashboardBundle:Default:showTasksByStatus, date: null }
+    requirements:
+        _method: GET
+        status: (overdue|todo|done)
