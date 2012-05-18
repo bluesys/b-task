@@ -3,12 +3,14 @@
 namespace Btask\DashboardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Btask\DashboardBundle\Entity\Item
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Btask\DashboardBundle\Entity\ItemRepository")
+ * @Gedmo\Loggable
  */
 class Item
 {
@@ -22,76 +24,63 @@ class Item
     private $id;
 
     /**
-     * @var integer $version
-     *
-     * @ORM\Column(name="version", type="integer")
-     */
-    private $version;
-
-    /**
-     * @var boolean $current
-     *
-     * @ORM\Column(name="current", type="boolean")
-     */
-    private $current;
-
-    /**
      * @var datetime $createdAt
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
     /**
      * @var text $subject
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="subject", type="text")
      */
     private $subject;
 
     /**
      * @var text $detail
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="detail", type="text", nullable=true)
      */
     private $detail;
 
     /**
      * @var boolean $priority
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="priority", type="boolean", nullable=true)
      */
     private $priority;
 
     /**
      * @var boolean $status
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="status", type="boolean", nullable=true)
      */
     private $status;
 
     /**
      * @var datetime $plannedAt
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="planned_at", type="datetime", nullable=true)
      */
     private $plannedAt;
 
     /**
      * @var datetime $dueAt
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="due_at", type="datetime", nullable=true)
      */
     private $dueAt;
 
     /**
      * @var string $validationToken
-     *
+     * @Gedmo\Versioned
      * @ORM\Column(name="validation_token", type="string", length=255)
      */
     private $validationToken;
 
     /**
+     * @Gedmo\Versioned
      * @ORM\ManyToOne(targetEntity="ItemType", inversedBy="items", cascade={"remove"})
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      */
@@ -105,46 +94,6 @@ class Item
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set version
-     *
-     * @param integer $version
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-    }
-
-    /**
-     * Get version
-     *
-     * @return integer 
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * Set current
-     *
-     * @param boolean $current
-     */
-    public function setCurrent($current)
-    {
-        $this->current = $current;
-    }
-
-    /**
-     * Get current
-     *
-     * @return boolean 
-     */
-    public function getCurrent()
-    {
-        return $this->current;
     }
 
     /**
@@ -170,6 +119,7 @@ class Item
     /**
      * Set subject
      *
+     * @gedmo:Versioned
      * @param text $subject
      */
     public function setSubject($subject)

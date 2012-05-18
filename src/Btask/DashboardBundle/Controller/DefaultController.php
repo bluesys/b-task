@@ -48,23 +48,21 @@ class DefaultController extends Controller
 		}
     }
 
-    public function createItemAction()
+    public function newItemAction()
 	{
 	    $item = new Item;
     	$itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->find(1);
 	    $item->setType($itemType);
-	   	$item->setVersion(1);
-	   	$item->setCurrent(true);
-	   	$item->setcreatedAt(new \Datetime());
-	   	$item->setValidationToken('123');
+		$actionUrl = $this->generateUrl('BtaskDashboardBundle_item_add');
 	    $form = $this->createForm(new PostItType(), $item);
 
 	    $request = $this->get('request');
-	    if( $request->getMethod() == 'POST' )
-	    {
+	    if( $request->getMethod() == 'POST' ) {
 	        $form->bindRequest($request);
-	        if( $form->isValid() )
-	        {
+
+	        if( $form->isValid() ) {
+		        $item->setcreatedAt(new \Datetime());
+		        $item->setValidationToken('123');
 	            $em = $this->getDoctrine()->getEntityManager();
 	            $em->persist($item);
 	            $em->flush();
@@ -75,6 +73,38 @@ class DefaultController extends Controller
 
 	    return $this->render('BtaskDashboardBundle:Dashboard:add_item.html.twig', array(
 	        'form' => $form->createView(),
+	       	'actionUrl' => $actionUrl,
+	    ));
+	}
+
+    public function editItemAction($id = null)
+	{
+
+    	$item =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:Item')->find($id);
+		
+		if (!$item) {
+            throw new NotFoundHttpException();
+        }
+
+		$actionUrl = $this->generateUrl('BtaskDashboardBundle_item_edit', array('id' => $id));
+	    $form = $this->createForm(new PostItType(), $item);
+
+	    $request = $this->get('request');
+	    if( $request->getMethod() == 'POST' ) {
+	        $form->bindRequest($request);
+	        
+	        if( $form->isValid() ) {
+	            $em = $this->getDoctrine()->getEntityManager();
+	            $em->persist($item);
+	            $em->flush();
+
+	            return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
+	        }
+	    }
+	    return $this->render('BtaskDashboardBundle:Dashboard:add_item.html.twig', array(
+	        'form' => $form->createView(),
+	       	'item' => $item,
+	       	'actionUrl' => $actionUrl,
 	    ));
 	}
 }

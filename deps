@@ -83,3 +83,11 @@
     git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
     target=bundles/FOS/UserBundle
     version=1.2.0
+
+[gedmo-doctrine-extensions]
+    git=https://github.com/l3pp4rd/DoctrineExtensions.git
+
+[StofDoctrineExtensionsBundle]
+    git=https://github.com/stof/StofDoctrineExtensionsBundle.git
+    target=bundles/Stof/DoctrineExtensionsBundle
+    version=origin/1.0.x

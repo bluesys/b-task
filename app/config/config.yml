@@ -46,6 +46,8 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            StofDoctrineExtensionsBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -97,3 +99,10 @@ fos_user:
         email:
             # Define the email template for the password resetting
             template: BtaskUserBundle:Resetting:email.html.twig
+
+# StofDoctrineExtensions configuration
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            loggable: true

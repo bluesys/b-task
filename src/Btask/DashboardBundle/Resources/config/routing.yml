@@ -17,7 +17,9 @@ BtaskDashboardBundle_postit_list:
         _method: GET
 
 BtaskDashboardBundle_item_add:
-    pattern:  /dashboard/item/add
-    defaults: { _controller: BtaskDashboardBundle:Default:createItem }
-    requirements:
-        _method: POST
+    pattern:  /board/item/add
+    defaults: { _controller: BtaskDashboardBundle:Default:newItem }
+
+BtaskDashboardBundle_item_edit:
+    pattern:  /board/item/{id}/edit
+    defaults: { _controller: BtaskDashboardBundle:Default:editItem }
