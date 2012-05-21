@@ -52,18 +52,18 @@ class DefaultController extends Controller
     }
 
      /**
-     * Return overdue, to do and recently done tasks for a specific date
+     * Returns overdue, planned and done tasks for a specific date
      *
      * @param string status
      * @param date date
      */
-    public function showTasksByStatusAction($status, $date)
+    public function showTasksByStateAction($state, $date)
     {
 		$request = $this->container->get('request');
 		$em = $this->getDoctrine()->getEntityManager();
 
-		// Get tasks by their status (overdue, to do or done)
-		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksByStatus($status, $date);
+		// Get tasks by their status (overdue, planned or done)
+		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksBy(array('state' => $state), $date);
 
 		if (!$tasks) {
 			return new Response(null);
@@ -77,7 +77,7 @@ class DefaultController extends Controller
     public function newItemAction()
 	{
 	    $item = new Item;
-    	$itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->find(1);
+    	$itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->findOneByName('Post-it');
 	    $item->setType($itemType);
 		$actionUrl = $this->generateUrl('BtaskDashboardBundle_item_add');
 	    $form = $this->createForm(new PostItType(), $item);
@@ -125,7 +125,7 @@ class DefaultController extends Controller
 	            return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
 	        }
 	    }
-	    return $this->render('BtaskDashboardBundle:Dashboard:add_item.html.twig', array(
+	    return $this->render('BtaskDashboardBundle:Dashboard:form_item.html.twig', array(
 	        'form' => $form->createView(),
 	       	'item' => $item,
 	       	'actionUrl' => $actionUrl,

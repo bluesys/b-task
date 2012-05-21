@@ -29,66 +29,70 @@ class ItemRepository extends EntityRepository
     }
 
     /**
-     * Find tasks by their status
+     * Finds tasks by a set of criteria
      *
-     * @param string $status
-     * @param datetime $date
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return array $tasks.
      */
-    public function findTasksByStatus($status, $date = null)
+    public function findTasksBy(array $criteria, array $orderBy = null, $limit = null, $offset = null, $date = null)
     {
-        $today = new \Datetime();
-
-        // Set today date if no date was passed
-        if (!$date) {
-           $date = $today;
-        }
 
         $qb = $this->createQueryBuilder('i');
         $qb->innerJoin('i.type', 'it');
         $qb->andWhere('it.name = :type');
+        $parameters = array('type' => 'Task');
 
-        $status = strtolower($status);
-
-        switch ($status) {
-
-            case 'overdue':
-                $qb->andWhere('i.status = :open');
-                $qb->andWhere('i.due < :today');
-                $qb->setParameters(array(
-                    'type' => 'Task',
-                    'today' => $today,
-                    'open' => true,
-                ));
-
-                break;
-
-            case 'todo':
-                $qb->andWhere('i.status = :open');
-                $qb->andWhere('i.planned = :today');
-                $qb->setParameters(array(
-                    'type' => 'Task',
-                    'today' => $today,
-                    'open' => true,
-                ));
-
-                break;
-
-            case 'done':
-                $qb->andWhere('i.status = :closed');
-                $qb->andWhere('i.planned = :today');
-                $qb->setParameters(array(
-                    'type' => 'Task',
-                    'today' => $today,
-                    'closed' => false,
-                ));
-
-                break;
-
-            default:
-                throw new \Exception('Status parameter not available');
+        // Set today date if no date was passed
+        $today = new \Datetime('now');
+        if (!$date) {
+           $date = $today;
         }
 
-        $qb->orderBy('i.created', 'DESC');
+        foreach ($criteria as $key => $value) {
+            switch ($key) {
+
+                // Select tasks by their state (Overdue, Planned or Done)
+                case 'state':
+
+                    switch ($value) {
+                        case 'overdue':
+                            $qb->andWhere('i.status = :open');
+                            $qb->andWhere('i.due < :today');
+
+                            $parameters['open'] =  true;
+                            $parameters['today'] = $date->format('Y-m-d');
+
+                            break;
+                        case 'planned':
+                            $qb->andWhere('i.status = :open');
+                            $qb->andWhere('i.planned = :today');
+
+                            $parameters['open'] =  true;
+                            $parameters['today'] = $date->format('Y-m-d');
+
+                            break;
+                        case 'done':
+                            $qb->andWhere('i.status = :close');
+                            $qb->andWhere('i.planned = :today');
+
+                            $parameters['close'] =  true;
+                            $parameters['today'] = $date->format('Y-m-d');
+
+                            break;
+                        default:
+                            throw new \Exception('State parameter not available');
+                    }
+                    break;
+            }
+        }
+
+        $qb->setParameters($parameters);
+
+        ($offset) ? $qb->setFirstResult($offset) : null;
+        ($limit) ? $qb->setMaxResults($limit) : null;
 
         return $qb->getQuery()->getArrayResult();
     }

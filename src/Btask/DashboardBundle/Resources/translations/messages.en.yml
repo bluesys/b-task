@@ -2,3 +2,10 @@
 dashboard:
     postit:
         save: Save
+
+overview:
+    streamline:
+        tasks:
+            overdue: Overdue
+            planned: Planned
+            done: Done

@@ -24,6 +24,9 @@ class LoadItemData extends AbstractFixture implements FixtureInterface
 
         $this->loadItemType();
         $this->loadOverdueTasks();
+        $this->loadPlannedTasks();
+        $this->loadDoneTasks();
+        $this->loadDoneTasks();
     }
 
     /**
@@ -51,14 +54,66 @@ class LoadItemData extends AbstractFixture implements FixtureInterface
     public function loadOverdueTasks() {
 
         for ($i = 1; $i <= 4; $i++) {
-            $date = new \DateTime();
-            $date->modify('-'.$i.' day');
+            $dueDate = new \DateTime('now');
+            $plannedDate = $dueDate;
+            $plannedDate->modify('-'.$i.' week');
+            $dueDate->modify('-'.$i.' day');
 
             $task = new Item();
             $task->setSubject('Lorem Ipsum is simply dummy text '.$i);
-            $task->setDue($date);
+            $task->setDue($dueDate);
+            $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
+
+            $this->manager->persist($task);
+        }
+
+        $this->manager->flush();
+    }
+
+    /**
+     * Load fake tasks to be done for today
+     *
+     */
+    public function loadPlannedTasks() {
+
+        for ($i = 1; $i <= 8; $i++) {
+            $dueDate = new \DateTime('now');
+            $plannedDate = $dueDate;
+            $dueDate->modify('+'.$i.' day');
+
+            $task = new Item();
+            $task->setSubject('Lorem Ipsum is simply dummy text '.$i);
+            $task->setDue($dueDate);
+            $task->setPlanned($plannedDate);
+            $task->setType($this->manager->merge($this->getReference($this->types['1'])));
+            $task->setStatus(true);
+
+            $this->manager->persist($task);
+        }
+
+        $this->manager->flush();
+    }
+
+
+    /**
+     * Load fake done tasks
+     *
+     */
+    public function loadDoneTasks() {
+
+        for ($i = 1; $i <= 3; $i++) {
+            $dueDate = new \DateTime('now');
+            $plannedDate = $dueDate;
+            $dueDate->modify('+'.$i.' day');
+
+            $task = new Item();
+            $task->setSubject('Lorem Ipsum is simply dummy text '.$i);
+            $task->setDue($dueDate);
+            $task->setPlanned($plannedDate);
+            $task->setType($this->manager->merge($this->getReference($this->types['1'])));
+            $task->setStatus(false);
 
             $this->manager->persist($task);
         }

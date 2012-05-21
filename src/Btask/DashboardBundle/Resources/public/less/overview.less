@@ -59,16 +59,16 @@
 					}
 
 					// Color in red the date of overdue tasks
-					#overdues .duedate {
+					#overdue-tasks .duedate {
 						font-weight: bold;
 						color: #B94A48;
 					}
 
 					// Line trough done tasks
-					#dones .task .meta h6,
-					#dones .task .meta h5,
-					#dones .task .meta .duedate,
-					#dones .task .meta .underling {
+					#done-tasks .task .meta h6,
+					#done-tasks .task .meta h5,
+					#done-tasks .task .meta .duedate,
+					#done-tasks .task .meta .underling {
 						text-decoration: line-through;
 					}
 
@@ -122,26 +122,6 @@
 							.actions {
 								float: right;
 								display: none;
-
-								.btn-group {
-									display: inline-block;
-
-									.dropdown-menu a{
-										clear: both;
-										color: #333333;
-										display: block;
-										font-weight: normal;
-										line-height: 18px;
-										padding: 3px 15px;
-										white-space: nowrap;
-
-										&:hover {
-										    background-color: #0088CC;
-										    color: #FFFFFF;
-										    text-decoration: none;
-										}
-									}
-								}
 
 								a.btn {
 									float: left;

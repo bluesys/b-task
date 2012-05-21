@@ -7,26 +7,26 @@ BtaskDashboardBundle_homepage:
     defaults: { _controller: BtaskDashboardBundle:Default:index }
 
 BtaskDashboardBundle_board:
-    pattern:  /board
+    pattern:  /board/
     defaults: { _controller: BtaskDashboardBundle:Default:showBoard }
 
-BtaskDashboardBundle_postit_list:
-    pattern: /board/posts-it
+BtaskDashboardBundle_item_add:
+    pattern:  /board/item/add/
+    defaults: { _controller: BtaskDashboardBundle:Default:newItem }
+
+BtaskDashboardBundle_item_edit:
+    pattern:  /board/item/{id}/edit/
+    defaults: { _controller: BtaskDashboardBundle:Default:editItem }
+
+BtaskDashboardBundle_postit:
+    pattern: /board/post-it/
     defaults: { _controller: BtaskDashboardBundle:Default:showPostIt }
     requirements:
         _method: GET
 
-BtaskDashboardBundle_item_add:
-    pattern:  /board/item/add
-    defaults: { _controller: BtaskDashboardBundle:Default:newItem }
-
-BtaskDashboardBundle_item_edit:
-    pattern:  /board/item/{id}/edit
-    defaults: { _controller: BtaskDashboardBundle:Default:editItem }
-
-BtaskDashboardBundle_daily_tasks_by_status:
-    pattern:  /board/tasks/{status}/{date}
-    defaults: { _controller: BtaskDashboardBundle:Default:showTasksByStatus, date: null }
+BtaskDashboardBundle_tasks_by_state:
+    pattern:  /board/tasks/{state}/{date}
+    defaults: { _controller: BtaskDashboardBundle:Default:showTasksByState, date: null }
     requirements:
         _method: GET
-        status: (overdue|todo|done)
+        status: (overdue|planned|done)
