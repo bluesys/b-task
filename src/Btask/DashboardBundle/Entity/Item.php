@@ -76,7 +76,7 @@ class Item
      * @var datetime $planned
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="planned_at", type="datetime", nullable=true)
+     * @ORM\Column(name="planned_at", type="date", nullable=true)
      */
     private $planned;
 
@@ -84,7 +84,7 @@ class Item
      * @var datetime $due
      *
      * @Gedmo\Versioned
-     * @ORM\Column(name="due_at", type="datetime", nullable=true)
+     * @ORM\Column(name="due_at", type="date", nullable=true)
      */
     private $due;
 

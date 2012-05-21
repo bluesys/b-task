@@ -80,12 +80,13 @@ class LoadItemData extends AbstractFixture implements FixtureInterface
 
         for ($i = 1; $i <= 8; $i++) {
             $dueDate = new \DateTime('now');
-            $plannedDate = $dueDate;
             $dueDate->modify('+'.$i.' day');
+            $plannedDate = new \DateTime('now');
 
             $task = new Item();
             $task->setSubject('Lorem Ipsum is simply dummy text '.$i);
             $task->setDue($dueDate);
+
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
@@ -105,8 +106,8 @@ class LoadItemData extends AbstractFixture implements FixtureInterface
 
         for ($i = 1; $i <= 3; $i++) {
             $dueDate = new \DateTime('now');
-            $plannedDate = $dueDate;
             $dueDate->modify('+'.$i.' day');
+            $plannedDate = new \DateTime('now');
 
             $task = new Item();
             $task->setSubject('Lorem Ipsum is simply dummy text '.$i);

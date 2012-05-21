@@ -68,7 +68,7 @@ class ItemRepository extends EntityRepository
                             break;
                         case 'planned':
                             $qb->andWhere('i.status = :open');
-                            $qb->andWhere('i.planned = :today');
+                            $qb->andWhere('DATE(i.planned) = :today');
 
                             $parameters['open'] =  true;
                             $parameters['today'] = $date->format('Y-m-d');
@@ -76,7 +76,7 @@ class ItemRepository extends EntityRepository
                             break;
                         case 'done':
                             $qb->andWhere('i.status = :close');
-                            $qb->andWhere('i.planned = :today');
+                            $qb->andWhere('DATE(i.planned)   = :today');
 
                             $parameters['close'] =  true;
                             $parameters['today'] = $date->format('Y-m-d');

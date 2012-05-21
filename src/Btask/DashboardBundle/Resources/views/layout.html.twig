@@ -24,7 +24,7 @@
         <div id="tasks" class="accordion" data-collapse-type="manual">
             <div class="status accordion-group">
                 <div class="title accordion-heading">
-                    <a href="#overdue-tasks" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.overdue' | trans }}</a>
+                    <a href="#overdue" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.overdue' | trans }}</a>
                 </div>
                 <div id="overdue" class="accordion-body collapse-content in">
                     <div class="accordion-inner">
@@ -35,20 +35,20 @@
             </div>
             <div class="status accordion-group">
                 <div class="title accordion-heading">
-                    <a href="#planned-tasks" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.planned' | trans }}</a>
+                    <a href="#planned" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.planned' | trans }}</a>
                 </div>
-                <div id="planned-tasks" class="accordion-body collapse-content in">
+                <div id="planned" class="accordion-body collapse-content in">
                     <div class="accordion-inner">
-                        <div id="to-do-tasks" class="accordion" data-collapse-type="manual">
+                        <div id="planned-tasks" class="accordion" data-collapse-type="manual">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="status accordion-group">
                 <div class="title accordion-heading">
-                    <a href="#done-tasks" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.done' | trans }}</a>
+                    <a href="#done" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.done' | trans }}</a>
                 </div>
-                <div id="done-tasks" class="accordion-body collapse-content in">
+                <div id="done" class="accordion-body collapse-content in">
                     <div class="accordion-inner">
                         <div id="done-tasks" class="accordion" data-collapse-type="manual">
                         </div>
