@@ -4,12 +4,15 @@
 		<h6>Project</h6>
 		<h5>{{ task.subject }}</h5>
 	    <div class="actions">
-			<a href="#" class="btn">
+	    	{% if task.status == true %}
+			<a href="{{ path('BtaskDashboardBundle_task_close', { 'id': task.id }) }}" class="btn">
 				<i class="icon-ok"></i>
 			</a>
-			<a href="#" class="btn">
-				<i class="icon-cog"></i>
+			{% else %}
+			<a href="{{ path('BtaskDashboardBundle_task_open', { 'id': task.id }) }}" class="btn">
+				<i class="icon-remove"></i>
 			</a>
+			{% endif %}
 		</div>
 		<div class="infos">
 			<em class="duedate">{{ task.due | date('F dS Y') }}</em>

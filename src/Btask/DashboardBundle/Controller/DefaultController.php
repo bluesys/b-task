@@ -4,6 +4,7 @@ namespace Btask\DashboardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Btask\DashboardBundle\Entity\Item;
 use Btask\DashboardBundle\Entity\ItemType;
@@ -72,6 +73,32 @@ class DefaultController extends Controller
         return $this->render('BtaskDashboardBundle:Dashboard:task.html.twig', array(
             'tasks' => $tasks
         ));
+    }
+
+    /**
+     * Toggle the status of the current task (open or close)
+     *
+     * @param int $id
+     */
+    public function toggleStatusTaskAction($id, $status)
+    {
+    	$request = $this->container->get('request');
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$task = $em->getRepository('BtaskDashboardBundle:Item')->find($id);
+
+		if (!$task) {
+            throw new NotFoundHttpException();
+		}
+
+		if($task->getStatus() != $status) {
+			// Open or close the task
+			$task->setStatus($status);
+	        $em->persist($task);
+        	$em->flush();
+		}
+		// TODO: Return message if status passed is the current status
+        return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
     }
 
     public function newItemAction()
