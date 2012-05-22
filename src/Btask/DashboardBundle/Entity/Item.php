@@ -22,7 +22,7 @@ class Item
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var datetime $created
@@ -30,7 +30,7 @@ class Item
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var datetime $updated
@@ -38,7 +38,7 @@ class Item
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updated;
+    protected $updated;
 
     /**
      * @var text $subject
@@ -46,7 +46,7 @@ class Item
      * @Gedmo\Versioned
      * @ORM\Column(name="subject", type="text")
      */
-    private $subject;
+    protected $subject;
 
     /**
      * @var text $detail
@@ -54,7 +54,7 @@ class Item
      * @Gedmo\Versioned
      * @ORM\Column(name="detail", type="text", nullable=true)
      */
-    private $detail;
+    protected $detail;
 
     /**
      * @var boolean $priority
@@ -62,7 +62,7 @@ class Item
      * @Gedmo\Versioned
      * @ORM\Column(name="priority", type="boolean", nullable=true)
      */
-    private $priority;
+    protected $priority;
 
     /**
      * @var boolean $status
@@ -70,7 +70,7 @@ class Item
      * @Gedmo\Versioned
      * @ORM\Column(name="status", type="boolean", nullable=true)
      */
-    private $status;
+    protected $status;
 
     /**
      * @var datetime $planned
@@ -78,7 +78,7 @@ class Item
      * @Gedmo\Versioned
      * @ORM\Column(name="planned_at", type="date", nullable=true)
      */
-    private $planned;
+    protected $planned;
 
     /**
      * @var datetime $due
@@ -86,7 +86,7 @@ class Item
      * @Gedmo\Versioned
      * @ORM\Column(name="due_at", type="date", nullable=true)
      */
-    private $due;
+    protected $due;
 
     /**
      * @var string $validationToken
@@ -94,7 +94,7 @@ class Item
      * @Gedmo\Versioned
      * @ORM\Column(name="validation_token", type="string", length=255, nullable=true)
      */
-    private $validationToken;
+    protected $validationToken;
 
     /**
      * @Gedmo\Versioned

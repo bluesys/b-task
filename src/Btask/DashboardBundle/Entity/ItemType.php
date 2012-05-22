@@ -19,14 +19,14 @@ class ItemType
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="type", cascade={"remove", "persist"})

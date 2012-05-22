@@ -20,7 +20,7 @@ class Project
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var datetime $created
@@ -28,7 +28,7 @@ class Project
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var datetime $updated
@@ -36,21 +36,21 @@ class Project
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime")
      */
-    private $updated;
+    protected $updated;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $color
      *
      * @ORM\Column(name="color", type="string", length=255)
      */
-    private $color;
+    protected $color;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="project", cascade={"remove", "persist"})
