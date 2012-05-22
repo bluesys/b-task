@@ -20,6 +20,9 @@ security:
             form_login:
                 provider:    fos_userbundle
                 remember_me: true
+                # Redirect on the board when login success
+                always_use_default_target_path: true
+                default_target_path: /board
             remember_me:
                 key:         %secret%
             anonymous:       true

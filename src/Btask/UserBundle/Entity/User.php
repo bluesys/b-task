@@ -29,6 +29,19 @@ class User extends BaseUser
     protected $items;
 
     /**
+     * @ORM\OneToMany(targetEntity="\Btask\DashboardBundle\Entity\Item", mappedBy="executor", cascade={"remove", "persist"})
+     */
+    protected $tasks;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -46,13 +59,6 @@ class User extends BaseUser
     public function setEmail($email) {
         $this->setUsername($email);
         $this->email = $email;
-    }
-
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -73,5 +79,25 @@ class User extends BaseUser
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Add tasks
+     *
+     * @param Btask\DashboardBundle\Entity\Item $tasks
+     */
+    public function addTask(\Btask\DashboardBundle\Entity\Item $tasks)
+    {
+        $this->tasks[] = $tasks;
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
     }
 }

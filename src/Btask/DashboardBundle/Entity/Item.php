@@ -116,9 +116,17 @@ class Item
      * @Gedmo\Versioned
      *
      * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="items", cascade={"remove"})
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", nullable=false)
      */
     protected $owner;
+
+    /**
+     * @Gedmo\Versioned
+     *
+     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="tasks", cascade={"remove"})
+     * @ORM\JoinColumn(name="executor_id", referencedColumnName="id")
+     */
+    protected $executor;
 
 
     /**
@@ -376,4 +384,25 @@ class Item
     {
         return $this->owner;
     }
+
+    /**
+     * Set executor
+     *
+     * @param Btask\UserBundle\Entity\User $executor
+     */
+    public function setExecutor(\Btask\UserBundle\Entity\User $executor)
+    {
+        $this->executor = $executor;
+    }
+
+    /**
+     * Get executor
+     *
+     * @return Btask\UserBundle\Entity\User
+     */
+    public function getExecutor()
+    {
+        return $this->executor;
+    }
+
 }

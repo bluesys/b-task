@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Btask\UserBundle\Entity\User;
 
 /**
- * Load a fake user in a database
+ * Load a fake users in a database
  *
  * @author Geoffroy Perriard <geoffroy.perriard@gmail.com>
  */
@@ -30,14 +30,16 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $this->manager = $manager;
 
-        $user = $this->container->get('fos_user.user_manager')->createUser();
-        $user->setEmail('local@localhost.lo');
-        $user->setPassword('password');
-        $user->setEnabled(true);
-        $this->manager->persist($user);
-        $this->manager->flush();
+        for ($i = 1; $i <= 2; $i++) {
+            $user = $this->container->get('fos_user.user_manager')->createUser();
+            $user->setEmail('local'.$i.'@localhost.lo');
+            $user->setPlainPassword('password');
+            $user->setEnabled(true);
+            $this->manager->persist($user);
 
-        $this->addReference('test_user', $user);
+            $this->manager->flush();
+            $this->addReference('test_user'.$i, $user);
+        }
     }
 
     public function getOrder()

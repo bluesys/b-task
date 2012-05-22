@@ -21,11 +21,14 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
 
     protected $owner;
 
+    protected $executor;
+
 
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
-        $this->owner = $manager->merge($this->getReference('test_user'));
+        $this->owner = $manager->merge($this->getReference('test_user1'));
+        $this->executor = $manager->merge($this->getReference('test_user2'));
 
         $this->loadItemType();
         $this->loadOverdueTasks();
@@ -71,6 +74,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
             $task->setOwner($this->owner);
+            $task->setExecutor($this->executor);
 
             $this->manager->persist($task);
         }
@@ -97,6 +101,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
             $task->setOwner($this->owner);
+            $task->setExecutor($this->executor);
 
             $this->manager->persist($task);
         }
@@ -123,6 +128,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(false);
             $task->setOwner($this->owner);
+            $task->setExecutor($this->executor);
 
             $this->manager->persist($task);
         }
