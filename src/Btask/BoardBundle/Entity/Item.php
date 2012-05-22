@@ -1,16 +1,16 @@
 <?php
 
-namespace Btask\DashboardBundle\Entity;
+namespace Btask\BoardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Btask\UserBundle\Entity\User;
 
 /**
- * Btask\DashboardBundle\Entity\Item
+ * Btask\BoardBundle\Entity\Item
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Btask\DashboardBundle\Entity\ItemRepository")
+ * @ORM\Entity(repositoryClass="Btask\BoardBundle\Entity\ItemRepository")
  * @Gedmo\Loggable
  */
 class Item
@@ -248,9 +248,9 @@ class Item
     /**
      * Set type
      *
-     * @param Btask\DashboardBundle\Entity\itemType $type
+     * @param Btask\BoardBundle\Entity\itemType $type
      */
-    public function setType(\Btask\DashboardBundle\Entity\itemType $type)
+    public function setType(\Btask\BoardBundle\Entity\itemType $type)
     {
         $this->type = $type;
     }
@@ -258,7 +258,7 @@ class Item
     /**
      * Get type
      *
-     * @return Btask\DashboardBundle\Entity\itemType 
+     * @return Btask\BoardBundle\Entity\itemType 
      */
     public function getType()
     {
@@ -348,9 +348,9 @@ class Item
     /**
      * Set project
      *
-     * @param Btask\DashboardBundle\Entity\Project $project
+     * @param Btask\BoardBundle\Entity\Project $project
      */
-    public function setProject(\Btask\DashboardBundle\Entity\Project $project)
+    public function setProject(\Btask\BoardBundle\Entity\Project $project)
     {
         $this->project = $project;
     }
@@ -358,7 +358,7 @@ class Item
     /**
      * Get project
      *
-     * @return Btask\DashboardBundle\Entity\Project 
+     * @return Btask\BoardBundle\Entity\Project 
      */
     public function getProject()
     {

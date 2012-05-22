@@ -11,7 +11,7 @@
     <div id="post-it">
         <div class="post-it form alert">
             <a class="close" data-dismiss="alert" href="#">×</a>
-            {% render "BtaskDashboardBundle:Default:newItem" %}
+            {% render "BtaskBoardBundle:Default:newItem" %}
         </div>
     </div>
 </div>
@@ -68,7 +68,7 @@
     {{ parent() }}
 
     {% javascripts output="assets/tesst-javascripts.js"
-        '@BtaskDashboardBundle/Resources/public/js/dashboard.js'
+        '@BtaskBoardBundle/Resources/public/js/dashboard.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -79,7 +79,7 @@
         // Get all the post-it and display them
         $.ajax({
             type: "GET",
-            url: "{{ path('BtaskDashboardBundle_postit')}}",
+            url: "{{ path('BtaskBoardBundle_postit')}}",
             cache: false,
             success: function(data){
                 $('#post-it').append(data);
@@ -89,7 +89,7 @@
         // Get overdue tasks and display them
         $.ajax({
             type: "GET",
-            url: "{{ path('BtaskDashboardBundle_tasks_by_state', { 'state': 'overdue' })}}",
+            url: "{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'overdue' })}}",
             cache: false,
             success: function(data){
                 $('#overdue-tasks').append(data);
@@ -99,7 +99,7 @@
         // Get tasks to be done and display them
         $.ajax({
             type: "GET",
-            url: "{{ path('BtaskDashboardBundle_tasks_by_state', { 'state': 'planned' })}}",
+            url: "{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'planned' })}}",
             cache: false,
             success: function(data){
                 $('#planned-tasks').append(data);
@@ -109,7 +109,7 @@
         // Get done tasks and display them
         $.ajax({
             type: "GET",
-            url: "{{ path('BtaskDashboardBundle_tasks_by_state', { 'state': 'done' })}}",
+            url: "{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'done' })}}",
             cache: false,
             success: function(data){
                 $('#done-tasks').append(data);

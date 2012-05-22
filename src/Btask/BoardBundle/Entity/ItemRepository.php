@@ -1,6 +1,6 @@
 <?php
 
-namespace Btask\DashboardBundle\Entity;
+namespace Btask\BoardBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

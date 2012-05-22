@@ -1,0 +1,42 @@
+BtaskBoardBundle_today:
+    pattern:  /today
+    defaults: { _controller: BtaskBoardBundle:Default:today }
+
+BtaskBoardBundle_board:
+    pattern:  /
+    defaults: { _controller: BtaskBoardBundle:Default:showBoard }
+
+BtaskBoardBundle_item_add:
+    pattern:  /item/add/
+    defaults: { _controller: BtaskBoardBundle:Default:newItem }
+
+BtaskBoardBundle_item_edit:
+    pattern:  /item/{id}/edit/
+    defaults: { _controller: BtaskBoardBundle:Default:editItem }
+
+BtaskBoardBundle_postit:
+    pattern: /post-it/
+    defaults: { _controller: BtaskBoardBundle:Default:showPostIt }
+    requirements:
+        _method: GET
+
+BtaskBoardBundle_tasks_by_state:
+    pattern:  /tasks/{state}/
+    defaults: { _controller: BtaskBoardBundle:Default:showTasksByState }
+    requirements:
+        _method: GET
+        status: (overdue|planned|done)
+
+BtaskBoardBundle_task_close:
+    pattern:  /task/{id}/close
+    defaults: { _controller: BtaskBoardBundle:Default:toggleStatusTask, status: false }
+    requirements:
+        _method: GET
+        id: \d+
+
+BtaskBoardBundle_task_open:
+    pattern:  /task/{id}/open
+    defaults: { _controller: BtaskBoardBundle:Default:toggleStatusTask, status: true }
+    requirements:
+        _method: GET
+        id: \d+

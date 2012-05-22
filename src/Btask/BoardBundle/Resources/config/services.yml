@@ -1,5 +1,5 @@
 parameters:
-#    btask_dashboard.example.class: Btask\DashboardBundle\Example
+#    btask_dashboard.example.class: Btask\BoardBundle\Example
 
 services:
 #    btask_dashboard.example:

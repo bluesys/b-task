@@ -1,12 +1,12 @@
 <?php
 
-namespace Btask\DashboardBundle\Entity;
+namespace Btask\BoardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Btask\DashboardBundle\Entity\Workgroup
+ * Btask\BoardBundle\Entity\Workgroup
  *
  * @ORM\Table()
  * @ORM\Entity

@@ -5,11 +5,11 @@
 		<h5>{{ task.subject }}</h5>
 	    <div class="actions">
 	    	{% if task.status == true %}
-			<a href="{{ path('BtaskDashboardBundle_task_close', { 'id': task.id }) }}" class="btn">
+			<a href="{{ path('BtaskBoardBundle_task_close', { 'id': task.id }) }}" class="btn">
 				<i class="icon-ok"></i>
 			</a>
 			{% else %}
-			<a href="{{ path('BtaskDashboardBundle_task_open', { 'id': task.id }) }}" class="btn">
+			<a href="{{ path('BtaskBoardBundle_task_open', { 'id': task.id }) }}" class="btn">
 				<i class="icon-remove"></i>
 			</a>
 			{% endif %}

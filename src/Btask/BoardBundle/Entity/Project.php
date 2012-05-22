@@ -1,12 +1,12 @@
 <?php
 
-namespace Btask\DashboardBundle\Entity;
+namespace Btask\BoardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Btask\DashboardBundle\Entity\Project
+ * Btask\BoardBundle\Entity\Project
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -155,9 +155,9 @@ class Project
     /**
      * Add tasks
      *
-     * @param Btask\DashboardBundle\Entity\Item $tasks
+     * @param Btask\BoardBundle\Entity\Item $tasks
      */
-    public function addItem(\Btask\DashboardBundle\Entity\Item $tasks)
+    public function addItem(\Btask\BoardBundle\Entity\Item $tasks)
     {
         $this->tasks[] = $tasks;
     }

@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
 
             new Btask\UserBundle\BtaskUserBundle(),
-            new Btask\DashboardBundle\BtaskDashboardBundle(),
+            new Btask\BoardBundle\BtaskBoardBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

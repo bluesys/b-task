@@ -1,12 +1,12 @@
 <?php
-namespace Btask\DashboardBundle\DataFixtures\ORM;
+namespace Btask\BoardBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-use Btask\DashboardBundle\Entity\Item;
-use Btask\DashboardBundle\Entity\ItemType;
+use Btask\BoardBundle\Entity\Item;
+use Btask\BoardBundle\Entity\ItemType;
 
 /**
  * Load some items in database

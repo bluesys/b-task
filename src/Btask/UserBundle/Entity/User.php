@@ -4,7 +4,7 @@ namespace Btask\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
-use Btask\DashboardBundle\Entity\Item;
+use Btask\BoardBundle\Entity\Item;
 
 /**
  * Btask\UserBundle\Entity\User
@@ -24,12 +24,12 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Btask\DashboardBundle\Entity\Item", mappedBy="owner", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Item", mappedBy="owner", cascade={"remove", "persist"})
      */
     protected $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Btask\DashboardBundle\Entity\Item", mappedBy="executor", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Item", mappedBy="executor", cascade={"remove", "persist"})
      */
     protected $tasks;
 
@@ -64,9 +64,9 @@ class User extends BaseUser
     /**
      * Add items
      *
-     * @param Btask\DashboardBundle\Entity\Item $items
+     * @param Btask\BoardBundle\Entity\Item $items
      */
-    public function addItem(\Btask\DashboardBundle\Entity\Item $items)
+    public function addItem(\Btask\BoardBundle\Entity\Item $items)
     {
         $this->items[] = $items;
     }
@@ -84,9 +84,9 @@ class User extends BaseUser
     /**
      * Add tasks
      *
-     * @param Btask\DashboardBundle\Entity\Item $tasks
+     * @param Btask\BoardBundle\Entity\Item $tasks
      */
-    public function addTask(\Btask\DashboardBundle\Entity\Item $tasks)
+    public function addTask(\Btask\BoardBundle\Entity\Item $tasks)
     {
         $this->tasks[] = $tasks;
     }

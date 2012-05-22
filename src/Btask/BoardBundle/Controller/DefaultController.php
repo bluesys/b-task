@@ -1,30 +1,30 @@
 <?php
 
-namespace Btask\DashboardBundle\Controller;
+namespace Btask\BoardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Btask\DashboardBundle\Entity\Item;
-use Btask\DashboardBundle\Entity\ItemType;
-use Btask\DashboardBundle\Form\Type\PostItType;
+use Btask\BoardBundle\Entity\Item;
+use Btask\BoardBundle\Entity\ItemType;
+use Btask\BoardBundle\Form\Type\PostItType;
 
 class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BtaskDashboardBundle::layout.html.twig');
+        return $this->render('BtaskBoardBundle::layout.html.twig');
     }
 
     public function todayAction()
     {
-        return $this->render('BtaskDashboardBundle:Default:today.html.twig');
+        return $this->render('BtaskBoardBundle:Default:today.html.twig');
     }
 
     public function showBoardAction()
     {
-        return $this->render('BtaskDashboardBundle::layout.html.twig');
+        return $this->render('BtaskBoardBundle::layout.html.twig');
     }
 
     /**
@@ -41,10 +41,10 @@ class DefaultController extends Controller
 
 			// Get all the post-it of the connected user
 			$em = $this->getDoctrine()->getEntityManager();
-			$posts_it = $em->getRepository('BtaskDashboardBundle:Item')->findPostItBy(array('owner' => $user));
+			$posts_it = $em->getRepository('BtaskBoardBundle:Item')->findPostItBy(array('owner' => $user));
 
 			if ($posts_it) {
-		        return $this->render('BtaskDashboardBundle:Dashboard:post-it.html.twig', array(
+		        return $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array(
 		            'posts_it' => $posts_it
 	            ));
 			}
@@ -68,13 +68,13 @@ class DefaultController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 
 		// Get tasks by their status (overdue, planned or done)
-		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksBy(array('state' => $state, 'executor' => $user));
+		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('state' => $state, 'executor' => $user));
 
 		if (!$tasks) {
 			return new Response(null);
 		}
 
-        return $this->render('BtaskDashboardBundle:Dashboard:task.html.twig', array(
+        return $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array(
             'tasks' => $tasks
         ));
     }
@@ -89,7 +89,7 @@ class DefaultController extends Controller
     	$request = $this->container->get('request');
 
 		$em = $this->getDoctrine()->getEntityManager();
-		$task = $em->getRepository('BtaskDashboardBundle:Item')->find($id);
+		$task = $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$task) {
             throw new NotFoundHttpException();
@@ -102,7 +102,7 @@ class DefaultController extends Controller
         	$em->flush();
 		}
 		// TODO: Return message if status passed is the current status or if the task has been updated
-        return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
+        return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
     }
 
     public function newItemAction()
@@ -110,14 +110,14 @@ class DefaultController extends Controller
 		// Get the current user
 		$user = $this->get('security.context')->getToken()->getUser();
 
-		$itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->findOneByName('Post-it');
+		$itemType =  $this->getDoctrine()->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
 
 		// Create and set default value to the item
 	    $item = new Item;
 	    $item->setType($itemType);
 	    $item->setOwner($user);
 
-		$actionUrl = $this->generateUrl('BtaskDashboardBundle_item_add');
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_item_add');
 	    $form = $this->createForm(new PostItType(), $item);
 
 	    // TODO: Move this logic in a form handler
@@ -130,11 +130,11 @@ class DefaultController extends Controller
 	            $em->persist($item);
 	            $em->flush();
 
-	            return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
+	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
 	        }
 	    }
 
-	    return $this->render('BtaskDashboardBundle:Dashboard:form_item.html.twig', array(
+	    return $this->render('BtaskBoardBundle:Dashboard:form_item.html.twig', array(
 	        'form' => $form->createView(),
 	       	'actionUrl' => $actionUrl,
 	    ));
@@ -143,13 +143,13 @@ class DefaultController extends Controller
     public function editItemAction($id = null)
 	{
 
-    	$item =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:Item')->find($id);
+    	$item =  $this->getDoctrine()->getRepository('BtaskBoardBundle:Item')->find($id);
 		
 		if (!$item) {
             throw new NotFoundHttpException();
         }
 
-		$actionUrl = $this->generateUrl('BtaskDashboardBundle_item_edit', array('id' => $id));
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_item_edit', array('id' => $id));
 	    $form = $this->createForm(new PostItType(), $item);
 
 	    // TODO: Move this logic in a form handler
@@ -162,10 +162,10 @@ class DefaultController extends Controller
 	            $em->persist($item);
 	            $em->flush();
 
-	            return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
+	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
 	        }
 	    }
-	    return $this->render('BtaskDashboardBundle:Dashboard:form_item.html.twig', array(
+	    return $this->render('BtaskBoardBundle:Dashboard:form_item.html.twig', array(
 	        'form' => $form->createView(),
 	       	'item' => $item,
 	       	'actionUrl' => $actionUrl,

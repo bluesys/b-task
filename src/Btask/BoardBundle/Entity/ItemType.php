@@ -1,11 +1,11 @@
 <?php
 
-namespace Btask\DashboardBundle\Entity;
+namespace Btask\BoardBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Btask\DashboardBundle\Entity\ItemType
+ * Btask\BoardBundle\Entity\ItemType
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -80,9 +80,9 @@ class ItemType
     /**
      * Add items
      *
-     * @param Btask\DashboardBundle\Entity\Item $items
+     * @param Btask\BoardBundle\Entity\Item $items
      */
-    public function addItem(\Btask\DashboardBundle\Entity\Item $items)
+    public function addItem(\Btask\BoardBundle\Entity\Item $items)
     {
         $this->items[] = $items;
     }

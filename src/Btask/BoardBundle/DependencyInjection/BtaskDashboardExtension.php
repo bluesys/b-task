@@ -1,6 +1,6 @@
 <?php
 
-namespace Btask\DashboardBundle\DependencyInjection;
+namespace Btask\BoardBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

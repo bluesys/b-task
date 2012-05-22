@@ -1,5 +1,5 @@
-BtaskDashboardBundle:
-    resource: "@BtaskDashboardBundle/Resources/config/routing.yml"
+BtaskBoardBundle:
+    resource: "@BtaskBoardBundle/Resources/config/routing.yml"
     prefix:   /board
 
 fos_user_security:

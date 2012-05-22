@@ -1,6 +1,6 @@
 <?php
 
-namespace Btask\DashboardBundle\Form\Type;
+namespace Btask\BoardBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +15,7 @@ class PostItType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Btask\DashboardBundle\Entity\Item',
+            'data_class' => 'Btask\BoardBundle\Entity\Item',
         );
     }
 

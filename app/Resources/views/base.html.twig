@@ -8,7 +8,7 @@
         {% block stylesheets %}
             {% stylesheets filter='less' output="assets/style.css"
                 '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
-                'bundles/btaskdashboard/less/main.less'
+                'bundles/btaskboard/less/main.less'
             %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
             {% endstylesheets %}
@@ -44,12 +44,12 @@
         </div>
         {% block javascripts %}
             {% javascripts output="assets/sys-javascripts.js"
-                '@BtaskDashboardBundle/Resources/public/js/jquery-1.7.1.min.js'
+                '@BtaskBoardBundle/Resources/public/js/jquery-1.7.1.min.js'
                 '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
                 '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
                 '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
-                '@BtaskDashboardBundle/Resources/public/js/bootstrap-collapse.js'
-                '@BtaskDashboardBundle/Resources/public/js/application.js'
+                '@BtaskBoardBundle/Resources/public/js/bootstrap-collapse.js'
+                '@BtaskBoardBundle/Resources/public/js/application.js'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
