@@ -51,7 +51,7 @@ class ItemRepository extends EntityRepository
                 case 'owner':
                     // Check if the parameter is an user
                     if (!(is_object($value)) && !($value instanceof \Btask\UserBundle\Entity\User)) {
-                        throw new \Exception('Owner parameter not available, need to be an instance of \Btask\UserBundle\Entity\User');
+                        throw new \InvalidArgumentException('owner parameter not available, must be an instance of \Btask\UserBundle\Entity\User');
                     }
 
                     $qb->andWhere('i.owner = :owner');
@@ -128,7 +128,7 @@ class ItemRepository extends EntityRepository
                             break;
 
                         default:
-                            throw new \Exception('State parameter not available');
+                            throw new \InvalidArgumentException('state parameter not available');
                     }
                     break;
 
@@ -137,7 +137,7 @@ class ItemRepository extends EntityRepository
 
                     // Check if the parameter is an user
                     if (!(is_object($value)) && !($value instanceof \Btask\UserBundle\Entity\User)) {
-                        throw new \Exception('Executor parameter not available, need to be an instance of \Btask\UserBundle\Entity\User');
+                        throw new \InvalidArgumentException('executor parameter not available, must be an instance of \Btask\UserBundle\Entity\User');
                     }
 
                     $qb->andWhere('i.executor = :executor');
