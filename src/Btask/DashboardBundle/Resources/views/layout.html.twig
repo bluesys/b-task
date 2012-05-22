@@ -1,5 +1,9 @@
 {% extends "::base.html.twig" %}
-
+{% block navbar %}
+<ul class="nav">
+    <li><a class="post-it add" href="#">{% trans %}+{% endtrans %}</a></li>
+</ul>
+{% endblock %}
 {% block body %}
 <div id="dashboard" class="row-fluid">
     <div id="notifications">
