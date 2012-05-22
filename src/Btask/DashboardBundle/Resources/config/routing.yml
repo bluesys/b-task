@@ -2,44 +2,40 @@ BtaskDashboardBundle_today:
     pattern:  /today
     defaults: { _controller: BtaskDashboardBundle:Default:today }
 
-BtaskDashboardBundle_homepage:
-    pattern:  /
-    defaults: { _controller: BtaskDashboardBundle:Default:index }
-
 BtaskDashboardBundle_board:
-    pattern:  /board/
+    pattern:  /
     defaults: { _controller: BtaskDashboardBundle:Default:showBoard }
 
 BtaskDashboardBundle_item_add:
-    pattern:  /board/item/add/
+    pattern:  /item/add/
     defaults: { _controller: BtaskDashboardBundle:Default:newItem }
 
 BtaskDashboardBundle_item_edit:
-    pattern:  /board/item/{id}/edit/
+    pattern:  /item/{id}/edit/
     defaults: { _controller: BtaskDashboardBundle:Default:editItem }
 
 BtaskDashboardBundle_postit:
-    pattern: /board/post-it/
+    pattern: /post-it/
     defaults: { _controller: BtaskDashboardBundle:Default:showPostIt }
     requirements:
         _method: GET
 
 BtaskDashboardBundle_tasks_by_state:
-    pattern:  /board/tasks/{state}/
+    pattern:  /tasks/{state}/
     defaults: { _controller: BtaskDashboardBundle:Default:showTasksByState }
     requirements:
         _method: GET
         status: (overdue|planned|done)
 
 BtaskDashboardBundle_task_close:
-    pattern:  /board/task/{id}/close
+    pattern:  /task/{id}/close
     defaults: { _controller: BtaskDashboardBundle:Default:toggleStatusTask, status: false }
     requirements:
         _method: GET
         id: \d+
 
 BtaskDashboardBundle_task_open:
-    pattern:  /board/task/{id}/open
+    pattern:  /task/{id}/open
     defaults: { _controller: BtaskDashboardBundle:Default:toggleStatusTask, status: true }
     requirements:
         _method: GET
