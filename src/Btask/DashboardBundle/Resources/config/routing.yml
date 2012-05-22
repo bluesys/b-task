@@ -25,8 +25,8 @@ BtaskDashboardBundle_postit:
         _method: GET
 
 BtaskDashboardBundle_tasks_by_state:
-    pattern:  /board/tasks/{state}/{date}
-    defaults: { _controller: BtaskDashboardBundle:Default:showTasksByState, date: null }
+    pattern:  /board/tasks/{state}/
+    defaults: { _controller: BtaskDashboardBundle:Default:showTasksByState }
     requirements:
         _method: GET
         status: (overdue|planned|done)

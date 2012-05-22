@@ -36,10 +36,12 @@ class DefaultController extends Controller
     	$request = $this->container->get('request');
 
    		if($request->isXmlHttpRequest()) {
-   			
-   			// Get all the post-it
+			// Get the current user
+			$user = $this->get('security.context')->getToken()->getUser();
+
+			// Get all the post-it of the connected user
 			$em = $this->getDoctrine()->getEntityManager();
-			$posts_it = $em->getRepository('BtaskDashboardBundle:Item')->findByItemType('Post-it');
+			$posts_it = $em->getRepository('BtaskDashboardBundle:Item')->findPostItBy(array('owner' => $user));
 
 			if ($posts_it) {
 		        return $this->render('BtaskDashboardBundle:Dashboard:post-it.html.twig', array(
@@ -58,7 +60,7 @@ class DefaultController extends Controller
      * @param string status
      * @param date date
      */
-    public function showTasksByStateAction($state, $date)
+    public function showTasksByStateAction($state)
     {
 		// Get the current user
     	$user = $this->get('security.context')->getToken()->getUser();
@@ -66,7 +68,7 @@ class DefaultController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 
 		// Get tasks by their status (overdue, planned or done)
-		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksBy(array('state' => $state, 'executor' => $user), $date);
+		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksBy(array('state' => $state, 'executor' => $user));
 
 		if (!$tasks) {
 			return new Response(null);
