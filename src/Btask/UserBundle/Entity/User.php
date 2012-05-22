@@ -4,6 +4,7 @@ namespace Btask\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Btask\DashboardBundle\Entity\Item;
 
 /**
  * Btask\UserBundle\Entity\User
@@ -23,6 +24,11 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="\Btask\DashboardBundle\Entity\Item", mappedBy="owner", cascade={"remove", "persist"})
+     */
+    protected $items;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -40,5 +46,32 @@ class User extends BaseUser
     public function setEmail($email) {
         $this->setUsername($email);
         $this->email = $email;
+    }
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add items
+     *
+     * @param Btask\DashboardBundle\Entity\Item $items
+     */
+    public function addItem(\Btask\DashboardBundle\Entity\Item $items)
+    {
+        $this->items[] = $items;
+    }
+
+    /**
+     * Get items
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }

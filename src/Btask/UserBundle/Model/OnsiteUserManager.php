@@ -26,11 +26,11 @@ class OnsiteUserManager extends UserManager
     }
 
     /**
-     * Return a user by his email
+     * Returns a user by his email
      *
      * @param string $username
      * @return UserInterface
-     * @author https://github.com/FriendsOfSymfony/FOSUserBundle/blob/1.2.0/Resources/doc/logging_by_username_or_email.md
+     * @author <https://github.com/FriendsOfSymfony/FOSUserBundle/blob/1.2.0/Resources/doc/logging_by_username_or_email.md>
      */
     public function loadUserByUsername($username)
     {

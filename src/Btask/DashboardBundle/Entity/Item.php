@@ -113,6 +113,15 @@ class Item
     protected $project;
 
     /**
+     * @Gedmo\Versioned
+     *
+     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="items", cascade={"remove"})
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     */
+    protected $owner;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -346,5 +355,25 @@ class Item
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param Btask\UserBundle\Entity\User $owner
+     */
+    public function setOwner(\Btask\UserBundle\Entity\User $owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return Btask\UserBundle\Entity\User 
+     */
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }

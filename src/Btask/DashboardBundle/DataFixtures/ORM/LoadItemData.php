@@ -2,25 +2,30 @@
 namespace Btask\DashboardBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Btask\DashboardBundle\Entity\Item;
 use Btask\DashboardBundle\Entity\ItemType;
 
 /**
- * Load some tasks in database
+ * Load some items in database
  *
  * @author Geoffroy Perriard <geoffroy.perriard@gmail.com>
  */
-class LoadItemData extends AbstractFixture implements FixtureInterface
+class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
 {
     protected $manager;
+
     protected $types = array('Post-it', 'Task', 'Note');
+
+    protected $owner;
+
 
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
+        $this->owner = $manager->merge($this->getReference('test_user'));
 
         $this->loadItemType();
         $this->loadOverdueTasks();
@@ -65,6 +70,7 @@ class LoadItemData extends AbstractFixture implements FixtureInterface
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
+            $task->setOwner($this->owner);
 
             $this->manager->persist($task);
         }
@@ -90,6 +96,7 @@ class LoadItemData extends AbstractFixture implements FixtureInterface
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
+            $task->setOwner($this->owner);
 
             $this->manager->persist($task);
         }
@@ -115,10 +122,16 @@ class LoadItemData extends AbstractFixture implements FixtureInterface
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(false);
+            $task->setOwner($this->owner);
 
             $this->manager->persist($task);
         }
 
         $this->manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 2;
     }
 }
