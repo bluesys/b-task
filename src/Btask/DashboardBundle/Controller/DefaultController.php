@@ -60,7 +60,7 @@ class DefaultController extends Controller
      */
     public function showTasksByStateAction($state, $date)
     {
-    	// Get the curremt user
+		// Get the current user
     	$user = $this->get('security.context')->getToken()->getUser();
 
 		$em = $this->getDoctrine()->getEntityManager();
@@ -99,18 +99,26 @@ class DefaultController extends Controller
 	        $em->persist($task);
         	$em->flush();
 		}
-		// TODO: Return message if status passed is the current status
+		// TODO: Return message if status passed is the current status or if the task has been updated
         return $this->redirect( $this->generateUrl('BtaskDashboardBundle_board') );
     }
 
     public function newItemAction()
 	{
+		// Get the current user
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->findOneByName('Post-it');
+
+		// Create and set default value to the item
 	    $item = new Item;
-    	$itemType =  $this->getDoctrine()->getRepository('BtaskDashboardBundle:ItemType')->findOneByName('Post-it');
 	    $item->setType($itemType);
+	    $item->setOwner($user);
+
 		$actionUrl = $this->generateUrl('BtaskDashboardBundle_item_add');
 	    $form = $this->createForm(new PostItType(), $item);
 
+	    // TODO: Move this logic in a form handler
 	    $request = $this->get('request');
 	    if( $request->getMethod() == 'POST' ) {
 	        $form->bindRequest($request);
@@ -142,6 +150,7 @@ class DefaultController extends Controller
 		$actionUrl = $this->generateUrl('BtaskDashboardBundle_item_edit', array('id' => $id));
 	    $form = $this->createForm(new PostItType(), $item);
 
+	    // TODO: Move this logic in a form handler
 	    $request = $this->get('request');
 	    if( $request->getMethod() == 'POST' ) {
 	        $form->bindRequest($request);
