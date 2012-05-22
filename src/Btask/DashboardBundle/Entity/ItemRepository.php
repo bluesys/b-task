@@ -66,6 +66,7 @@ class ItemRepository extends EntityRepository
                             $parameters['today'] = $date->format('Y-m-d');
 
                             break;
+
                         case 'planned':
                             $qb->andWhere('i.status = :open');
                             $qb->andWhere('i.planned = :today');
@@ -74,6 +75,7 @@ class ItemRepository extends EntityRepository
                             $parameters['today'] = $date->format('Y-m-d');
 
                             break;
+
                         case 'done':
                             $qb->andWhere('i.status = :close');
                             $qb->andWhere('i.planned = :today');
@@ -82,9 +84,23 @@ class ItemRepository extends EntityRepository
                             $parameters['today'] = $date->format('Y-m-d');
 
                             break;
+
                         default:
                             throw new \Exception('State parameter not available');
                     }
+                    break;
+
+                // Select tasks by their executor
+                case 'executor':
+
+                    // Check if the parameter is an user
+                    if (!(is_object($value)) && !($value instanceof \Btask\UserBundle\Entity\User)) {
+                        throw new \Exception('Executor parameter not available, need to be an instance of \Btask\UserBundle\Entity\User');
+                    }
+
+                    $qb->andWhere('i.executor = :executor');
+                    $parameters['executor'] = $value;
+
                     break;
             }
         }

@@ -60,11 +60,13 @@ class DefaultController extends Controller
      */
     public function showTasksByStateAction($state, $date)
     {
-		$request = $this->container->get('request');
+    	// Get the curremt user
+    	$user = $this->get('security.context')->getToken()->getUser();
+
 		$em = $this->getDoctrine()->getEntityManager();
 
 		// Get tasks by their status (overdue, planned or done)
-		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksBy(array('state' => $state), $date);
+		$tasks = $em->getRepository('BtaskDashboardBundle:Item')->findTasksBy(array('state' => $state, 'executor' => $user), $date);
 
 		if (!$tasks) {
 			return new Response(null);
