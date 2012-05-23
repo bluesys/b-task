@@ -142,7 +142,6 @@ class Item
     /**
      * Set subject
      *
-     * @gedmo:Versioned
      * @param text $subject
      */
     public function setSubject($subject)

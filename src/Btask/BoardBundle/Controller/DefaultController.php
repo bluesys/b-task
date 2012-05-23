@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Entity\ItemType;
 use Btask\BoardBundle\Form\Type\PostItType;
+use Btask\BoardBundle\Form\Type\TaskType;
 
 class DefaultController extends Controller
 {
@@ -140,7 +141,7 @@ class DefaultController extends Controller
 	    ));
 	}
 
-    public function editItemAction($id = null)
+    public function editItemAction($id)
 	{
 
     	$item =  $this->getDoctrine()->getRepository('BtaskBoardBundle:Item')->find($id);
@@ -169,6 +170,37 @@ class DefaultController extends Controller
 	        'form' => $form->createView(),
 	       	'item' => $item,
 	       	'actionUrl' => $actionUrl,
+	    ));
+	}
+
+    public function editTaskAction($id)
+	{
+		$item =  $this->getDoctrine()->getRepository('BtaskBoardBundle:Item')->find($id);
+
+		if (!$item) {
+            throw new NotFoundHttpException();
+        }
+
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_task_edit', array('id' => $id));
+		$form = $this->createForm(new TaskType(), $item);
+
+		// TODO: Move this logic in a form handler
+		$request = $this->get('request');
+	    if( $request->getMethod() == 'POST' ) {
+	        $form->bindRequest($request);
+
+	        if( $form->isValid() ) {
+	            $em = $this->getDoctrine()->getEntityManager();
+	            $em->persist($item);
+	            $em->flush();
+
+	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
+	        }
+	    }
+		return $this->render('BtaskBoardBundle:Dashboard:form_task.html.twig', array(
+			'form' => $form->createView(),
+			'item' => $item,
+			'actionUrl' => $actionUrl,
 	    ));
 	}
 }

@@ -1,5 +1,5 @@
 {% for post_it in posts_it %}
-<div class="post-it alert">
+<div class="post-it alert" data-id="{{ post_it.id }}">
     <a class="close" data-dismiss="alert" href="#">×</a>
 	{{ post_it.subject }}
 </div>

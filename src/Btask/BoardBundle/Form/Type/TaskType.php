@@ -5,11 +5,15 @@ namespace Btask\BoardBundle\Form\Type;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
 
-class PostItType extends AbstractType
+class TaskType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('subject');
+        $builder->add('detail');
+        $builder->add('due');
+        $builder->add('planned');
+        $builder->add('status');
+        $builder->add('priority');
     }
 
     public function getDefaultOptions(array $options)

@@ -20,6 +20,13 @@ BtaskBoardBundle_postit:
     requirements:
         _method: GET
 
+BtaskBoardBundle_task_edit:
+    pattern:  /task/{id}/edit
+    defaults: { _controller: BtaskBoardBundle:Default:editTask }
+    requirements:
+        _method: POST
+        id: \d+
+
 BtaskBoardBundle_tasks_by_state:
     pattern:  /tasks/{state}/
     defaults: { _controller: BtaskBoardBundle:Default:showTasksByState }

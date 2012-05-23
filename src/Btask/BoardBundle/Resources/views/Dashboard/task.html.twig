@@ -1,5 +1,5 @@
 {% for task in tasks %}
-<div class="task accordion-group">
+<div class="task accordion-group" data-id="{{ task.id }}">
 	<div class="meta accordion-heading">
 		<h6>Project</h6>
 		<h5>{{ task.subject }}</h5>

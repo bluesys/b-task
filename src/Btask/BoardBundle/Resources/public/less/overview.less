@@ -212,4 +212,43 @@
 			display: inline-block;
 		}
 	}
+
+	#panel {
+		display: none;
+		position: fixed;
+		top: 60px;
+		right: 0;
+		bottom: 0;
+		float: right;
+		width: @navigation-width;
+		margin-bottom: @whitespace-general;
+		background-color: #fff;
+		border-radius: 4px 0 0 4px;
+		overflow: scroll;
+		overflow-x: hidden;
+
+		.option {
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: 1px solid #333;
+			border-radius: 0;
+			text-transform: uppercase;
+
+			.header a {
+				display: inline-block;
+				color: #0f0f0f;
+				padding: 8px 15px;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+
+			.controls {
+				padding: 5px 10px;
+			}
+		}
+
+	}
 }

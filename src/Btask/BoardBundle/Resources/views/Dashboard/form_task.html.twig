@@ -1,0 +1,53 @@
+<form action="{{ actionUrl }}" method="post" {{ form_enctype(form) }} class="accordion" data-collapse-type="manual">
+	{{ form_errors(form) }}
+	<div class="option">
+	    <div class="header">
+	        <a href="#option-detail" data-parent="#tasks" data-toggle="collapse">{{ 'panel.option.detail.title' | trans }}</a>
+	    </div>
+	    <div id="option-detail" class="accordion-body collapse-content">
+    		<div class="controls">
+				{{ form_errors(form.detail) }}
+				{{ form_widget(form.detail) }}
+			</div>
+	    </div>
+	</div>
+	<div class="option">
+	    <div class="header accordion-heading">
+	        <a href="#option-due" data-parent="#tasks" data-toggle="collapse">{{ 'panel.option.due.title' | trans }}</a>
+	    </div>
+	    <div id="option-due" class="collapse-content">
+    		<div class="controls">
+				{{ form_errors(form.due) }}
+				{{ form_widget(form.due) }}
+		    </div>
+	    </div>
+	</div>
+	<div class="option">
+	    <div class="header">
+	        <a href="#option-planned" data-parent="#tasks" data-toggle="collapse">{{ 'panel.option.planned.title' | trans }}</a>
+	    </div>
+	    <div id="option-planned" class="collapse-content">
+    		<div class="controls">
+				{{ form_errors(form.planned) }}
+				{{ form_widget(form.planned) }}
+			</div>
+	    </div>
+	</div>
+	<div class="option">
+	    <div class="header">
+	        <a href="#option-other" data-parent="#tasks" data-toggle="collapse">{{ 'panel.option.other.title' | trans }}</a>
+	    </div>
+	    <div id="option-other" class="collapse-content in">
+	    	<div class="controls">
+				{{ form_errors(form.status) }}
+				{{ form_widget(form.status) }}
+				{{ form_errors(form.priority) }}
+				{{ form_widget(form.priority) }}
+			</div>
+	    </div>
+	</div>
+
+	{{ form_rest(form) }}
+
+	<input class="btn" type="submit" value="{{ 'dashboard.task.save'|trans }}" />
+</form>

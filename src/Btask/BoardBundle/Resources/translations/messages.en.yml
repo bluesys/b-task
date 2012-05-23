@@ -2,6 +2,8 @@
 dashboard:
     postit:
         save: Save
+    task:
+        save: Save as task
 
 overview:
     streamline:
@@ -9,3 +11,13 @@ overview:
             overdue: Overdue
             planned: Planned
             done: Done
+panel:
+    option:
+        detail:
+            title: Add a description
+        due:
+            title: Due for
+        planned:
+            title: Planned for
+        other:
+            title: Others
