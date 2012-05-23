@@ -71,13 +71,13 @@
 
 [MopaBootstrapBundle]
     git=http://github.com/phiamo/MopaBootstrapBundle.git
-    target=/bundles/Mopa/BootstrapBundle
-    version=origin/v2.x_sf2.0
+    target=/bundles/Mopa/Bundle/BootstrapBundle
+    version=origin/v2.0.x
 
-[TwitterBootstrap2]
-    git=git://github.com/twitter/bootstrap.git
-    target=/bundles/Mopa/BootstrapBundle/Resources/bootstrap
-    version=v2.0.0
+[twittersbootstrap]
+    git =git://github.com/twitter/bootstrap.git
+    target=/bundles/Mopa/Bundle/BootstrapBundle/Resources/bootstrap
+    version=v2.0.3
 
 [FOSUserBundle]
     git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
