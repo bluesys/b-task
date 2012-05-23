@@ -6,8 +6,7 @@
         <title>{% block title %}B-Task{% endblock %}</title> 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
-            {% stylesheets filter='less' output="assets/style.css"
-                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+            {% stylesheets filter='less' output="asset/style.css"
                 'bundles/btaskboard/less/main.less'
             %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
