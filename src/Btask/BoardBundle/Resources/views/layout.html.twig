@@ -71,6 +71,7 @@
 
     {% javascripts output="assets/tesst-javascripts.js"
         '@BtaskBoardBundle/Resources/public/js/dashboard.js'
+        '@BtaskBoardBundle/Resources/public/js/bootstrap-datepicker.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -86,7 +87,7 @@
             success: function(data){
                 $('#post-it').append(data);
 
-                    // Display the form for edition of a task
+                    // Display the form for task edition
                     $('.post-it').click(function () {
                         $.ajax({
                             type: "GET",
@@ -94,6 +95,11 @@
                             cache: false,
                             success: function(data){
                                 $('#panel').append(data);
+
+                                // Display the datepicker on due date and planned date input
+                                $('#option-due .controls input').datepicker();
+                                $('#option-planned .controls input').datepicker();
+
                                 $('#panel').show();
                             }
                         });
