@@ -18,32 +18,27 @@ BtaskBoardBundle_postit:
     pattern: /post-it/
     defaults: { _controller: BtaskBoardBundle:Default:showPostIt }
     requirements:
-        _method: GET
 
 BtaskBoardBundle_task_edit:
     pattern:  /task/{id}/edit
     defaults: { _controller: BtaskBoardBundle:Default:editTask }
     requirements:
-        _method: POST
         id: \d+
 
 BtaskBoardBundle_tasks_by_state:
     pattern:  /tasks/{state}/
     defaults: { _controller: BtaskBoardBundle:Default:showTasksByState }
     requirements:
-        _method: GET
         status: (overdue|planned|done)
 
 BtaskBoardBundle_task_close:
     pattern:  /task/{id}/close
     defaults: { _controller: BtaskBoardBundle:Default:toggleStatusTask, status: false }
     requirements:
-        _method: GET
         id: \d+
 
 BtaskBoardBundle_task_open:
     pattern:  /task/{id}/open
     defaults: { _controller: BtaskBoardBundle:Default:toggleStatusTask, status: true }
     requirements:
-        _method: GET
         id: \d+
