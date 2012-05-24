@@ -87,23 +87,23 @@
             success: function(data){
                 $('#post-it').append(data);
 
-                    // Display the form for task edition
-                    $('.post-it').click(function () {
-                        $.ajax({
-                            type: "GET",
-                            url: "task/" + $(this).data('id') + "/edit",
-                            cache: false,
-                            success: function(data){
-                                $('#panel').append(data);
+                // Display the form for task edition
+                $('.post-it .btn.edit').click(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "task/" + $(this).parent().data('id') + "/edit",
+                        cache: true,
+                        success: function(data){
+                            $('#panel').html(data);
 
-                                // Display the datepicker on due date and planned date input
-                                $('#option-due .controls input').datepicker();
-                                $('#option-planned .controls input').datepicker();
+                            // Display the datepicker on due date and planned date input
+                            $('#option-due .controls input').datepicker();
+                            $('#option-planned .controls input').datepicker();
 
-                                $('#panel').show();
-                            }
-                        });
+                            $('#panel').show();
+                        }
                     });
+                });
             }
         });
 

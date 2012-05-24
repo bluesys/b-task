@@ -2,5 +2,6 @@
 <div class="post-it alert" data-id="{{ post_it.id }}">
     <a class="close" data-dismiss="alert" href="#">×</a>
 	{{ post_it.subject }}
+	<a class="btn edit" href="#">{{ 'dashboard.postit.edit'|trans }}</a>
 </div>
 {% endfor %}

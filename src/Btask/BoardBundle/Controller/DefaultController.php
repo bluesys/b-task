@@ -175,14 +175,26 @@ class DefaultController extends Controller
 
     public function editTaskAction($id)
 	{
-		$item =  $this->getDoctrine()->getRepository('BtaskBoardBundle:Item')->find($id);
+		// Get the current user
+		$user = $this->get('security.context')->getToken()->getUser();
 
-		if (!$item) {
+		// Get the task
+		$task =  $this->getDoctrine()->getRepository('BtaskBoardBundle:Item')->findOneBy(array('id' => $id));
+
+		if (!$task) {
+            throw new NotFoundHttpException();
+        }
+
+        // Get the owner and the executor the the task
+		$owner = $task->getOwner();
+		$executor = $task->getExecutor();
+
+		if (($owner != $user) && ($executor != $user)) {
             throw new NotFoundHttpException();
         }
 
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_task_edit', array('id' => $id));
-		$form = $this->createForm(new TaskType(), $item);
+		$form = $this->createForm(new TaskType(), $task);
 
 		// TODO: Move this logic in a form handler
 		$request = $this->get('request');
@@ -191,7 +203,7 @@ class DefaultController extends Controller
 
 	        if( $form->isValid() ) {
 	            $em = $this->getDoctrine()->getEntityManager();
-	            $em->persist($item);
+	            $em->persist($task);
 	            $em->flush();
 
 	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
@@ -199,7 +211,7 @@ class DefaultController extends Controller
 	    }
 		return $this->render('BtaskBoardBundle:Dashboard:form_task.html.twig', array(
 			'form' => $form->createView(),
-			'item' => $item,
+			'task' => $task,
 			'actionUrl' => $actionUrl,
 	    ));
 	}
