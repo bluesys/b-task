@@ -36,7 +36,7 @@ class DefaultController extends Controller
      */
     public function showPostItAction()
     {
-    	$request = $this->container->get('request');
+		$request = $this->container->get('request');
 
 		// Check if it is an Ajax request
 		if(!$request->isXmlHttpRequest()) {
@@ -98,6 +98,13 @@ class DefaultController extends Controller
 
     public function editPostItAction($id)
 	{
+		$request = $this->container->get('request');
+
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
+
 		// Get the item
 		$em = $this->getDoctrine()->getEntityManager();
 		$item =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
@@ -138,6 +145,13 @@ class DefaultController extends Controller
      */
     public function showTasksByStateAction($state)
     {
+		$request = $this->container->get('request');
+
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
+
 		// Get the current logged user
 		$user = $this->get('security.context')->getToken()->getUser();
 
@@ -163,6 +177,11 @@ class DefaultController extends Controller
     {
 		$request = $this->container->get('request');
 
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
+
 		$em = $this->getDoctrine()->getEntityManager();
 		$task = $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
@@ -183,6 +202,13 @@ class DefaultController extends Controller
 
     public function editTaskAction($id)
 	{
+		$request = $this->container->get('request');
+
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
+
 		// Get the current user
 		$user = $this->get('security.context')->getToken()->getUser();
 
