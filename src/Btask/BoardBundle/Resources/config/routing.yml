@@ -6,18 +6,17 @@ BtaskBoardBundle_board:
     pattern:  /
     defaults: { _controller: BtaskBoardBundle:Default:showBoard }
 
-BtaskBoardBundle_item_add:
-    pattern:  /item/add/
-    defaults: { _controller: BtaskBoardBundle:Default:newItem }
+BtaskBoardBundle_post_it_add:
+    pattern:  /post-it/add/
+    defaults: { _controller: BtaskBoardBundle:Default:newPostIt }
 
-BtaskBoardBundle_item_edit:
-    pattern:  /item/{id}/edit/
-    defaults: { _controller: BtaskBoardBundle:Default:editItem }
+BtaskBoardBundle_post_it_edit:
+    pattern:  /post-it/{id}/edit/
+    defaults: { _controller: BtaskBoardBundle:Default:editPostIt }
 
 BtaskBoardBundle_postit:
     pattern: /post-it/
     defaults: { _controller: BtaskBoardBundle:Default:showPostIt }
-    requirements:
 
 BtaskBoardBundle_task_edit:
     pattern:  /task/{id}/edit
