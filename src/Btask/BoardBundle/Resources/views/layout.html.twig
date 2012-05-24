@@ -3,7 +3,11 @@
 <ul class="nav">
     <li><a class="post-it add" href="#">{% trans %}+{% endtrans %}</a></li>
 </ul>
+<ul class="nav pull-right">
+    <li><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
+</ul>
 {% endblock %}
+
 {% block body %}
 <div id="dashboard" class="row-fluid">
     <div id="notifications">
@@ -16,8 +20,7 @@
     </div>
 </div>
 <div id="overview" class="row-fluid">
-    <div id="panel">
-    </div>
+    {% include 'BtaskBoardBundle:Overview:panel-item.html.twig' %}
     <div id="streamline">
         <div id="summary">
             <h2>Today, {{ "now"|date("d F Y") }}</h2>
@@ -78,64 +81,10 @@
 
     <script type="text/javascript">
     $(function() {
-
-        // Get all the post-it and display them
-        $.ajax({
-            type: "GET",
-            url: "{{ path('BtaskBoardBundle_postit')}}",
-            cache: false,
-            success: function(data){
-                $('#post-it').append(data);
-
-                // Display the form for task edition
-                $('.post-it .btn.edit').click(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "task/" + $(this).parent().data('id') + "/edit",
-                        cache: true,
-                        success: function(data){
-                            $('#panel').html(data);
-
-                            // Display the datepicker on due date and planned date input
-                            $('#option-due .controls input').datepicker();
-                            $('#option-planned .controls input').datepicker();
-
-                            $('#panel').show();
-                        }
-                    });
-                });
-            }
-        });
-
-        // Get overdue tasks and display them
-        $.ajax({
-            type: "GET",
-            url: "{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'overdue' })}}",
-            cache: false,
-            success: function(data){
-                $('#overdue-tasks').append(data);
-            }
-        });
-
-        // Get tasks to be done and display them
-        $.ajax({
-            type: "GET",
-            url: "{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'planned' })}}",
-            cache: false,
-            success: function(data){
-                $('#planned-tasks').append(data);
-            }
-        });
-
-        // Get done tasks and display them
-        $.ajax({
-            type: "GET",
-            url: "{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'done' })}}",
-            cache: false,
-            success: function(data){
-                $('#done-tasks').append(data);
-            }
-        });
+        getAllPostIt("{{ path('BtaskBoardBundle_postit') }}");
+        getOverdueTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'overdue' }) }}");
+        getPlannedTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'planned' }) }}");
+        getDoneTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'done' }) }}");
     });
     </script>
 {% endblock %}

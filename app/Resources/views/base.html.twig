@@ -24,16 +24,15 @@
                     </a>
                     <a class="brand" href="#">B-task</a>
                     <div class="nav-collapse">
-                        {% block navbar %}
-                        {% endblock %}
                         <ul class="nav pull-right">
                             {% if is_granted('ROLE_USER') %}
-                            <li><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}layout.logout{% endtrans %}</a></li>
                             {% else %}
                              <li><a href="{{ path('fos_user_security_login') }}">{% trans %}layout.login{% endtrans %}</a></li>
                             {% endif %}
                         </ul>
+                        {% block navbar %}
+                        {% endblock %}
                     </div>
                 </div>
             </div>

@@ -41,3 +41,9 @@ BtaskBoardBundle_task_open:
     defaults: { _controller: BtaskBoardBundle:Default:toggleStatusTask, status: true }
     requirements:
         id: \d+
+
+BtaskBoardBundle_note_edit:
+    pattern:  /note/{id}/edit
+    defaults: { _controller: BtaskBoardBundle:Default:editNote }
+    requirements:
+        id: \d+

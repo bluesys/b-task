@@ -1,4 +1,16 @@
 {% extends "::base.html.twig" %}
+{% block navbar %}
+{% if is_granted('ROLE_USER') %}
+<ul class="nav">
+    <li><a href="{{ path('fos_user_profile_edit') }}">{% trans %}layout.editprofile{% endtrans %}</a></li>
+    <li><a href="{{ path('fos_user_change_password') }}">{% trans %}layout.changepassword{% endtrans %}</a></li>
+ 
+</ul>
+<ul class="nav pull-right">
+    <li><a href="{{ path('BtaskBoardBundle_board') }}">{% trans %}layout.gotoboard{% endtrans %}</a></li>
+</ul>
+{% endif %}
+{% endblock %}
 
 {% block body %}
 <div class="row-fluid">

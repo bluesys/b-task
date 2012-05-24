@@ -5,15 +5,11 @@ namespace Btask\BoardBundle\Form\Type;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
 
-class TaskType extends AbstractType
+class NoteType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('detail');
-        $builder->add('due', 'text');
-        $builder->add('planned', 'text');
-        $builder->add('status');
-        $builder->add('priority');
     }
 
     public function getDefaultOptions(array $options)
@@ -25,6 +21,6 @@ class TaskType extends AbstractType
 
     public function getName()
     {
-        return 'btask_board_bundle_task';
+        return 'btask_board_bundle_note';
     }
 }

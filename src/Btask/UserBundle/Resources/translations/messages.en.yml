@@ -2,7 +2,11 @@
 layout:
     logout: Logout
     login: Login
+    editprofile: Edit your profile
+    changepassword: Change your password
+    gotoboard: Go to your board
 
+# Login
 security:
     login:
         password_reset: "Can't access your account?"

@@ -3,8 +3,6 @@ dashboard:
     postit:
         save: Save
         edit: Edit
-    task:
-        save: Save as task
 
 overview:
     streamline:

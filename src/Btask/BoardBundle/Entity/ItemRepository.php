@@ -28,47 +28,6 @@ class ItemRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-   /**
-     * Finds post-it by a set of criteria
-     *
-     * @param array $criteria
-     * @param array|null $orderBy
-     * @param int|null $limit
-     * @param int|null $offset
-     * @return array $post-it
-     */
-    public function findPostItBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
-    {
-        $qb = $this->createQueryBuilder('i');
-        $qb->innerJoin('i.type', 'it');
-        $qb->andWhere('it.name = :type');
-        $parameters = array('type' => 'Post-it');
-
-        foreach ($criteria as $key => $value) {
-            switch ($key) {
-
-                // Select post-it by their owner
-                case 'owner':
-                    // Check if the parameter is an user
-                    if (!(is_object($value)) && !($value instanceof \Btask\UserBundle\Entity\User)) {
-                        throw new \InvalidArgumentException('owner parameter not available, must be an instance of \Btask\UserBundle\Entity\User');
-                    }
-
-                    $qb->andWhere('i.owner = :owner');
-                    $parameters['owner'] = $value;
-
-                    break;
-            }
-        }
-
-        $qb->setParameters($parameters);
-
-        ($offset) ? $qb->setFirstResult($offset) : null;
-        ($limit) ? $qb->setMaxResults($limit) : null;
-
-        return $qb->getQuery()->getArrayResult();
-    }
-
     /**
      * Finds tasks by a set of criteria
      *

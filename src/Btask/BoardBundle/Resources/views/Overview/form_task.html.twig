@@ -1,8 +1,8 @@
-<form action="{{ actionUrl }}" method="post" {{ form_enctype(form) }} class="accordion" data-collapse-type="manual">
+<form id="form-task" action="{{ actionUrl }}" method="post" {{ form_enctype(form) }} class="accordion" data-collapse-type="manual">
 	{{ form_errors(form) }}
 	<div class="option">
 	    <div class="header">
-	        <a href="#option-detail" data-parent="#tasks" data-toggle="collapse">{{ 'panel.option.detail.title' | trans }}</a>
+	        <a href="#option-detail" data-parent="#form-task" data-toggle="collapse">{{ 'panel.option.detail.title' | trans }}</a>
 	    </div>
 	    <div id="option-detail" class="accordion-body collapse-content">
     		<div class="controls">
@@ -48,6 +48,4 @@
 	</div>
 
 	{{ form_rest(form) }}
-
-	<input class="btn" type="submit" value="{{ 'dashboard.task.save'|trans }}" />
 </form>

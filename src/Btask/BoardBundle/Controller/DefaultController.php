@@ -12,6 +12,7 @@ use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Entity\ItemType;
 use Btask\BoardBundle\Form\Type\PostItType;
 use Btask\BoardBundle\Form\Type\TaskType;
+use Btask\BoardBundle\Form\Type\NoteType;
 
 class DefaultController extends Controller
 {
@@ -200,7 +201,7 @@ class DefaultController extends Controller
 		return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
     }
 
-    public function editTaskAction($id)
+	public function editTaskAction($id)
 	{
 		$request = $this->container->get('request');
 
@@ -249,9 +250,57 @@ class DefaultController extends Controller
 	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
 	        }
 	    }
-		return $this->render('BtaskBoardBundle:Dashboard:form_task.html.twig', array(
+		return $this->render('BtaskBoardBundle:Overview:form_task.html.twig', array(
 			'form' => $form->createView(),
 			'task' => $item,
+			'actionUrl' => $actionUrl,
+	    ));
+	}
+
+	public function editNoteAction($id)
+	{
+		$request = $this->container->get('request');
+
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
+
+		// Get the current user
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get the item
+		$em = $this->getDoctrine()->getEntityManager();
+		$item =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+
+		if (!$item) {
+            throw new NotFoundHttpException();
+        }
+
+		// Generate the form
+		// TODO: Move this logic below in a form handler
+
+        // Cast the item as task
+		$noteType =  $this->getDoctrine()->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Note');
+		$item->setType($noteType);
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_note_edit', array('id' => $id));
+		$form = $this->createForm(new NoteType(), $item);
+
+		$request = $this->get('request');
+	    if( $request->getMethod() == 'POST' ) {
+	        $form->bindRequest($request);
+
+	        if( $form->isValid() ) {
+	            $em = $this->getDoctrine()->getEntityManager();
+	            $em->persist($item);
+	            $em->flush();
+
+	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
+	        }
+	    }
+		return $this->render('BtaskBoardBundle:Overview:form_note.html.twig', array(
+			'form' => $form->createView(),
+			'note' => $item,
 			'actionUrl' => $actionUrl,
 	    ));
 	}
