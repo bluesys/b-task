@@ -21,6 +21,7 @@
 </div>
 <div id="overview" class="row-fluid">
     {% include 'BtaskBoardBundle:Overview:panel-item.html.twig' %}
+    {% include 'BtaskBoardBundle:Overview:navigation.html.twig' %}
     <div id="streamline">
         <div id="summary">
             <h2>Today, {{ "now"|date("d F Y") }}</h2>
@@ -74,6 +75,7 @@
 
     {% javascripts output="assets/tesst-javascripts.js"
         '@BtaskBoardBundle/Resources/public/js/dashboard.js'
+        '@BtaskBoardBundle/Resources/public/js/navigation.js'
         '@BtaskBoardBundle/Resources/public/js/bootstrap-datepicker.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -81,6 +83,12 @@
 
     <script type="text/javascript">
     $(function() {
+        // Show the form to create a post-it in dashboard
+        $('.post-it.add').click(function () {
+            $('.post-it.form').css({ 'display' : 'inline-block' });
+        });
+
+        getWorkgroups("{{ path('BtaskBoardBundle_workgroups') }}");
         getAllPostIt("{{ path('BtaskBoardBundle_postit') }}");
         getOverdueTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'overdue' }) }}");
         getPlannedTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'planned' }) }}");

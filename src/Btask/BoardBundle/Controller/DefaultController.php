@@ -274,8 +274,8 @@ class DefaultController extends Controller
 		$item =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$item) {
-            throw new NotFoundHttpException();
-        }
+			throw new NotFoundHttpException();
+		}
 
 		// Generate the form
 		// TODO: Move this logic below in a form handler
@@ -302,6 +302,30 @@ class DefaultController extends Controller
 			'form' => $form->createView(),
 			'note' => $item,
 			'actionUrl' => $actionUrl,
+		));
+	}
+
+	public function showWorkgroupsAction() {
+		$request = $this->container->get('request');
+
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
+
+		// Get the current user
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get workgroups
+		$em = $this->getDoctrine()->getEntityManager();
+		$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findAll();
+
+		if (!$workgroups) {
+			throw new NotFoundHttpException();
+		}
+
+		return $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array(
+			'workgroups' => $workgroups,
 	    ));
 	}
 }

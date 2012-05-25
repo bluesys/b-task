@@ -1,13 +1,22 @@
 /**
- * Float the scroll navigation to the right under the dashboard
- * Only for the desktop version
+ * Import navigation element
  *
  * @author geoffroy.perriard@gmail.com
  *
  */
 
-$(function() {
-
+function getWorkgroups(url) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        cache: true,
+        success: function(data){
+            $('#navigation').html(data);
+            $('#navigation').show();
+        }
+    });
+}
+	/*
 	// Check if desktop terminal
 	if ($(document).width() > 960) {
 
@@ -29,4 +38,4 @@ $(function() {
 			}
 		});
 	}
-});
+	*/

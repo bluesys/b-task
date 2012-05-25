@@ -47,3 +47,7 @@ BtaskBoardBundle_note_edit:
     defaults: { _controller: BtaskBoardBundle:Default:editNote }
     requirements:
         id: \d+
+
+BtaskBoardBundle_workgroups:
+    pattern:  /workgroups
+    defaults: { _controller: BtaskBoardBundle:Default:showWorkgroups }

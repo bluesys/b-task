@@ -163,53 +163,57 @@
 	}
 
 	#navigation {
-		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		float: right;
 		width: @navigation-width;
-		margin-bottom: @whitespace-general;
-		background-color: #fff;
+		float: right;
+		position: fixed;
+		top: 58px;
+		right: 0;
+		bottom: 18px;
 		border-radius: 4px 0 0 4px;
+		background-color: @white;
 		overflow: scroll;
 		overflow-x: hidden;
 
 		.workgroup {
-			border-top: none;
-			border-left: none;
-			border-right: none;
 			border-bottom: 1px solid #333;
-			border-radius: 0;
 			text-transform: uppercase;
 
-			.accordion-heading a {
-				display: inline-block;
-				color: #0f0f0f;
+			.title {
+				padding: 8px 10px;
+
+				a {
+					display: block;
+					font-weight: bold;
+					color: #0f0f0f;
+
+					&:hover {
+						text-decoration: none;
+					}
+				}
 			}
 
-			.accordion-inner {
-				padding: 5px 0;
-				border-top: none;
+			.projects {
+				padding: 5px 10px;
 
 				.project {
 					display: block;
-					margin: 5px;
+					margin: 5px 0;
 					padding: 5px;
+					.border-radius(3px);
+					background-color: @red;
+					font-weight: bold;
+					color: @white;
+					text-transform: none;
+
+					&:hover {
+						text-decoration: none;
+					}
 				}
 			}
 
 			&:last-child {
-				border-bottom: 0;
-
-				.accordion-inner {
-					padding-bottom: 0;
-				}
+				border-bottom: none;
 			}
-		}
-
-		.workgroup:hover .add-project {
-			display: inline-block;
 		}
 	}
 

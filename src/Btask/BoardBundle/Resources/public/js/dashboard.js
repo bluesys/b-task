@@ -103,10 +103,6 @@ function getNoteForm(noteId) {
     });
 }
 /*
-// Show the form to create a post-it in dashboard
-$('.post-it.add').click(function () {
-	$('.post-it.form').css({ 'display' : 'inline-block' });
-});
 
 // Hide the form to create a post-it in dashboard
 $('.post-it.form .close').click(function () {

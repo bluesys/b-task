@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Entity\ItemType;
+use Btask\BoardBundle\Entity\Workgroup;
 
 /**
  * Load some items in database
@@ -35,6 +36,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
         $this->loadPlannedTasks();
         $this->loadDoneTasks();
         $this->loadDoneTasks();
+        $this->loadWorkgroups();
     }
 
     /**
@@ -131,6 +133,22 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setExecutor($this->executor);
 
             $this->manager->persist($task);
+        }
+
+        $this->manager->flush();
+    }
+
+    /**
+     * Load fake workgroups
+     *
+     */
+    public function loadWorkgroups() {
+
+        for ($i = 1; $i <= 8; $i++) {
+            $workgroup = new Workgroup();
+            $workgroup->setName('Workgroup '.$i);
+
+            $this->manager->persist($workgroup);
         }
 
         $this->manager->flush();
