@@ -35,9 +35,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $user->setEmail('local'.$i.'@localhost.lo');
             $user->setPlainPassword('password');
             $user->setEnabled(true);
-            $this->manager->persist($user);
 
+            $this->manager->persist($user);
             $this->manager->flush();
+
             $this->addReference('test_user'.$i, $user);
         }
     }

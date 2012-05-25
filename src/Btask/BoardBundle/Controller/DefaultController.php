@@ -109,7 +109,7 @@ class DefaultController extends Controller
 		// Get the item
 		$em = $this->getDoctrine()->getEntityManager();
 		$item =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
-		
+
 		if (!$item) {
             throw new NotFoundHttpException();
         }
@@ -122,7 +122,7 @@ class DefaultController extends Controller
 	    $request = $this->get('request');
 	    if( $request->getMethod() == 'POST' ) {
 	        $form->bindRequest($request);
-	        
+
 	        if( $form->isValid() ) {
 	            $em->persist($item);
 	            $em->flush();
@@ -305,6 +305,10 @@ class DefaultController extends Controller
 		));
 	}
 
+    /**
+     * Returns all workgroups of the current logged user
+     *
+     */
 	public function showWorkgroupsAction() {
 		$request = $this->container->get('request');
 
@@ -318,10 +322,10 @@ class DefaultController extends Controller
 
 		// Get workgroups
 		$em = $this->getDoctrine()->getEntityManager();
-		$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findAll();
+		$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findByUser($user);
 
 		if (!$workgroups) {
-			throw new NotFoundHttpException();
+			return new Response(null, 204);
 		}
 
 		return $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array(

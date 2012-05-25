@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Btask\BoardBundle\Entity\Workgroup
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Btask\BoardBundle\Entity\WorkgroupRepository")
  */
 class Workgroup
 {
@@ -45,6 +45,16 @@ class Workgroup
      */
     protected $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserWorkgroup", mappedBy="workgroup", cascade={"remove", "persist"})
+     */
+    protected $usersWorkgroups;
+
+
+    public function __construct()
+    {
+        $this->usersWorkgroups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -114,5 +124,25 @@ class Workgroup
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add usersWorkgroups
+     *
+     * @param Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups
+     */
+    public function addUserWorkgroup(\Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups)
+    {
+        $this->usersWorkgroups[] = $usersWorkgroups;
+    }
+
+    /**
+     * Get usersWorkgroups
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getUsersWorkgroups()
+    {
+        return $this->usersWorkgroups;
     }
 }

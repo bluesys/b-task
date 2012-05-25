@@ -8,6 +8,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Entity\ItemType;
 use Btask\BoardBundle\Entity\Workgroup;
+use Btask\BoardBundle\Entity\UserWorkgroup;
 
 /**
  * Load some items in database
@@ -31,12 +32,12 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
         $this->owner = $manager->merge($this->getReference('test_user1'));
         $this->executor = $manager->merge($this->getReference('test_user2'));
 
+        $this->loadWorkgroups();
+        $this->loadUserWorkgroup();
         $this->loadItemType();
         $this->loadOverdueTasks();
         $this->loadPlannedTasks();
         $this->loadDoneTasks();
-        $this->loadDoneTasks();
-        $this->loadWorkgroups();
     }
 
     /**
@@ -130,6 +131,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(false);
             $task->setOwner($this->owner);
+            $task->setOwner($this->owner);
             $task->setExecutor($this->executor);
 
             $this->manager->persist($task);
@@ -149,6 +151,25 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $workgroup->setName('Workgroup '.$i);
 
             $this->manager->persist($workgroup);
+            $this->manager->flush();
+
+            $this->addReference('workgroup'.$i, $workgroup);
+        }
+    }
+
+    /**
+     * Load attribute fake workgroups to a fake user
+     *
+     */
+    public function loadUserWorkgroup() {
+
+        for ($i = 1; $i <= 3; $i++) {
+            $userWorkgroup = new UserWorkgroup();
+            $userWorkgroup->setWorkgroup($this->manager->merge($this->getReference('workgroup'.$i)));
+            $userWorkgroup->setUser($this->manager->merge($this->getReference('test_user2')));
+            $userWorkgroup->setOwner(true);
+
+            $this->manager->persist($userWorkgroup);
         }
 
         $this->manager->flush();

@@ -10,7 +10,7 @@ use Btask\BoardBundle\Entity\Item;
  * Btask\UserBundle\Entity\User
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Btask\UserBundle\Entity\UserRepository")
+ * @ORM\Entity()
  */
 class User extends BaseUser
 {
@@ -33,18 +33,24 @@ class User extends BaseUser
      */
     protected $tasks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\UserWorkgroup", mappedBy="user", cascade={"remove", "persist"})
+     */
+    protected $usersWorkgroups;
+
 
     public function __construct()
     {
         parent::__construct();
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersWorkgroups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -60,7 +66,7 @@ class User extends BaseUser
         $this->setUsername($email);
         $this->email = $email;
     }
-    
+
     /**
      * Add items
      *
@@ -74,7 +80,7 @@ class User extends BaseUser
     /**
      * Get items
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getItems()
     {
@@ -99,5 +105,25 @@ class User extends BaseUser
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Add usersWorkgroups
+     *
+     * @param Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups
+     */
+    public function addUserWorkgroup(\Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups)
+    {
+        $this->usersWorkgroups[] = $usersWorkgroups;
+    }
+
+    /**
+     * Get usersWorkgroups
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getUsersWorkgroups()
+    {
+        return $this->usersWorkgroups;
     }
 }
