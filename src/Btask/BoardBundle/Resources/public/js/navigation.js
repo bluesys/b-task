@@ -12,6 +12,11 @@ function getWorkgroups(url) {
         cache: true,
         success: function(data){
             $('#navigation').html(data);
+
+            // Get the heighter of the dashboard and the main navbar
+            var heighter = $('#dashboard').outerHeight() + $('.navbar.navbar-fixed-top').outerHeight();
+
+            $('#navigation').css({ top : heighter });
             $('#navigation').show();
         }
     });
