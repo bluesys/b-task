@@ -10,6 +10,12 @@ overview:
             overdue: Overdue
             planned: Planned
             done: Done
+
+navigation:
+    workgroup:
+        add: Add a new workgroup
+        save: Save
+
 panel:
     option:
         detail:

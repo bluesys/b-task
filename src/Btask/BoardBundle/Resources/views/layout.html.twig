@@ -88,7 +88,13 @@
             $('.post-it.form').css({ 'display' : 'inline-block' });
         });
 
+        $('#navigation .workgroup.form a.btn').click(function () {
+            getWorkgroupForm("{{ path('BtaskBoardBundle_workgroup_add') }}");
+        });
+
         getWorkgroups("{{ path('BtaskBoardBundle_workgroups') }}");
+        $('#navigation').show();
+
         getAllPostIt("{{ path('BtaskBoardBundle_postit') }}");
         getOverdueTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'overdue' }) }}");
         getPlannedTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'planned' }) }}");

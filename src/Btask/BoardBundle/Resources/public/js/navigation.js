@@ -11,13 +11,28 @@ function getWorkgroups(url) {
         url: url,
         cache: true,
         success: function(data){
-            $('#navigation').html(data);
+            $('#navigation .workgroup.form').before(data);
 
             // Get the heighter of the dashboard and the main navbar
             var heighter = $('#dashboard').outerHeight() + $('.navbar.navbar-fixed-top').outerHeight();
 
             $('#navigation').css({ top : heighter });
-            $('#navigation').show();
+        }
+    });
+}
+
+function getWorkgroupForm(url) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        cache: true,
+        success: function(data){
+            $('#navigation .workgroup.form a.btn').hide();
+            $('#navigation .workgroup.form').append(data);
+
+          $('#navigation .workgroup form a.btn').click(function (){
+  	            $('#navigation .workgroup.form a.btn').show();
+          });
         }
     });
 }

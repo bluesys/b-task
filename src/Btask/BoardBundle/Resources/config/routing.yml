@@ -51,3 +51,7 @@ BtaskBoardBundle_note_edit:
 BtaskBoardBundle_workgroups:
     pattern:  /workgroups
     defaults: { _controller: BtaskBoardBundle:Default:showWorkgroups }
+
+BtaskBoardBundle_workgroup_add:
+    pattern:  /workgroup/add
+    defaults: { _controller: BtaskBoardBundle:Default:addWorkgroup }

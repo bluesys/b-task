@@ -10,9 +10,12 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Entity\ItemType;
+use Btask\BoardBundle\Entity\Workgroup;
+use Btask\BoardBundle\Entity\UserWorkgroup;
 use Btask\BoardBundle\Form\Type\PostItType;
 use Btask\BoardBundle\Form\Type\TaskType;
 use Btask\BoardBundle\Form\Type\NoteType;
+use Btask\BoardBundle\Form\Type\WorkgroupType;
 
 class DefaultController extends Controller
 {
@@ -330,6 +333,62 @@ class DefaultController extends Controller
 
 		return $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array(
 			'workgroups' => $workgroups,
+	    ));
+	}
+
+	public function editWorkgroupAction($id) {
+		$request = $this->container->get('request');
+
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
+
+		// Get the current user
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		if (!$workgroups) {
+			throw new NotFoundHttpException();
+		}
+	}
+
+	public function addWorkgroupAction() {
+		$request = $this->container->get('request');
+
+		// Get the current user
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$workgroup = new Workgroup;
+
+	    // Generate the form
+	    // TODO: Move this logic below in a form handler
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_workgroup_add');
+	    $form = $this->createForm(new WorkgroupType(), $workgroup);
+
+	    $request = $this->get('request');
+	    if( $request->getMethod() == 'POST' ) {
+	        $form->bindRequest($request);
+
+	        if( $form->isValid() ) {
+				$em = $this->getDoctrine()->getEntityManager();
+	        	$em->persist($workgroup);
+	            $em->flush();
+
+				$userWorkgroup = new UserWorkgroup;
+				$userWorkgroup->setUser($user);
+				$userWorkgroup->setWorkgroup($workgroup);
+				$userWorkgroup->setOwner(true);
+
+	            $em->persist($userWorkgroup);
+	            $em->flush();
+
+				return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
+	        }
+	    }
+
+	    return $this->render('BtaskBoardBundle:Overview:form_workgroup.html.twig', array(
+	        'form' => $form->createView(),
+	       	'actionUrl' => $actionUrl,
 	    ));
 	}
 }
