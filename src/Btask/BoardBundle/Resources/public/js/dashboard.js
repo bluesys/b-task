@@ -5,10 +5,10 @@
  */
 
 // Get all the post-it and display them
-function getAllPostIt(url) {
+function getPostIt() {
 	$.ajax({
 	    type: "GET",
-	    url: url,
+	    url: Routing.generate('BtaskBoardBundle_post_it_show'),
 	    cache: false,
 	    success: function(data){
 	        $('#post-it').append(data);
@@ -40,10 +40,10 @@ function getAllPostIt(url) {
 }
 
 // Get overdue tasks and display them
-function getOverdueTasks(url) {
+function getOverdueTasks() {
     $.ajax({
         type: "GET",
-        url: url,
+        url: Routing.generate('BtaskBoardBundle_tasks_by_state_show', { state: 'overdue' }),
         cache: false,
         success: function(data){
             $('#overdue-tasks').append(data);
@@ -55,7 +55,7 @@ function getOverdueTasks(url) {
 function getPlannedTasks(url) {
     $.ajax({
         type: "GET",
-        url: url,
+        url: Routing.generate('BtaskBoardBundle_tasks_by_state_show', { state: 'planned' }),
         cache: false,
         success: function(data){
             $('#planned-tasks').append(data);
@@ -67,12 +67,12 @@ function getPlannedTasks(url) {
 function getDoneTasks(url) {
     $.ajax({
         type: "GET",
-        url: url,
+        url: Routing.generate('BtaskBoardBundle_tasks_by_state_show', { state: 'done' }),
         cache: false,
         success: function(data){
             $('#done-tasks').append(data);
         }
-    });	
+    });
 }
 
 // Display the form to edit a task
@@ -80,7 +80,7 @@ function getDoneTasks(url) {
 function getTaskForm(taskId) {
     $.ajax({
         type: "GET",
-        url: "task/" + taskId + "/edit",
+        url: Routing.generate('BtaskBoardBundle_task_update', { id: taskId }),
         cache: true,
         success: function(data){
             $('#panel-item #options').html(data);

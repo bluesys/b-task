@@ -1,3 +1,4 @@
+# General
 BtaskBoardBundle_today:
     pattern:  /today
     defaults: { _controller: BtaskBoardBundle:Default:today }
@@ -6,52 +7,78 @@ BtaskBoardBundle_board:
     pattern:  /
     defaults: { _controller: BtaskBoardBundle:Default:showBoard }
 
-BtaskBoardBundle_post_it_add:
+
+# Post-it
+BtaskBoardBundle_post_it_create:
     pattern:  /post-it/add/
-    defaults: { _controller: BtaskBoardBundle:Default:newPostIt }
+    defaults: { _controller: BtaskBoardBundle:PostIt:createPostIt }
 
-BtaskBoardBundle_post_it_edit:
+BtaskBoardBundle_post_it_update:
     pattern:  /post-it/{id}/edit/
-    defaults: { _controller: BtaskBoardBundle:Default:editPostIt }
+    defaults: { _controller: BtaskBoardBundle:PostIt:updatePostIt }
 
-BtaskBoardBundle_postit:
+BtaskBoardBundle_post_it_show:
     pattern: /post-it/
-    defaults: { _controller: BtaskBoardBundle:Default:showPostIt }
+    defaults: { _controller: BtaskBoardBundle:PostIt:showPostIt }
+    options:
+        expose: true
 
-BtaskBoardBundle_task_edit:
+
+# Task
+BtaskBoardBundle_task_udpate:
     pattern:  /task/{id}/edit
-    defaults: { _controller: BtaskBoardBundle:Default:editTask }
+    defaults: { _controller: BtaskBoardBundle:Task:editTask }
     requirements:
         id: \d+
+    options:
+        expose: true
 
-BtaskBoardBundle_tasks_by_state:
+BtaskBoardBundle_tasks_by_state_show:
     pattern:  /tasks/{state}/
-    defaults: { _controller: BtaskBoardBundle:Default:showTasksByState }
+    defaults: { _controller: BtaskBoardBundle:Task:showTasksByState }
     requirements:
-        status: (overdue|planned|done)
+        state: (overdue|planned|done)
+    options:
+        expose: true
 
 BtaskBoardBundle_task_close:
     pattern:  /task/{id}/close
-    defaults: { _controller: BtaskBoardBundle:Default:toggleStatusTask, status: false }
+    defaults: { _controller: BtaskBoardBundle:Task:toggleStatusTask, status: false }
     requirements:
         id: \d+
 
 BtaskBoardBundle_task_open:
     pattern:  /task/{id}/open
-    defaults: { _controller: BtaskBoardBundle:Default:toggleStatusTask, status: true }
+    defaults: { _controller: BtaskBoardBundle:Task:toggleStatusTask, status: true }
     requirements:
         id: \d+
 
+
+# Note
 BtaskBoardBundle_note_edit:
     pattern:  /note/{id}/edit
     defaults: { _controller: BtaskBoardBundle:Default:editNote }
     requirements:
         id: \d+
 
-BtaskBoardBundle_workgroups:
-    pattern:  /workgroups
-    defaults: { _controller: BtaskBoardBundle:Default:showWorkgroups }
 
-BtaskBoardBundle_workgroup_add:
+# Workgroup
+BtaskBoardBundle_workgroup_create:
     pattern:  /workgroup/add
-    defaults: { _controller: BtaskBoardBundle:Default:addWorkgroup }
+    defaults: { _controller: BtaskBoardBundle:Workgroup:createWorkgroup }
+    options:
+        expose: true
+
+BtaskBoardBundle_workgroup_update:
+    pattern:  /workgroup/{id}/edit
+    defaults: { _controller: BtaskBoardBundle:Workgroup:updateWorkgroup }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_workgroups_show:
+    pattern:  /workgroups
+    defaults: { _controller: BtaskBoardBundle:Workgroup:showWorkgroups }
+    options:
+        expose: true

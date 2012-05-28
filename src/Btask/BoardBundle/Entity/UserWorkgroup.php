@@ -45,7 +45,7 @@ class UserWorkgroup
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,7 +65,7 @@ class UserWorkgroup
     /**
      * Get owner
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOwner()
     {
@@ -85,7 +85,7 @@ class UserWorkgroup
     /**
      * Get user
      *
-     * @return Btask\UserBundle\Entity\User 
+     * @return Btask\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -105,7 +105,7 @@ class UserWorkgroup
     /**
      * Get workgroup
      *
-     * @return Btask\BoardBundle\Entity\Workgroup 
+     * @return Btask\BoardBundle\Entity\Workgroup
      */
     public function getWorkgroup()
     {

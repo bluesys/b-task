@@ -1,8 +1,24 @@
-{% for workgroup in workgroups %}
-<div class="workgroup">
+<div class="workgroup" data-id="{{ workgroup.id }}">
 	<div class="title">
 		<a href="#workgroup-{{ workgroup.id }}" data-parent="#workgroups" data-toggle="collapse">{{ workgroup.name }}</a>
-		<a class="btn" href="#"><i class="icon-cog"></i></a>
+		<div class="controls btn-group">
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="icon-cog"></i>
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu pull-right">
+				<li><a href="#">{% trans %}layout.login{% endtrans %}</a></li>
+				<li><a href="#">{% trans %}layout.login{% endtrans %}</a></li>
+			</ul>
+		</div>
+		<form id="workgroup-form-edit-{{ workgroup.id }}" class="form" action="{{ path('BtaskBoardBundle_workgroup_update', { 'id': workgroup.id }) }}" method="post" {{ form_enctype(form) }}>
+			{{ form_errors(form) }}
+
+		    {{ form_errors(form.name) }}
+		    {{ form_widget(form.name) }}
+			{{ form_rest(form) }}
+			<input class="btn" type="submit" value="{{ 'navigation.workgroup.edit'|trans }}" />
+		</form>
 	</div>
 	<div id="workgroup-{{ workgroup.id }}" class="collapse-content collapse" data-id="{{ workgroup.id }}">
 		<div class="projects">
@@ -12,4 +28,3 @@
 		</div>
 	</div>
 </div>
-{% endfor %}

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}B-Task{% endblock %}</title> 
+        <title>{% block title %}B-Task{% endblock %}</title>
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
             {% stylesheets filter='less' output="asset/style.css"
@@ -43,6 +43,7 @@
         </div>
         {% block javascripts %}
             {% javascripts output="assets/sys-javascripts.js"
+                'bundles/fosjsrouting/js/router.js'
                 '@BtaskBoardBundle/Resources/public/js/jquery-1.7.1.min.js'
                 '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
                 '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
@@ -52,6 +53,7 @@
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% endblock %}
     </body>
 </html>

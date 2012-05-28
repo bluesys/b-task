@@ -15,7 +15,7 @@
     <div id="post-it">
         <div class="post-it form alert">
             <a class="close" data-dismiss="alert" href="#">×</a>
-            {% render "BtaskBoardBundle:Default:newPostIt" %}
+            {% render "BtaskBoardBundle:PostIt:createPostIt" %}
         </div>
     </div>
 </div>
@@ -88,17 +88,13 @@
             $('.post-it.form').css({ 'display' : 'inline-block' });
         });
 
-        $('#navigation .workgroup.form a.btn').click(function () {
-            getWorkgroupForm("{{ path('BtaskBoardBundle_workgroup_add') }}");
-        });
-
-        getWorkgroups("{{ path('BtaskBoardBundle_workgroups') }}");
+        getPostIt();
+        getOverdueTasks();
+        getPlannedTasks();
+        getDoneTasks();
+        getWorkgroups();
+        getWorkgroupCreateForm();
         $('#navigation').show();
-
-        getAllPostIt("{{ path('BtaskBoardBundle_postit') }}");
-        getOverdueTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'overdue' }) }}");
-        getPlannedTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'planned' }) }}");
-        getDoneTasks("{{ path('BtaskBoardBundle_tasks_by_state', { 'state': 'done' }) }}");
     });
     </script>
 {% endblock %}

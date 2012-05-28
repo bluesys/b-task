@@ -166,9 +166,8 @@
 		width: @navigation-width;
 		float: right;
 		position: fixed;
-		top: 58px;
 		right: 0;
-		bottom: 18px;
+		bottom: 20px;
 		border-radius: 4px 0 0 4px;
 		background-color: @white;
 		overflow: scroll;
@@ -189,6 +188,14 @@
 					&:hover {
 						text-decoration: none;
 					}
+				}
+
+				.controls {
+					float: right;
+				}
+
+				.form {
+					display: none;
 				}
 			}
 
@@ -216,8 +223,26 @@
 			}
 		}
 
-		.workgroup.form {
+		#workgroup-create {
 			padding: 10px;
+
+			a {
+				width: 190px;
+			}
+
+			#workgroup-form-create {
+				margin: 0;
+				display: none;
+
+				input {
+					display: inline-block;
+				}
+
+				input[type=text] {
+					margin: 0;
+					width: 145px;
+				}
+			}
 		}
 	}
 
