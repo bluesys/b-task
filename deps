@@ -91,3 +91,7 @@
     git=https://github.com/stof/StofDoctrineExtensionsBundle.git
     target=bundles/Stof/DoctrineExtensionsBundle
     version=origin/1.0.x
+
+[FOSJsRoutingBundle]
+    git=git://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git
+    target=/bundles/FOS/JsRoutingBundle
