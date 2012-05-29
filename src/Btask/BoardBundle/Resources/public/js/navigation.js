@@ -16,10 +16,15 @@ function getWorkgroups() {
 
             $('#workgroups .workgroup .controls ul li:first-child a').click(function (){
                 var workgroupId = $(this).closest('.workgroup').data('id');
+
+                // Hide the title, controls button and show the form
+                $(this).closest('.header').children().hide();
                 $('#workgroup-form-edit-' + workgroupId).show();
 
                 $('#workgroup-form-edit-' + workgroupId).submit(function (){
                     updateWorkgroup(workgroupId, $(this));
+                    $(this).closest('.header').children().show();
+                    $(this).hide();
                     return false;
                 });
             });

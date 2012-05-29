@@ -167,6 +167,7 @@
 		float: right;
 		position: fixed;
 		right: 0;
+		top: 100px;
 		bottom: 20px;
 		border-radius: 4px 0 0 4px;
 		background-color: @white;
@@ -175,13 +176,13 @@
 
 		.workgroup {
 			border-bottom: 1px solid #333;
-			text-transform: uppercase;
 
-			.title {
+			.header {
 				padding: 8px 10px;
 
-				a {
+				.title {
 					display: inline-block;
+					text-transform: uppercase;
 					font-weight: bold;
 					color: #0f0f0f;
 
@@ -191,11 +192,19 @@
 				}
 
 				.controls {
+					display: none;
+					margin-top: -5px;
 					float: right;
+					text-transform: none;
+					font-weight: normal;
 				}
 
 				.form {
 					display: none;
+				}
+
+				&:hover .controls {
+					display: inline-block;
 				}
 			}
 
@@ -225,6 +234,8 @@
 
 		#workgroup-create {
 			padding: 10px;
+			position: fixed;
+			bottom: 30px;
 
 			a {
 				width: 190px;

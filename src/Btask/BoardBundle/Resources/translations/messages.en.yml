@@ -14,7 +14,9 @@ overview:
 navigation:
     workgroup:
         add: Add a new workgroup
-        save: Save
+        edit: Edit the workgroup
+        create: Save
+        update: Save change
 
 panel:
     option:
