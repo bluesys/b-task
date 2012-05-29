@@ -9,6 +9,7 @@ use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Entity\ItemType;
 use Btask\BoardBundle\Entity\Workgroup;
 use Btask\BoardBundle\Entity\UserWorkgroup;
+use Btask\BoardBundle\Entity\Project;
 
 /**
  * Load some items in database
@@ -34,6 +35,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
 
         $this->loadWorkgroups();
         $this->loadUserWorkgroup();
+        $this->loadProjects();
         $this->loadItemType();
         $this->loadOverdueTasks();
         $this->loadPlannedTasks();
@@ -44,8 +46,8 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      * Load default ItemType
      *
      */
-    public function loadItemType() {
-
+    public function loadItemType()
+    {
         foreach ($this->types as $type) {
             $itemType = new ItemType();
             $itemType->setName($type);
@@ -62,8 +64,8 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      * Load fake overdue tasks
      *
      */
-    public function loadOverdueTasks() {
-
+    public function loadOverdueTasks()
+    {
         for ($i = 1; $i <= 4; $i++) {
             $dueDate = new \DateTime('now');
             $plannedDate = $dueDate;
@@ -89,8 +91,8 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      * Load fake tasks to be done for today
      *
      */
-    public function loadPlannedTasks() {
-
+    public function loadPlannedTasks()
+    {
         for ($i = 1; $i <= 8; $i++) {
             $dueDate = new \DateTime('now');
             $dueDate->modify('+'.$i.' day');
@@ -117,8 +119,8 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      * Load fake done tasks
      *
      */
-    public function loadDoneTasks() {
-
+    public function loadDoneTasks()
+    {
         for ($i = 1; $i <= 3; $i++) {
             $dueDate = new \DateTime('now');
             $dueDate->modify('+'.$i.' day');
@@ -144,8 +146,8 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      * Load fake workgroups
      *
      */
-    public function loadWorkgroups() {
-
+    public function loadWorkgroups()
+    {
         for ($i = 1; $i <= 8; $i++) {
             $workgroup = new Workgroup();
             $workgroup->setName('Workgroup '.$i);
@@ -161,8 +163,8 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      * Load attribute fake workgroups to a fake user
      *
      */
-    public function loadUserWorkgroup() {
-
+    public function loadUserWorkgroup()
+    {
         for ($i = 1; $i <= 3; $i++) {
             $userWorkgroup = new UserWorkgroup();
             $userWorkgroup->setWorkgroup($this->manager->merge($this->getReference('workgroup'.$i)));
@@ -170,6 +172,24 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $userWorkgroup->setOwner(true);
 
             $this->manager->persist($userWorkgroup);
+        }
+
+        $this->manager->flush();
+    }
+
+    /**
+     * Load attribute fake workgroups to a fake user
+     *
+     */
+    public function loadProjects()
+    {
+        for ($i = 1; $i <= 3; $i++) {
+            $project = new Project();
+            $project->setName('Project '.$i);
+            $project->setColor('#eee');
+            $project->addWorkgroup($this->manager->merge($this->getReference('workgroup1')));
+
+            $this->manager->persist($project);
         }
 
         $this->manager->flush();

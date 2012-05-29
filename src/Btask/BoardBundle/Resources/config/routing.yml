@@ -82,3 +82,12 @@ BtaskBoardBundle_workgroups_show:
     defaults: { _controller: BtaskBoardBundle:Workgroup:showWorkgroups }
     options:
         expose: true
+
+# Project
+BtaskBoardBundle_projects_by_workgroup_show:
+    pattern:  /{workgroup_slug}/projects/
+    defaults: { _controller: BtaskBoardBundle:Project:showProjectsByWorkgroup }
+    requirements:
+        id: \w+
+    options:
+        expose: true

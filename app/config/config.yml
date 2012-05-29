@@ -108,3 +108,4 @@ stof_doctrine_extensions:
         default:
             loggable: true
             timestampable: true
+            sluggable: true

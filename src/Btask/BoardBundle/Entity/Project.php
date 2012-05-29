@@ -57,15 +57,37 @@ class Project
      */
     protected $tasks;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Workgroup", inversedBy="projects")
+     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")})
+     */
+    protected $workgroups;
+
+
+    public function __construct()
+    {
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->workgroups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -81,7 +103,7 @@ class Project
     /**
      * Get created
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreated()
     {
@@ -101,7 +123,7 @@ class Project
     /**
      * Get updated
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdated()
     {
@@ -121,7 +143,7 @@ class Project
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -141,17 +163,13 @@ class Project
     /**
      * Get color
      *
-     * @return string 
+     * @return string
      */
     public function getColor()
     {
         return $this->color;
     }
-    public function __construct()
-    {
-        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+
     /**
      * Add tasks
      *
@@ -165,10 +183,30 @@ class Project
     /**
      * Get tasks
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Add workgroups
+     *
+     * @param Btask\BoardBundle\Entity\Workgroup $workgroups
+     */
+    public function addWorkgroup(\Btask\BoardBundle\Entity\Workgroup $workgroups)
+    {
+        $this->workgroups[] = $workgroups;
+    }
+
+    /**
+     * Get workgroups
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getWorkgroups()
+    {
+        return $this->workgroups;
     }
 }

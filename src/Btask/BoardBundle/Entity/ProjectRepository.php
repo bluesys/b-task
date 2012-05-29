@@ -3,9 +3,8 @@
 namespace Btask\BoardBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Btask\UserBundle\Entity\User;
 
-class WorkgroupRepository extends EntityRepository
+class ProjectRepository extends EntityRepository
 {
 	/**
      * Finds workgroups by a set of criteria.
@@ -18,34 +17,18 @@ class WorkgroupRepository extends EntityRepository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-		$qb = $this->createQueryBuilder('w');
+		$qb = $this->createQueryBuilder('p');
 		$parameters = array();
 		$singleResult = false;
 
 		foreach ($criteria as $key => $value) {
 			switch($key) {
-				// Sort by id
-				case 'id':
-					$qb->andWhere('w.id = :id');
+				// Sort by workgroup
+				case 'workgroup':
+					$qb->innerJoin('p.workgroups', 'pw');
+					$qb->andWhere('pw.workgroup.id = :workgroup_id');
 
-					$parameters['id'] = $value;
-					$singleResult = true;
-					break;
-
-				// Sort by slug
-				case 'id':
-					$qb->andWhere('w.slug = :slug');
-
-					$parameters['slug'] = $value;
-					$singleResult = true;
-					break;
-
-				// Sort by user
-				case 'user':
-					$qb->innerJoin('w.usersWorkgroups', 'uw');
-					$qb->andWhere('uw.user = :user_id');
-
-					$parameters['user_id'] = $value;
+					$parameters['workgroup_id'] = $value;
 					break;
 
 				default:
@@ -58,11 +41,6 @@ class WorkgroupRepository extends EntityRepository
 
         ($offset) ? $qb->setFirstResult($offset) : null;
         ($limit) ? $qb->setMaxResults($limit) : null;
-
-        // if there is an id or an slug parameter in the request, return only one result
-        if ($singleResult) {
-        	return $qb->getQuery()->getSingleResult();
-        }
 
         return $qb->getQuery()->getArrayResult();
 

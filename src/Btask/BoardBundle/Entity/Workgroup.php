@@ -50,16 +50,29 @@ class Workgroup
      */
     protected $usersWorkgroups;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="projects")
+     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="workgroup_id", referencedColumnName="id")})
+     */
+    protected $projects;
+
+    /**
+     * @Gedmo\Slug(fields={"name"}, separator="_")
+     * @ORM\Column(name="slug", type="string", length=128, unique=true)
+     */
+    protected $slug;
+
 
     public function __construct()
     {
         $this->usersWorkgroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -79,7 +92,7 @@ class Workgroup
     /**
      * Get created
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreated()
     {
@@ -99,7 +112,7 @@ class Workgroup
     /**
      * Get updated
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdated()
     {
@@ -119,7 +132,7 @@ class Workgroup
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -144,5 +157,45 @@ class Workgroup
     public function getUsersWorkgroups()
     {
         return $this->usersWorkgroups;
+    }
+
+    /**
+     * Add projects
+     *
+     * @param Btask\BoardBundle\Entity\Project $projects
+     */
+    public function addProject(\Btask\BoardBundle\Entity\Project $projects)
+    {
+        $this->projects[] = $projects;
+    }
+
+    /**
+     * Get projects
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slig = $slug;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
