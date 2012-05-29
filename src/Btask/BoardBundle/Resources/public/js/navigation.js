@@ -7,6 +7,18 @@
 
 // Display all workgroups of the logged user
 function getWorkgroups() {
+    $.getJSON(Routing.generate('BtaskBoardBundle_workgroups_show'), function(data) {
+
+        $.each(data, function(key, workgroup) {
+            var $workgroup = $('#navigation #workgroups').append(workgroup);
+
+            $workgroup.children('.controls ul li:nth-child(1) a').click(function (){
+                alert('as');
+            });
+        });
+
+    });
+    /*
     $.ajax({
         type: "GET",
         url: Routing.generate('BtaskBoardBundle_workgroups_show'),
@@ -14,18 +26,46 @@ function getWorkgroups() {
         success: function(data){
             $('#navigation #workgroups').html(data);
 
-            $('#workgroups .workgroup .controls ul li:first-child a').click(function (){
+            // Display a form to edit the current workgroup
+            $('#workgroups .workgroup .controls ul li:nth-child(1) a').click(function (){
 
                 var workgroupId = $(this).closest('.workgroup').data('id');
                 var parent = $(this).closest('.header');
-                updateWorkgroup(workgroupId, parent);
+                getWorkgroupUpdateForm(workgroupId, parent);
             });
+
+            // Display a form to delete the current workgroup
+            $('#workgroups .workgroup .controls ul li:nth-child(2) a').click(function (){
+                var workgroupId = $(this).closest('.workgroup').data('id');
+                deleteWorkgroup(workgroupId);
+            });
+        }
+    });
+*/
+}
+
+// Update a workgroup
+function updateWorkgroup(form, workgroupId)
+{
+    var $form = form;
+
+    $.ajax({
+        type: "POST",
+        url: Routing.generate('BtaskBoardBundle_workgroup_update', { id: workgroupId }),
+        data: $form.serialize(),
+        cache: false,
+        success: function(data, textStatus, xhr){
+
+            // Refresh all workgroups
+            if (xhr.status == 200) {
+                getWorkgroups();
+            }
         }
     });
 }
 
- // Update a workgroup
-function updateWorkgroup(id, parent) {
+// Display a form to edit a workgroup
+function getWorkgroupUpdateForm(id, parent) {
     $.ajax({
         type: "GET",
         url: Routing.generate('BtaskBoardBundle_workgroup_update', { id: id }),
@@ -38,28 +78,9 @@ function updateWorkgroup(id, parent) {
             $('#workgroup-form-edit-' + id).show();
 
             $('#workgroup-form-edit-' + id).submit(function (){
-
                 $(parent).children().show();
                 $(this).hide();
-
-                // Get the form
-                var $form = $(this);
-
-                if ($form) {
-                    $.ajax({
-                        type: "POST",
-                        url: Routing.generate('BtaskBoardBundle_workgroup_update', { id: id }),
-                        data: $form.serialize(),
-                        cache: false,
-                        success: function(data, textStatus, xhr){
-
-                            // Refresh all workgroups
-                            if (xhr.status == 200) {
-                                getWorkgroups();
-                            }
-                        }
-                    });
-                }
+                updateWorkgroup($(this), id);
 
                 return false;
             });
@@ -67,8 +88,27 @@ function updateWorkgroup(id, parent) {
     });
 }
 
+function createWorkgroup(form)
+{
+    var $form = form;
+
+    $.ajax({
+        type: "POST",
+        url: Routing.generate('BtaskBoardBundle_workgroup_create'),
+        data: $form.serialize(),
+        cache: false,
+        success: function(data, textStatus, xhr){
+
+            // Refresh all workgroups
+            if (xhr.status == 200) {
+                getWorkgroups();
+            }
+        }
+    });
+}
+
 // Display a form to create a workgroup
-function createWorkgroup() {
+function getWorkgroupCreateForm() {
     $.ajax({
         type: "GET",
         url: Routing.generate('BtaskBoardBundle_workgroup_create'),
@@ -84,28 +124,50 @@ function createWorkgroup() {
 
             // Send the workgroup
             $('#workgroup-form-create').submit(function (){
-                // Get the form
-                var $form = $(this);
 
                 // Hide the form and display the button
                 $form.hide();
                 $('#workgroup-create a.btn').show();
 
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('BtaskBoardBundle_workgroup_create'),
-                    data: $form.serialize(),
-                    cache: false,
-                    success: function(data, textStatus, xhr){
-
-                        // Refresh all workgroups
-                        if (xhr.status == 200) {
-                            getWorkgroups();
-                        }
-                    }
-                });
+                // Create the workgroup
+                createWorkgroup($(this));
 
                 return false;
+            });
+        }
+    });
+}
+
+function deleteWorkgroup(workgroupId)
+{
+    $.ajax({
+        type: "POST",
+        url: Routing.generate('BtaskBoardBundle_workgroup_delete', { id: workgroupId }),
+        cache: false,
+        success: function(data, textStatus, xhr){
+
+            // Refresh all workgroups
+            if (xhr.status == 200) {
+                getWorkgroups();
+            }
+        }
+    });
+}
+
+function getProjects(workgroupId)
+{
+    $.ajax({
+        type: "GET",
+        url: Routing.generate('BtaskBoardBundle_projects_by_workgroup'),
+        cache: true,
+        success: function(data){
+
+            // Clear the workgroup
+            $("#workgroup-" + workgroupId + ' .projects').html('');
+
+            // Display projects
+            $.each(data, function(project) {
+                $("#workgroup-" + workgroupId + ' .projects').append(project);
             });
         }
     });

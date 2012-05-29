@@ -23,13 +23,13 @@ class UserWorkgroup
     protected $id;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="usersWorkgroups", cascade={"remove", "persist"})
+     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="usersWorkgroups", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="Workgroup", inversedBy="usersWorkgroups", cascade={"remove", "persist"})
+     * @ORM\ManyToOne(targetEntity="Workgroup", inversedBy="usersWorkgroups", cascade={"persist"})
      * @ORM\JoinColumn(name="workgroup_id", referencedColumnName="id", nullable=false)
      */
     protected $workgroup;

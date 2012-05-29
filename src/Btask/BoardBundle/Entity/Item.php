@@ -107,7 +107,7 @@ class Item
     /**
      * @Gedmo\Versioned
      *
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="items", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="items", cascade={"persist"})
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
      */
     protected $project;
@@ -115,7 +115,7 @@ class Item
     /**
      * @Gedmo\Versioned
      *
-     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="items", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="items", cascade={"persist"})
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", nullable=false)
      */
     protected $owner;
@@ -132,7 +132,7 @@ class Item
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -152,7 +152,7 @@ class Item
     /**
      * Get subject
      *
-     * @return text 
+     * @return text
      */
     public function getSubject()
     {
@@ -172,7 +172,7 @@ class Item
     /**
      * Get detail
      *
-     * @return text 
+     * @return text
      */
     public function getDetail()
     {
@@ -192,7 +192,7 @@ class Item
     /**
      * Get priority
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPriority()
     {
@@ -212,7 +212,7 @@ class Item
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {
@@ -237,7 +237,7 @@ class Item
     /**
      * Get validationToken
      *
-     * @return string 
+     * @return string
      */
     public function getValidationToken()
     {
@@ -257,7 +257,7 @@ class Item
     /**
      * Get type
      *
-     * @return Btask\BoardBundle\Entity\itemType 
+     * @return Btask\BoardBundle\Entity\itemType
      */
     public function getType()
     {
@@ -277,7 +277,7 @@ class Item
     /**
      * Get created
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreated()
     {
@@ -297,7 +297,7 @@ class Item
     /**
      * Get updated
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdated()
     {
@@ -317,7 +317,7 @@ class Item
     /**
      * Get planned
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getPlanned()
     {
@@ -337,7 +337,7 @@ class Item
     /**
      * Get due
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getDue()
     {
@@ -357,7 +357,7 @@ class Item
     /**
      * Get project
      *
-     * @return Btask\BoardBundle\Entity\Project 
+     * @return Btask\BoardBundle\Entity\Project
      */
     public function getProject()
     {
@@ -377,7 +377,7 @@ class Item
     /**
      * Get owner
      *
-     * @return Btask\UserBundle\Entity\User 
+     * @return Btask\UserBundle\Entity\User
      */
     public function getOwner()
     {

@@ -24,12 +24,12 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Item", mappedBy="owner", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Item", mappedBy="owner", cascade={"persist"})
      */
     protected $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Item", mappedBy="executor", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Item", mappedBy="executor", cascade={"persist"})
      */
     protected $tasks;
 

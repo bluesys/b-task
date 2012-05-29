@@ -15,8 +15,10 @@ navigation:
     workgroup:
         add: Add a new workgroup
         edit: Edit the workgroup
+        remove: Delete the workgroup
         create: Save
         update: Save
+        delete: Delete
 
 panel:
     option:

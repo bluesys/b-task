@@ -46,13 +46,13 @@ class Workgroup
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserWorkgroup", mappedBy="workgroup", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="UserWorkgroup", mappedBy="workgroup", cascade={"persist", "remove"})
      */
     protected $usersWorkgroups;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Project", mappedBy="projects")
-     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="workgroup_id", referencedColumnName="id")})
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="workgroups", cascade={"all"})
+     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="workgroup_id", referencedColumnName="id", onDelete="CASCADE")})
      */
     protected $projects;
 
@@ -197,5 +197,39 @@ class Workgroup
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Check if the workgroup as owned by user passed in parameter
+     *
+     * @param \Btask\UserBundle\Entity\User $user
+     * @param boolean true|false
+     */
+    public function hasOwner(\Btask\UserBundle\Entity\User $user)
+    {
+        foreach ($this->getUsersWorkgroups() as $registredWorkgroup) {
+            if( ($registredWorkgroup->getUser() === $user) && ($registredWorkgroup->getOwner()) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the workgroup is shared to the user passed in parameter
+     *
+     * @param \Btask\UserBundle\Entity\User $user
+     * @param boolean true|false
+     */
+    public function isSharedTo(\Btask\UserBundle\Entity\User $user)
+    {
+        foreach ($this->getUsersWorkgroups() as $registredWorkgroup) {
+            if($registredWorkgroup->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

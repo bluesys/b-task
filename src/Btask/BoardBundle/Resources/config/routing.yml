@@ -77,6 +77,14 @@ BtaskBoardBundle_workgroup_update:
     options:
         expose: true
 
+BtaskBoardBundle_workgroup_delete:
+    pattern:  /workgroup/{id}/delete
+    defaults: { _controller: BtaskBoardBundle:Workgroup:deleteWorkgroup }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
 BtaskBoardBundle_workgroups_show:
     pattern:  /workgroups
     defaults: { _controller: BtaskBoardBundle:Workgroup:showWorkgroups }

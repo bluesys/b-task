@@ -29,14 +29,14 @@ class ItemType
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Item", mappedBy="type", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="type", cascade={"persist", "remove"})
      */
     protected $items;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -56,7 +56,7 @@ class ItemType
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -70,7 +70,7 @@ class ItemType
     /**
      * Get items
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getItems()
     {

@@ -53,13 +53,13 @@ class Project
     protected $color;
 
     /**
-     * @ORM\OneToMany(targetEntity="Item", mappedBy="project", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="project", cascade={"persist"})
      */
     protected $tasks;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Workgroup", inversedBy="projects")
-     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")})
+     * @ORM\ManyToMany(targetEntity="Workgroup", inversedBy="projects", cascade={"all"})
+     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")})
      */
     protected $workgroups;
 
