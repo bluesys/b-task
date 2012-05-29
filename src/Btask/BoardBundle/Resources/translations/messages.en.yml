@@ -16,7 +16,7 @@ navigation:
         add: Add a new workgroup
         edit: Edit the workgroup
         create: Save
-        update: Save change
+        update: Save
 
 panel:
     option:

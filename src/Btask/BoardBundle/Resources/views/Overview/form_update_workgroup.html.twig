@@ -1,0 +1,8 @@
+<form id="workgroup-form-edit-{{ workgroup.id }}" class="form" action="{{ path('BtaskBoardBundle_workgroup_update', { 'id': workgroup.id }) }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+
+    {{ form_errors(form.name) }}
+    {{ form_widget(form.name) }}
+	{{ form_rest(form) }}
+	<input class="btn" type="submit" value="{{ 'navigation.workgroup.update'|trans }}" />
+</form>

@@ -140,5 +140,10 @@ class WorkgroupController extends Controller
 				return new Response(null, 200);
 	        }
 	    }
+
+		return $this->render('BtaskBoardBundle:Overview:form_update_workgroup.html.twig', array(
+			'form' => $form->createView(),
+			'workgroup' => $workgroup,
+		));
 	}
 }
