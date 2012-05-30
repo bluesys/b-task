@@ -183,7 +183,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function loadProjects()
     {
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             $project = new Project();
             $project->setName('Project '.$i);
             $project->setColor('#eee');

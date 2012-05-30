@@ -19,6 +19,7 @@ navigation:
         create: Save
         update: Save
         delete: Delete
+        reset: Cancel
 
 panel:
     option:

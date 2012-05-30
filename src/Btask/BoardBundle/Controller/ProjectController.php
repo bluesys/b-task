@@ -12,7 +12,6 @@ use Btask\BoardBundle\Entity\Project;
 
 class ProjectController extends Controller
 {
-	/*
 	public function showProjectsByWorkgroupAction($workgroup_slug)
 	{
 		$request = $this->container->get('request');
@@ -21,22 +20,24 @@ class ProjectController extends Controller
 			$user = $this->get('security.context')->getToken()->getUser();
 
 			$em = $this->getDoctrine()->getEntityManager();
-			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findBy(array('slug' => $workgroup_slug, 'user' => $user->getId()));
+			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBy(array('slug' => $workgroup_slug));
+
 			if (!$workgroup) {
 				throw new NotFoundHttpException();
 			}
 
-			$projects = $em->getRepository('BtaskBoardBundle:Project')->findBy('workgroup' => $workgroup->getId());
+			// TODO: Check if the workgroup is owned by
+			$projects = $em->getRepository('BtaskBoardBundle:Project')->findBy(array('workgroup' => $workgroup->getId()));
 			if (!$projects) {
-				throw new NotFoundHttpException();
+				// TODO: Return a notification
+				return new Response(null, 204);
 			}
 
-			return $this->render('BtaskBoardBundle:Overview:project.html.twig', array(
+			return $this->render('BtaskBoardBundle:Overview:projects.html.twig', array(
 				'projects' => $projects,
 			));
 		}
 	}
-	*/
 
 	/**
      * Delete a project

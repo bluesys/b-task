@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Btask\BoardBundle\Entity\Project
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Btask\BoardBundle\Entity\ProjectRepository")
  */
 class Project
 {
@@ -63,11 +63,17 @@ class Project
      */
     protected $workgroups;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ProjectCollaboration", mappedBy="project", cascade={"persist", "remove"})
+     */
+    protected $participations;
+
 
     public function __construct()
     {
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->workgroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->participations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -208,5 +214,59 @@ class Project
     public function getWorkgroups()
     {
         return $this->workgroups;
+    }
+
+    /**
+     * Add participations
+     *
+     * @param Btask\BoardBundle\Entity\ProjectCollaboration $participation
+     */
+    public function addParticipation(\Btask\BoardBundle\Entity\ProjectCollaboration $participation)
+    {
+        $this->participations[] = $participation;
+    }
+
+    /**
+     * Get participations
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getParticipations()
+    {
+        return $this->participations;
+    }
+
+    /**
+     * Check if the project as owned by user passed in parameter
+     *
+     * @param \Btask\UserBundle\Entity\User $user
+     * @param boolean true|false
+     */
+    public function hasOwner(\Btask\UserBundle\Entity\User $user)
+    {
+        foreach ($this->getParticipations() as $registredParticipation) {
+            if( ($registredParticipation->getParticipant() === $user) && ($registredParticipation->getOwner()) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the project is shared to the user passed in parameter
+     *
+     * @param \Btask\UserBundle\Entity\User $user
+     * @param boolean true|false
+     */
+    public function isSharedTo(\Btask\UserBundle\Entity\User $user)
+    {
+        foreach ($this->getParticipations() as $registredParticipation) {
+            if($registredParticipation->getParticipant() === $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

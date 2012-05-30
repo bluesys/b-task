@@ -38,6 +38,11 @@ class User extends BaseUser
      */
     protected $usersWorkgroups;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\ProjectCollaboration", mappedBy="participant", cascade={"remove", "persist"})
+     */
+    protected $projectCollaborations;
+
 
     public function __construct()
     {
@@ -45,6 +50,7 @@ class User extends BaseUser
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersWorkgroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projectCollaborations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -125,5 +131,25 @@ class User extends BaseUser
     public function getUsersWorkgroups()
     {
         return $this->usersWorkgroups;
+    }
+
+    /**
+     * Add project collaboration
+     *
+     * @param Btask\BoardBundle\Entity\ProjectCollaboration $projectCollaborations
+     */
+    public function addProjectCollaboration(\Btask\BoardBundle\Entity\ProjectCollaboration $projectCollaboration)
+    {
+        $this->projectCollaborations[] = $projectCollaboration;
+    }
+
+    /**
+     * Get project collaborations
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getProjectCollaborations()
+    {
+        return $this->projectCollaborations;
     }
 }
