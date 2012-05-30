@@ -46,9 +46,9 @@ class Workgroup
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserWorkgroup", mappedBy="workgroup", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="WorkgroupCollaboration", mappedBy="workgroup", cascade={"persist", "remove"})
      */
-    protected $usersWorkgroups;
+    protected $participations;
 
     /**
      * @ORM\ManyToMany(targetEntity="Project", mappedBy="workgroups", cascade={"all"})
@@ -65,7 +65,7 @@ class Workgroup
 
     public function __construct()
     {
-        $this->usersWorkgroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->participations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -140,23 +140,23 @@ class Workgroup
     }
 
     /**
-     * Add usersWorkgroups
+     * Add participations
      *
-     * @param Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups
+     * @param Btask\BoardBundle\Entity\WorkgroupCollaboration $participation
      */
-    public function addUserWorkgroup(\Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups)
+    public function addParticipation(\Btask\BoardBundle\Entity\WorkgroupCollaboration $participation)
     {
-        $this->usersWorkgroups[] = $usersWorkgroups;
+        $this->participations[] = $participation;
     }
 
     /**
-     * Get usersWorkgroups
+     * Get participations
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getUsersWorkgroups()
+    public function getParticipations()
     {
-        return $this->usersWorkgroups;
+        return $this->participations;
     }
 
     /**
@@ -207,8 +207,8 @@ class Workgroup
      */
     public function hasOwner(\Btask\UserBundle\Entity\User $user)
     {
-        foreach ($this->getUsersWorkgroups() as $registredWorkgroup) {
-            if( ($registredWorkgroup->getUser() === $user) && ($registredWorkgroup->getOwner()) ) {
+        foreach ($this->getParticipations() as $registredParticipation) {
+            if( ($registredParticipation->getParticipant() === $user) && ($registredParticipation->getOwner()) ) {
                 return true;
             }
         }
@@ -224,8 +224,8 @@ class Workgroup
      */
     public function isSharedTo(\Btask\UserBundle\Entity\User $user)
     {
-        foreach ($this->getUsersWorkgroups() as $registredWorkgroup) {
-            if($registredWorkgroup->getUser() === $user) {
+        foreach ($this->getParticipations() as $registredParticipation) {
+            if($registredParticipation->getParticipant() === $user) {
                 return true;
             }
         }

@@ -34,9 +34,9 @@ class User extends BaseUser
     protected $tasks;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\UserWorkgroup", mappedBy="user", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\WorkgroupCollaboration", mappedBy="participant", cascade={"remove", "persist"})
      */
-    protected $usersWorkgroups;
+    protected $workgroupCollaborations;
 
     /**
      * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\ProjectCollaboration", mappedBy="participant", cascade={"remove", "persist"})
@@ -49,7 +49,7 @@ class User extends BaseUser
         parent::__construct();
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usersWorkgroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->workgroupCollaborations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->projectCollaborations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -114,23 +114,23 @@ class User extends BaseUser
     }
 
     /**
-     * Add usersWorkgroups
+     * Add workgroup collaboration
      *
-     * @param Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups
+     * @param Btask\BoardBundle\Entity\WorkgroupCollaboration $workgroupCollaboration
      */
-    public function addUserWorkgroup(\Btask\BoardBundle\Entity\UserWorkgroup $usersWorkgroups)
+    public function addWorkgroupCollaboration(\Btask\BoardBundle\Entity\WorkgroupCollaboration $workgroupCollaboration)
     {
-        $this->usersWorkgroups[] = $usersWorkgroups;
+        $this->workgroupCollaborations[] = $workgroupCollaboration;
     }
 
     /**
-     * Get usersWorkgroups
+     * Get workgroup collaboration
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getUsersWorkgroups()
+    public function getWorkgroupCollaborations()
     {
-        return $this->usersWorkgroups;
+        return $this->workgroupCollaborations;
     }
 
     /**

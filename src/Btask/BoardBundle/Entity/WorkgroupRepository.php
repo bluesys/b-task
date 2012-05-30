@@ -42,8 +42,8 @@ class WorkgroupRepository extends EntityRepository
 
 				// Sort by participant
 				case 'participant':
-					$qb->innerJoin('w.usersWorkgroups', 'uw');
-					$qb->andWhere('uw.user = :user_id');
+					$qb->innerJoin('w.participations', 'wp');
+					$qb->andWhere('wp.participant = :user_id');
 
 					$parameters['user_id'] = $value;
 					break;

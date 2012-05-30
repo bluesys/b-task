@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Btask\BoardBundle\Entity\Workgroup;
-use Btask\BoardBundle\Entity\UserWorkgroup;
+use Btask\BoardBundle\Entity\WorkgroupCollaboration;
 use Btask\BoardBundle\Form\Type\WorkgroupType;
 
 class WorkgroupController extends Controller
@@ -91,12 +91,12 @@ class WorkgroupController extends Controller
 		        	$em->persist($workgroup);
 		            $em->flush();
 
-					$userWorkgroup = new UserWorkgroup;
-					$userWorkgroup->setUser($user);
-					$userWorkgroup->setWorkgroup($workgroup);
-					$userWorkgroup->setOwner(true);
+					$workgroupCollaboration = new WorkgroupCollaboration;
+					$workgroupCollaboration->setParticipant($user);
+					$workgroupCollaboration->setWorkgroup($workgroup);
+					$workgroupCollaboration->setOwner(true);
 
-		            $em->persist($userWorkgroup);
+		            $em->persist($workgroupCollaboration);
 		            $em->flush();
 
 		            // TODO: Return a notification
