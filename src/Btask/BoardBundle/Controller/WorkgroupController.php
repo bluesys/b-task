@@ -15,6 +15,10 @@ use Btask\BoardBundle\Form\Type\WorkgroupType;
 class WorkgroupController extends Controller
 {
 
+	/**
+	 * Display a workgroup
+	 *
+	 */
 	public function showWorkgroupAction($id)
 	{
 		$request = $this->container->get('request');
@@ -30,8 +34,8 @@ class WorkgroupController extends Controller
 				throw new NotFoundHttpException();
 			}
 
-			// Check if the workgroup is shared to the current logged user
-			if($workgroup->isSharedTo($user)) {
+			// Check if the workgroup is owned by the current logged user
+			if(!$workgroup->hasOwner($user)) {
 				throw new AccessDeniedHttpException();
 			}
 
@@ -39,7 +43,11 @@ class WorkgroupController extends Controller
 				'workgroup' => $workgroup,
 			));
 		}
+		else {
+			throw new NotFoundHttpException();
+		}
 	}
+
 
    /**
      * Display workgroups of the current logged user
@@ -54,18 +62,31 @@ class WorkgroupController extends Controller
 
 			// Get workgroups
 			$em = $this->getDoctrine()->getEntityManager();
-			$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findBy(array('participant' => $user->getId()));
+			$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findBy(array('owner' => $user->getId()));
 
 			if (!$workgroups) {
 				// TODO: Return a notification
 				return new Response(null, 204);
 			}
 
-			return $this->render('BtaskBoardBundle:Overview:workgroups.html.twig', array(
-				'workgroups' => $workgroups,
-			));
+			// Return a JSON feed of workgroup templates
+			$workgroups_template[] = array();
+			foreach ($workgroups as $workgroup) {
+		    	$workgroups_template[] = $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array('workgroup' => $workgroup))->getContent();
+			}
+
+			if(!$workgroups_template) {
+				// TODO: Return a notification
+				return new Response(null, 204);
+			}
+
+			return new Response(json_encode($workgroups_template), 200);
+		}
+		else {
+			throw new NotFoundHttpException();
 		}
 	}
+
 
    /**
      * Display a form to create a workgroup
@@ -83,7 +104,7 @@ class WorkgroupController extends Controller
 			$workgroup = new Workgroup;
 		    $form = $this->createForm(new WorkgroupType(), $workgroup);
 
-		    if( $request->getMethod() == 'POST' ) {
+		    if($request->getMethod() == 'POST') {
 		        $form->bindRequest($request);
 
 		        if( $form->isValid() ) {
@@ -108,7 +129,11 @@ class WorkgroupController extends Controller
 				'form' => $form->createView(),
 			));
 		}
+		else {
+			throw new NotFoundHttpException();
+		}
 	}
+
 
 	/**
      * Display a form to edit a workgroup
@@ -125,36 +150,43 @@ class WorkgroupController extends Controller
 			$em = $this->getDoctrine()->getEntityManager();
 			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
 
-			// Check if the workgroup is shared to the current logged user
-			if ($workgroup && $workgroup->isSharedTo($user)) {
-			    $form = $this->createForm(new WorkgroupType(), $workgroup);
-
-				// Generate the form
-				// TODO: Move this logic below in a form handler
-				$request = $this->container->get('request');
-			    if( $request->getMethod() == 'POST' ) {
-			        $form->bindRequest($request);
-
-			        if( $form->isValid() ) {
-						$em = $this->getDoctrine()->getEntityManager();
-			        	$em->persist($workgroup);
-			            $em->flush();
-
-						// TODO: Return a notification
-						return new Response(null, 200);
-			        }
-			    }
-
-				return $this->render('BtaskBoardBundle:Overview:form_update_workgroup.html.twig', array(
-					'form' => $form->createView(),
-					'workgroup' => $workgroup,
-				));
-			}
-			else {
+			if (!$workgroup) {
 				throw new NotFoundHttpException();
 			}
+
+			// Check if the workgroup is owned by the current logged user
+			if (!$workgroup->hasOwner($user)) {
+				throw new AccessDeniedHttpException();
+			}
+
+		    $form = $this->createForm(new WorkgroupType(), $workgroup);
+
+			// Generate the form
+			// TODO: Move this logic below in a form handler
+			$request = $this->container->get('request');
+		    if( $request->getMethod() == 'POST' ) {
+		        $form->bindRequest($request);
+
+		        if( $form->isValid() ) {
+					$em = $this->getDoctrine()->getEntityManager();
+		        	$em->persist($workgroup);
+		            $em->flush();
+
+					// TODO: Return a notification
+					return new Response(null, 200);
+		        }
+		    }
+
+			return $this->render('BtaskBoardBundle:Overview:form_update_workgroup.html.twig', array(
+				'form' => $form->createView(),
+				'workgroup' => $workgroup,
+			));
+		}
+		else {
+			throw new NotFoundHttpException();
 		}
 	}
+
 
 	/**
      * Delete a workgroup
@@ -171,17 +203,23 @@ class WorkgroupController extends Controller
 			$em = $this->getDoctrine()->getEntityManager();
 			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
 
-			// Check if the workgroup is owned by the current logged user
-			if ($workgroup && $workgroup->hasOwner($user)) {
-				$em->remove($workgroup);
-				$em->flush();
-
-				// TODO: Return a notification
-				return new Response(null, 200);
-			}
-			else {
+			if (!$workgroup) {
 				throw new NotFoundHttpException();
 			}
+
+			// Check if the workgroup is owned by the current logged user
+			if(!$workgroup->hasOwner($user)) {
+				throw new AccessDeniedHttpException();
+			}
+
+			$em->remove($workgroup);
+			$em->flush();
+
+			// TODO: Return a notification
+			return new Response(null, 200);
+		}
+		else {
+			throw new NotFoundHttpException();
 		}
 	}
 }

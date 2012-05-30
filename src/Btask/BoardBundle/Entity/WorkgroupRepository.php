@@ -48,6 +48,16 @@ class WorkgroupRepository extends EntityRepository
 					$parameters['user_id'] = $value;
 					break;
 
+				// Sort by owner
+				case 'owner':
+					$qb->innerJoin('w.participations', 'wp');
+					$qb->andWhere('wp.participant = :user_id');
+					$qb->andWhere('wp.owner = :true');
+
+					$parameters['user_id'] = $value;
+					$parameters['true'] = true;
+					break;
+
 				default:
 					throw new \InvalidArgumentException('parameter not available');
 					break;
