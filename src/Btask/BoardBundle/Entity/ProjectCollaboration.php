@@ -29,8 +29,8 @@ class ProjectCollaboration
     protected $participant;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="Workgroup", inversedBy="participations", cascade={"persist"})
-     * @ORM\JoinColumn(name="workgroup_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="participations", cascade={"persist"})
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */
     protected $project;
 

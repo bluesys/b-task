@@ -4,7 +4,7 @@
  * @author Geoffroy Perriard <geoffroy.perriard@gmail.com>
  *
  */
-
+/*
 // Display all workgroups of the logged user
 function getWorkgroups() {
     $.ajax({
@@ -181,4 +181,4 @@ function deleteProject(projectId) {
 			}
 		});
 	}
-	*/
+*/

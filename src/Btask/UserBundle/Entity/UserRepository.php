@@ -1,13 +1,13 @@
 <?php
 
-namespace Btask\BoardBundle\Entity;
+namespace Btask\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-class ProjectRepository extends EntityRepository
+class UserRepository extends EntityRepository
 {
 	/**
-	 * Finds projects by a set of criteria.
+	 * Finds users by a set of criteria.
 	 *
 	 * @param array $criteria
 	 * @param array|null $orderBy
@@ -17,32 +17,17 @@ class ProjectRepository extends EntityRepository
 	 */
 	public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
 	{
-		$qb = $this->createQueryBuilder('p');
+		$qb = $this->createQueryBuilder('u');
 		$parameters = array();
 
 		foreach ($criteria as $key => $value) {
 			switch($key) {
-				// Sort by id
-				case 'id':
-					$qb->andWhere('p.id = :id');
+				// Sort by project collaborations
+				case 'projectCollaboration':
+					$qb->innerJoin('u.projectCollaborations', 'pc');
+					$qb->andWhere('pc.project = :project_id');
 
-					$parameters['id'] = $value;
-					break;
-
-				// Sort by workgroup
-				case 'workgroup':
-					$qb->innerJoin('p.workgroups', 'pw');
-					$qb->andWhere('pw = :workgroup_id');
-
-					$parameters['workgroup_id'] = $value;
-					break;
-
-				// Sort by participant
-				case 'participant':
-					$qb->innerJoin('p.participations', 'pp');
-					$qb->andWhere('pp.participant = :user_id');
-
-					$parameters['user_id'] = $value;
+					$parameters['project_id'] = $value;
 					break;
 
 				default:

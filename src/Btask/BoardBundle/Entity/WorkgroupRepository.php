@@ -48,6 +48,13 @@ class WorkgroupRepository extends EntityRepository
 					$parameters['user_id'] = $value;
 					break;
 
+				// Sort by participant
+				case 'shared':
+					$qb->andWhere('wp.shared = :true');
+
+					$parameters['true'] = $value;
+					break;
+
 				// Sort by owner
 				case 'owner':
 					$qb->innerJoin('w.participations', 'wp');

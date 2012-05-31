@@ -10,7 +10,7 @@ use Btask\BoardBundle\Entity\Item;
  * Btask\UserBundle\Entity\User
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Btask\UserBundle\Entity\UserRepository")
  */
 class User extends BaseUser
 {

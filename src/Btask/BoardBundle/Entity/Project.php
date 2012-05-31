@@ -68,6 +68,12 @@ class Project
      */
     protected $participations;
 
+    /**
+     * @Gedmo\Slug(fields={"name"}, separator="_")
+     * @ORM\Column(name="slug", type="string", length=128, unique=true)
+     */
+    protected $slug;
+
 
     public function __construct()
     {
@@ -177,6 +183,26 @@ class Project
     }
 
     /**
+     * Set slug
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slig = $slug;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Add tasks
      *
      * @param Btask\BoardBundle\Entity\Item $tasks
@@ -237,7 +263,7 @@ class Project
     }
 
     /**
-     * Check if the project as owned by user passed in parameter
+     * Check if the project as owned by user
      *
      * @param \Btask\UserBundle\Entity\User $user
      * @param boolean true|false
@@ -254,7 +280,7 @@ class Project
     }
 
     /**
-     * Check if the project is shared to the user passed in parameter
+     * Check if the project is shared to the user
      *
      * @param \Btask\UserBundle\Entity\User $user
      * @param boolean true|false

@@ -116,6 +116,7 @@ class WorkgroupController extends Controller
 					$workgroupCollaboration->setParticipant($user);
 					$workgroupCollaboration->setWorkgroup($workgroup);
 					$workgroupCollaboration->setOwner(true);
+					$workgroupCollaboration->setShared(false);
 
 		            $em->persist($workgroupCollaboration);
 		            $em->flush();

@@ -41,6 +41,13 @@ class WorkgroupCollaboration
      */
     protected $owner;
 
+    /**
+     * @var boolean $shared
+     *
+     * @ORM\Column(name="shared", type="boolean", nullable=false)
+     */
+    protected $shared;
+
 
     /**
      * Get id
@@ -70,6 +77,26 @@ class WorkgroupCollaboration
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * Set shared
+     *
+     * @param boolean $owner
+     */
+    public function setShared($shared)
+    {
+        $this->shared = $shared;
+    }
+
+    /**
+     * Get shared
+     *
+     * @return boolean
+     */
+    public function getShared()
+    {
+        return $this->shared;
     }
 
     /**

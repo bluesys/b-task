@@ -10,6 +10,7 @@ use Btask\BoardBundle\Entity\ItemType;
 use Btask\BoardBundle\Entity\Workgroup;
 use Btask\BoardBundle\Entity\WorkgroupCollaboration;
 use Btask\BoardBundle\Entity\Project;
+use Btask\BoardBundle\Entity\ProjectCollaboration;
 
 /**
  * Load some items in database
@@ -30,12 +31,13 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
-        $this->owner = $manager->merge($this->getReference('test_user1'));
-        $this->executor = $manager->merge($this->getReference('test_user2'));
+        $this->owner = $manager->merge($this->getReference('user1'));
+        $this->executor = $manager->merge($this->getReference('user2'));
 
         $this->loadWorkgroups();
         $this->loadWorkgroupCollaboration();
         $this->loadProjects();
+        $this->loadProjectCollaboration();
         $this->loadItemType();
         $this->loadOverdueTasks();
         $this->loadPlannedTasks();
@@ -165,12 +167,13 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function loadWorkgroupCollaboration()
     {
+
         for ($i = 1; $i <= 3; $i++) {
             $workgroupCollaboration = new WorkgroupCollaboration();
             $workgroupCollaboration->setWorkgroup($this->manager->merge($this->getReference('workgroup'.$i)));
-            $workgroupCollaboration->setParticipant($this->manager->merge($this->getReference('test_user2')));
+            $workgroupCollaboration->setParticipant($this->manager->merge($this->getReference('user2')));
             $workgroupCollaboration->setOwner(true);
-
+            $workgroupCollaboration->setShared(false);
             $this->manager->persist($workgroupCollaboration);
         }
 
@@ -178,7 +181,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * Load attribute fake workgroups to a fake user
+     * Load attribute fake project to a fake workgroup
      *
      */
     public function loadProjects()
@@ -190,6 +193,25 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $project->addWorkgroup($this->manager->merge($this->getReference('workgroup1')));
 
             $this->manager->persist($project);
+            $this->manager->flush();
+
+            $this->addReference('project'.$i, $project);
+        }
+    }
+
+    /**
+     * Load attribute fake projects to a fake user
+     *
+     */
+    public function loadProjectCollaboration()
+    {
+        for ($i = 1; $i <= 5; $i++) {
+            $projectCollaboration = new ProjectCollaboration();
+            $projectCollaboration->setProject($this->manager->merge($this->getReference('project'.$i)));
+            $projectCollaboration->setParticipant($this->manager->merge($this->getReference('user2')));
+            $projectCollaboration->setOwner(true);
+
+            $this->manager->persist($projectCollaboration);
         }
 
         $this->manager->flush();

@@ -18,30 +18,76 @@ class PostItController extends Controller
 	 * Display the post-it of the logged user
 	 *
 	 */
-    public function showPostItAction()
+    public function showPostsItAction()
     {
 		$request = $this->container->get('request');
+		if($request->isXmlHttpRequest()) {
 
-		// Check if it is an Ajax request
-		if(!$request->isXmlHttpRequest()) {
-			throw new MethodNotAllowedHttpException();
+			$user = $this->get('security.context')->getToken()->getUser();
+
+			// Get all the post-it from the logged user
+			$em = $this->getDoctrine()->getEntityManager();
+			$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
+			$postsIt = $em->getRepository('BtaskBoardBundle:Item')->findBy(array('type' => $postItType->getId(), 'owner' => $user->getId()));
+
+			if (!$postsIt) {
+				return new Response(null, 204);
+			}
+
+			// Return a JSON feed of workgroup templates
+			$post_it_template = array();
+			foreach ($postsIt as $postIt) {
+    			$post_it_template[] = $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array('post_it' => $postIt))->getContent();
+			}
+
+			if(!$post_it_template) {
+				// TODO: Return a notification
+				return new Response(null, 204);
+			}
+
+			return new Response(json_encode($post_it_template), 200);
 		}
-
-		// Get the current logged user
-		$user = $this->get('security.context')->getToken()->getUser();
-
-		// Get all the post-it from the logged user
-		$em = $this->getDoctrine()->getEntityManager();
-		$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
-		$postsIt = $em->getRepository('BtaskBoardBundle:Item')->findBy(array('type' => $postItType->getId(), 'owner' => $user->getId()));
-
-		if (!$postsIt) {
-			return new Response(null, 204);
+		else {
+            throw new NotFoundHttpException();
 		}
+    }
 
-        return $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array(
-            'posts_it' => $postsIt
-        ));
+	/**
+	 * Display a post-it of the logged user
+	 *
+	 */
+    public function showPostItAction($id)
+    {
+		$request = $this->container->get('request');
+		if($request->isXmlHttpRequest()) {
+
+			$user = $this->get('security.context')->getToken()->getUser();
+
+			// Get all the post-it from the logged user
+			$em = $this->getDoctrine()->getEntityManager();
+			$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
+			$postIt = $em->getRepository('BtaskBoardBundle:Item')->findBy(array( 'type' => $postItType->getId(), 'owner' => $user->getId()));
+
+			if (!$postsIt) {
+				return new Response(null, 204);
+			}
+
+			// Return a JSON feed of workgroup templates
+			$post_it_template = array();
+			foreach ($postsIt as $postIt) {
+    			$post_it_template[] = $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array('post_it' => $postIt))->getContent();
+			}
+
+			if(!$post_it_template) {
+				// TODO: Return a notification
+				return new Response(null, 204);
+			}
+
+			return new Response(json_encode($post_it_template), 200);
+		}
+		else {
+            throw new NotFoundHttpException();
+		}
     }
 
 	/**
@@ -50,38 +96,45 @@ class PostItController extends Controller
 	 */
     public function createPostItAction()
 	{
-		// Get the current logged user
-		$user = $this->get('security.context')->getToken()->getUser();
+		$request = $this->container->get('request');
+		//if($request->isXmlHttpRequest()) {
 
-		$em = $this->getDoctrine()->getEntityManager();
-		$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
+			$user = $this->get('security.context')->getToken()->getUser();
 
-		// Create and set default value to the post-it
-	    $item = new Item;
-	    $item->setType($postItType);
-	    $item->setOwner($user);
+			$em = $this->getDoctrine()->getEntityManager();
+			$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
 
-	    // Generate the form
-	    // TODO: Move this logic below in a form handler
-		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
-	    $form = $this->createForm(new PostItType(), $item);
+			// Create and set default value to the post-it
+		    $item = new Item;
+		    $item->setType($postItType);
+		    $item->setOwner($user);
 
-	    $request = $this->get('request');
-	    if( $request->getMethod() == 'POST' ) {
-	        $form->bindRequest($request);
+		    // Generate the form
+		    // TODO: Move this logic below in a form handler
+			$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
+		    $form = $this->createForm(new PostItType(), $item);
 
-	        if( $form->isValid() ) {
-	            $em->persist($item);
-	            $em->flush();
+		    $request = $this->get('request');
+		    if( $request->getMethod() == 'POST' ) {
+		        $form->bindRequest($request);
 
-	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
-	        }
-	    }
+		        if( $form->isValid() ) {
+		            $em->persist($item);
+		            $em->flush();
 
-	    return $this->render('BtaskBoardBundle:Dashboard:form_item.html.twig', array(
-	        'form' => $form->createView(),
-	       	'actionUrl' => $actionUrl,
-	    ));
+					// TODO: Return a notification
+		            return new Response(null, 200);
+		        }
+		    }
+
+		    return $this->render('BtaskBoardBundle:Dashboard:form_item.html.twig', array(
+		        'form' => $form->createView(),
+		       	'actionUrl' => $actionUrl,
+		    ));
+		/*}
+		else {
+            throw new NotFoundHttpException();
+		}*/
 	}
 
 	/**
