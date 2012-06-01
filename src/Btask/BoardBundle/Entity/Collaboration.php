@@ -36,7 +36,7 @@ class Collaboration
 
     /**
      * @ORM\ManyToOne(targetEntity="Workgroup", inversedBy="collaborations", cascade={"persist"})
-     * @ORM\JoinColumn(name="workgroup_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="workgroup_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $workgroup;
 

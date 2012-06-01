@@ -46,7 +46,7 @@ class Workgroup
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Collaboration", mappedBy="workgroup", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Collaboration", mappedBy="workgroup", cascade={"persist"})
      */
     protected $collaborations;
 
