@@ -147,88 +147,31 @@ class ProjectController extends Controller
 		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
-		$em = $this->getDoctrine()->getEntityManager();
-		$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findBy(array('participant' => $user->getId()));
-		$users = $em->getRepository('BtaskUserBundle:User')->findAll();
 
-		$project = new Project;
+		// Generate the form
+		// TODO: Move this logic below in a form handler
+		$workgroup = new Workgroup;
+	    $form = $this->createForm(new WorkgroupType(), $workgroup);
 
-		// TODO: Refactor all of this logic
 	    if($request->getMethod() == 'POST') {
-			$project->setName($_POST['project_name']);
-			$project->setColor($_POST['project_color']);
+	        $form->bindRequest($request);
 
-			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($_POST['project_workgroup']);
-			$project->addWorkgroup($workgroup);
+	        if( $form->isValid() ) {
+				$em = $this->getDoctrine()->getEntityManager();
 
-			// Add the project to the current user
-			$projectCollaboration = new ProjectCollaboration;
-			$projectCollaboration->setParticipant($user);
-			$projectCollaboration->setProject($project);
-			$projectCollaboration->setOwner(true);
+				// Assign this workgroup to the current user
+				$workgroup->setOwner($user);
 
-			// Add the project to otherrs users
-			foreach ($_POST['project_users'] as $project_user) {
-				$currentProject = $em->getRepository('BtaskUserBundle:User')->find($project_user);
-				$projectCollaboration = new ProjectCollaboration;
-				$projectCollaboration->setParticipant($currentProject);
-				$projectCollaboration->setProject($project);
-				$projectCollaboration->setOwner(false);
-			}
+	        	$em->persist($workgroup);
+	            $em->flush();
 
-			$em->persist($project);
-			$em->flush();
-
-			// TODO: Return a notification
-			$response = new Response(null, 200);
-
-			return $response;
+	            // TODO: Return a notification
+				return new Response(null, 200);
+	        }
 	    }
 
-		return $this->render('BtaskBoardBundle:Overview:form_create_project.html.twig', array(
-			'workgroups' => $workgroups,
-			'project' => $project,
-			'users' => $users
-		));
-	}
-
-   /**
-     * Display a form to edit a project
-     *
-     */
-	public function updateProjectAction($id)
-	{
-		$request = $this->container->get('request');
-		if(!$request->isXmlHttpRequest()) {
-			throw new NotFoundHttpException();
-		}
-
-		$user = $this->get('security.context')->getToken()->getUser();
-
-		$em = $this->getDoctrine()->getEntityManager();
-		$project = $em->getRepository('BtaskBoardBundle:Project')->find($id);
-		$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findBy(array('participant' => $user->getId()));
-
-		// TODO: Refactor all of this logic
-	    if($request->getMethod() == 'POST') {
-			$project->setName($_POST['project_name']);
-			$project->setColor($_POST['project_color']);
-
-			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($_POST['project_workgroup']);
-			$project->addWorkgroup($workgroup);
-
-			$em->persist($project);
-			$em->flush();
-
-			// TODO: Return a notification
-			$response = new Response(null, 200);
-
-			return $response;
-	    }
-
-		return $this->render('BtaskBoardBundle:Overview:form_create_project.html.twig', array(
-			'workgroups' => $workgroups,
-			'project' => $project,
+		return $this->render('BtaskBoardBundle:Overview:form_create_workgroup.html.twig', array(
+			'form' => $form->createView(),
 		));
 	}
 
@@ -260,7 +203,7 @@ class ProjectController extends Controller
             throw new AccessDeniedHttpException();
 		}
 
-		$em->remove($workgroup);
+		$em->remove($project);
 		$em->flush();
 
 		// TODO: Return a notification

@@ -243,8 +243,8 @@ class Project
      */
     public function hasOwner(\Btask\UserBundle\Entity\User $user)
     {
-        foreach ($this->getParticipations() as $registredParticipation) {
-            if( ($registredParticipation->getParticipant() === $user) && ($registredParticipation->getOwner()) ) {
+        foreach ($this->getCollaborations() as $registredCollaboration) {
+            if( ($registredCollaboration->getParticipant() === $user) && ($registredCollaboration->getOwner()) ) {
                 return true;
             }
         }
