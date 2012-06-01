@@ -58,15 +58,9 @@ class Project
     protected $tasks;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Workgroup", inversedBy="projects", cascade={"all"})
-     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")})
+     * @ORM\OneToMany(targetEntity="Collaboration", mappedBy="project", cascade={"persist", "remove"})
      */
-    protected $workgroups;
-
-    /**
-     * @ORM\OneToMany(targetEntity="ProjectCollaboration", mappedBy="project", cascade={"persist", "remove"})
-     */
-    protected $participations;
+    protected $collaborations;
 
     /**
      * @Gedmo\Slug(fields={"name"}, separator="_")
@@ -78,8 +72,7 @@ class Project
     public function __construct()
     {
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->workgroups = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->participations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->collaborations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -223,43 +216,23 @@ class Project
     }
 
     /**
-     * Add workgroups
+     * Add a collaboration
      *
-     * @param Btask\BoardBundle\Entity\Workgroup $workgroups
+     * @param Btask\BoardBundle\Entity\Collaboration $collaboration
      */
-    public function addWorkgroup(\Btask\BoardBundle\Entity\Workgroup $workgroups)
+    public function addCollaboration(\Btask\BoardBundle\Entity\Collaboration $collaboration)
     {
-        $this->workgroups[] = $workgroups;
+        $this->collaborations[] = $collaboration;
     }
 
     /**
-     * Get workgroups
+     * Get collaborations
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getWorkgroups()
+    public function getCollaborations()
     {
-        return $this->workgroups;
-    }
-
-    /**
-     * Add participations
-     *
-     * @param Btask\BoardBundle\Entity\ProjectCollaboration $participation
-     */
-    public function addParticipation(\Btask\BoardBundle\Entity\ProjectCollaboration $participation)
-    {
-        $this->participations[] = $participation;
-    }
-
-    /**
-     * Get participations
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getParticipations()
-    {
-        return $this->participations;
+        return $this->collaborations;
     }
 
     /**

@@ -46,15 +46,9 @@ class Workgroup
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="WorkgroupCollaboration", mappedBy="workgroup", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Collaboration", mappedBy="workgroup", cascade={"persist", "remove"})
      */
-    protected $participations;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Project", mappedBy="workgroups", cascade={"all"})
-     * @ORM\JoinTable(name="projects_workgroups", joinColumns={@ORM\JoinColumn(name="workgroup_id", referencedColumnName="id", onDelete="CASCADE")})
-     */
-    protected $projects;
+    protected $collaborations;
 
     /**
      * @Gedmo\Slug(fields={"name"}, separator="_")
@@ -62,11 +56,23 @@ class Workgroup
      */
     protected $slug;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="workgroups", cascade={"remove"})
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", nullable=false)
+     */
+    protected $owner;
+
+    /**
+     * @var boolean $shared
+     *
+     * @ORM\Column(name="shared", type="boolean", nullable=false)
+     */
+    protected $shared;
+
 
     public function __construct()
     {
-        $this->participations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->collaborations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -140,43 +146,23 @@ class Workgroup
     }
 
     /**
-     * Add participations
+     * Add a collaboration
      *
-     * @param Btask\BoardBundle\Entity\WorkgroupCollaboration $participation
+     * @param Btask\BoardBundle\Entity\Collaboration $collaboration
      */
-    public function addParticipation(\Btask\BoardBundle\Entity\WorkgroupCollaboration $participation)
+    public function addCollaboration(\Btask\BoardBundle\Entity\Collaboration $collaboration)
     {
-        $this->participations[] = $participation;
+        $this->collaborations[] = $collaboration;
     }
 
     /**
-     * Get participations
+     * Get collaborations
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getParticipations()
+    public function getCollaborations()
     {
-        return $this->participations;
-    }
-
-    /**
-     * Add projects
-     *
-     * @param Btask\BoardBundle\Entity\Project $projects
-     */
-    public function addProject(\Btask\BoardBundle\Entity\Project $projects)
-    {
-        $this->projects[] = $projects;
-    }
-
-    /**
-     * Get projects
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getProjects()
-    {
-        return $this->projects;
+        return $this->collaborations;
     }
 
     /**
@@ -197,6 +183,46 @@ class Workgroup
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param Btask\UserBundle\Entity\User
+     */
+    public function setOwner(\Btask\UserBundle\Entity\User $type)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return Btask\UserBundle\Entity\User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Set shared
+     *
+     * @param boolean $shared
+     */
+    public function setShared($shared)
+    {
+        $this->shared = $shared;
+    }
+
+    /**
+     * Get shared
+     *
+     * @return boolean
+     */
+    public function getShared()
+    {
+        return $this->shared;
     }
 
     /**

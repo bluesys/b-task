@@ -5,6 +5,8 @@ namespace Btask\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Btask\BoardBundle\Entity\Item;
+use Btask\BoardBundle\Entity\Workgroup;
+use Btask\BoardBundle\Entity\Collaboration;
 
 /**
  * Btask\UserBundle\Entity\User
@@ -34,14 +36,14 @@ class User extends BaseUser
     protected $tasks;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\WorkgroupCollaboration", mappedBy="participant", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Workgroup", mappedBy="owner", cascade={"persist", "remove"})
      */
-    protected $workgroupCollaborations;
+    protected $workgroups;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\ProjectCollaboration", mappedBy="participant", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="\Btask\BoardBundle\Entity\Collaboration", mappedBy="participant", cascade={"remove", "persist"})
      */
-    protected $projectCollaborations;
+    protected $collaborations;
 
 
     public function __construct()
@@ -49,8 +51,8 @@ class User extends BaseUser
         parent::__construct();
         $this->items = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->workgroupCollaborations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->projectCollaborations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->workgroups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->collaborations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -114,42 +116,42 @@ class User extends BaseUser
     }
 
     /**
-     * Add workgroup collaboration
-     *
-     * @param Btask\BoardBundle\Entity\WorkgroupCollaboration $workgroupCollaboration
-     */
-    public function addWorkgroupCollaboration(\Btask\BoardBundle\Entity\WorkgroupCollaboration $workgroupCollaboration)
-    {
-        $this->workgroupCollaborations[] = $workgroupCollaboration;
-    }
-
-    /**
-     * Get workgroup collaboration
+     * Get workgroups
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getWorkgroupCollaborations()
+    public function getWorkgroups()
     {
-        return $this->workgroupCollaborations;
+        return $this->workgroups;
     }
 
     /**
-     * Add project collaboration
+     * Add a workgroup
      *
-     * @param Btask\BoardBundle\Entity\ProjectCollaboration $projectCollaborations
+     * @param Btask\BoardBundle\Entity\Workgroup $workgroup
      */
-    public function addProjectCollaboration(\Btask\BoardBundle\Entity\ProjectCollaboration $projectCollaboration)
+    public function addWorkgroup(\Btask\BoardBundle\Entity\Workgroup $workgroup)
     {
-        $this->projectCollaborations[] = $projectCollaboration;
+        $this->workgroups[] = $workgroup;
     }
 
     /**
-     * Get project collaborations
+     * Add a collaboration
+     *
+     * @param Btask\BoardBundle\Entity\Collaboration $collaboration
+     */
+    public function addCollaboration(\Btask\BoardBundle\Entity\Collaboration $collaboration)
+    {
+        $this->collaborations[] = $collaboration;
+    }
+
+    /**
+     * Get collaborations
      *
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getProjectCollaborations()
+    public function getCollaborations()
     {
-        return $this->projectCollaborations;
+        return $this->collaborations;
     }
 }
