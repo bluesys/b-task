@@ -16,6 +16,7 @@ class WorkgroupRepository extends EntityRepository
 	 * @param int|null $offset
 	 * @return array workgroups.
 	 */
+	/*
 	public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
 	{
 		$qb = $this->createQueryBuilder('w');
@@ -40,31 +41,6 @@ class WorkgroupRepository extends EntityRepository
 					$singleResult = true;
 					break;
 
-				// Sort by participant
-				case 'participant':
-					$qb->innerJoin('w.participations', 'wp');
-					$qb->andWhere('wp.participant = :user_id');
-
-					$parameters['user_id'] = $value;
-					break;
-
-				// Sort by participant
-				case 'shared':
-					$qb->andWhere('wp.shared = :true');
-
-					$parameters['true'] = $value;
-					break;
-
-				// Sort by owner
-				case 'owner':
-					$qb->innerJoin('w.participations', 'wp');
-					$qb->andWhere('wp.participant = :user_id');
-					$qb->andWhere('wp.owner = :true');
-
-					$parameters['user_id'] = $value;
-					$parameters['true'] = true;
-					break;
-
 				default:
 					throw new \InvalidArgumentException('parameter not available');
 					break;
@@ -84,4 +60,5 @@ class WorkgroupRepository extends EntityRepository
 		return $qb->getQuery()->getArrayResult();
 
 	}
+	*/
 }
