@@ -22,17 +22,10 @@ class ProjectRepository extends EntityRepository
 
 		foreach ($criteria as $key => $value) {
 			switch($key) {
-				// Sort by id
-				case 'id':
-					$qb->andWhere('p.id = :id');
-
-					$parameters['id'] = $value;
-					break;
-
 				// Sort by workgroup
 				case 'workgroup':
-					$qb->innerJoin('p.workgroups', 'pw');
-					$qb->andWhere('pw = :workgroup_id');
+					$qb->innerJoin('p.collaborations', 'pc');
+					$qb->andWhere('pc.workgroup = :workgroup_id');
 
 					$parameters['workgroup_id'] = $value;
 					break;
@@ -56,6 +49,6 @@ class ProjectRepository extends EntityRepository
 		($offset) ? $qb->setFirstResult($offset) : null;
 		($limit) ? $qb->setMaxResults($limit) : null;
 
-		return $qb->getQuery()->getArrayResult();
+		return $qb->getQuery()->getResult();
 	}
 }

@@ -181,9 +181,9 @@ class WorkgroupController extends Controller
 	public function deleteWorkgroupAction($id)
 	{
 		$request = $this->container->get('request');
-		/*if(!$request->isXmlHttpRequest()) {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
-		}*/
+		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
 

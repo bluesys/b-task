@@ -260,8 +260,8 @@ class Project
      */
     public function isSharedTo(\Btask\UserBundle\Entity\User $user)
     {
-        foreach ($this->getParticipations() as $registredParticipation) {
-            if($registredParticipation->getParticipant() === $user) {
+        foreach ($this->getCollaborations() as $registredCollaboration) {
+            if($registredCollaboration->getParticipant() === $user) {
                 return true;
             }
         }
