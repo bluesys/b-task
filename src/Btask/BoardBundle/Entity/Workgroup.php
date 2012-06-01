@@ -190,7 +190,7 @@ class Workgroup
      *
      * @param Btask\UserBundle\Entity\User
      */
-    public function setOwner(\Btask\UserBundle\Entity\User $type)
+    public function setOwner(\Btask\UserBundle\Entity\User $owner)
     {
         $this->owner = $owner;
     }
@@ -225,22 +225,6 @@ class Workgroup
         return $this->shared;
     }
 
-    /**
-     * Check if the workgroup as owned by user passed in parameter
-     *
-     * @param \Btask\UserBundle\Entity\User $user
-     * @param boolean true|false
-     */
-    public function hasOwner(\Btask\UserBundle\Entity\User $user)
-    {
-        foreach ($this->getParticipations() as $registredParticipation) {
-            if( ($registredParticipation->getParticipant() === $user) && ($registredParticipation->getOwner()) ) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     /**
      * Check if the workgroup is shared to the user passed in parameter
@@ -248,12 +232,10 @@ class Workgroup
      * @param \Btask\UserBundle\Entity\User $user
      * @param boolean true|false
      */
-    public function isSharedTo(\Btask\UserBundle\Entity\User $user)
+    public function hasOwner(\Btask\UserBundle\Entity\User $user)
     {
-        foreach ($this->getParticipations() as $registredParticipation) {
-            if($registredParticipation->getParticipant() === $user) {
-                return true;
-            }
+        if($user === $this->owner) {
+            return true;
         }
 
         return false;

@@ -82,6 +82,54 @@ BtaskBoardBundle_note_edit:
     requirements:
         id: \d+
 
+# Project
+BtaskBoardBundle_project_participants_show:
+    pattern:  /projects/{id}/users/
+    defaults: { _controller: BtaskBoardBundle:Project:showParticipants }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_project_show:
+    pattern:  /projects/{id}
+    defaults: { _controller: BtaskBoardBundle:Project:showProject }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_projects_by_workgroup_show:
+    pattern:  /{workgroup_slug}/projects/
+    defaults: { _controller: BtaskBoardBundle:Project:showProjectsByWorkgroup }
+    requirements:
+        workgroup_slug: \w+
+    options:
+        expose: true
+
+BtaskBoardBundle_project_create:
+    pattern:  /project/create/
+    defaults: { _controller: BtaskBoardBundle:Project:createProject }
+    requirements:
+        workgroup_id: \w+
+    options:
+        expose: true
+
+BtaskBoardBundle_project_edit:
+    pattern:  /project/{id}/edit/
+    defaults: { _controller: BtaskBoardBundle:Project:updateProject }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_project_delete:
+    pattern:  /project/{id}/delete/
+    defaults: { _controller: BtaskBoardBundle:Project:deleteProject }
+    requirements:
+        id: \d+
+    options:
+        expose: true
 
 # Workgroup
 BtaskBoardBundle_workgroup_create:
@@ -117,55 +165,5 @@ BtaskBoardBundle_workgroup_show:
 BtaskBoardBundle_workgroups_show:
     pattern:  /workgroups
     defaults: { _controller: BtaskBoardBundle:Workgroup:showWorkgroups }
-    options:
-        expose: true
-
-
-# Project
-BtaskBoardBundle_project_participants_show:
-    pattern:  /projects/{id}/users/
-    defaults: { _controller: BtaskBoardBundle:Project:showParticipants }
-    requirements:
-        id: \d+
-    options:
-        expose: true
-
-BtaskBoardBundle_project_show:
-    pattern:  /projects/{id}
-    defaults: { _controller: BtaskBoardBundle:Project:showProject }
-    requirements:
-        id: \d+
-    options:
-        expose: true
-
-BtaskBoardBundle_projects_by_workgroup_show:
-    pattern:  /{workgroup_slug}/projects/
-    defaults: { _controller: BtaskBoardBundle:Project:showProjectsByWorkgroup }
-    requirements:
-        workgroup_slug: \w+
-    options:
-        expose: true
-
-BtaskBoardBundle_project_create:
-    pattern:  /project/create/
-    defaults: { _controller: BtaskBoardBundle:Project:createProject }
-    requirements:
-        id: \w+
-    options:
-        expose: true
-
-BtaskBoardBundle_project_edit:
-    pattern:  /project/{id}/edit/
-    defaults: { _controller: BtaskBoardBundle:Project:updateProject }
-    requirements:
-        id: \d+
-    options:
-        expose: true
-
-BtaskBoardBundle_project_delete:
-    pattern:  /project/{id}/delete/
-    defaults: { _controller: BtaskBoardBundle:Project:deleteProject }
-    requirements:
-        id: \d+
     options:
         expose: true

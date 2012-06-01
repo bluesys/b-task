@@ -22,30 +22,28 @@ class WorkgroupController extends Controller
 	public function showWorkgroupAction($id)
 	{
 		$request = $this->container->get('request');
-		if($request->isXmlHttpRequest()) {
-
-			$user = $this->get('security.context')->getToken()->getUser();
-
-			// Get workgroup
-			$em = $this->getDoctrine()->getEntityManager();
-			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
-
-			if (!$workgroup) {
-				throw new NotFoundHttpException();
-			}
-
-			// Check if the workgroup is owned by the current logged user
-			if(!$workgroup->hasOwner($user)) {
-				throw new AccessDeniedHttpException();
-			}
-
-			return $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array(
-				'workgroup' => $workgroup,
-			));
-		}
-		else {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
 		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get workgroup
+		$em = $this->getDoctrine()->getEntityManager();
+		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
+
+		if (!$workgroup) {
+			throw new NotFoundHttpException();
+		}
+
+		// Check if the workgroup is owned by the current logged user
+		if(!$workgroup->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		return $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array(
+			'workgroup' => $workgroup,
+		));
 	}
 
 
