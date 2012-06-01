@@ -100,15 +100,23 @@ class ProjectController extends Controller
 	public function showParticipantsAction($id)
 	{
 		$request = $this->container->get('request');
-		/*if(!$request->isXmlHttpRequest()) {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
-		}*/
+		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
 
-		// Get the users which participe to the project
 		$em = $this->getDoctrine()->getEntityManager();
-		$users = $em->getRepository('BtaskUserBundle:User')->findBy(array('projectCollaboration' => $id));
+		$project = $em->getRepository('BtaskBoardBundle:Project')->find($id);
+
+		// Check if the project exist and if the user can see the content of this project
+		if (!$project && !$project->isSharedTo($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
+		}
+
+		// Get the users which participe to the project
+		$users = $em->getRepository('BtaskUserBundle:User')->findBy(array('project' => $project->getId()));
 
 		if (!$users) {
 			// TODO: Return a notification
