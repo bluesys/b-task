@@ -170,6 +170,48 @@ class ProjectController extends Controller
 		));
 	}
 
+   /**
+     * Display a form to update a project
+     *
+     */
+	public function updateProjectAction($id)
+	{
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$project = $em->getRepository('BtaskBoardBundle:Project')->find($id);
+
+		if(!$project) {
+			throw new NotFoundHttpException();
+		}
+
+		// Check if the user is the owner of the project
+		if(!$project->hasOwner($user)) {
+            throw new AccessDeniedHttpException();
+		}
+
+		$collaboration = new Collaboration;
+		$collaboration->setProject($project);
+
+		// Generate the form
+	    $form = $this->createForm(new CollaborationType(), $collaboration);
+        $formHandler = new CollaborationHandler($form, $request, $em, $user);
+
+        if($formHandler->process()) {
+			// TODO: Return a notification
+			return new Response(null, 200);
+        }
+
+		return $this->render('BtaskBoardBundle:Overview:form_create_project.html.twig', array(
+			'form' => $form->createView(),
+		));
+	}
+
 	/**
      * Delete a project
      *
