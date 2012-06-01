@@ -163,7 +163,7 @@ BtaskBoardBundle_workgroup_show:
         expose: true
 
 BtaskBoardBundle_workgroups_show:
-    pattern:  /workgroups
+    pattern:  /workgroups/
     defaults: { _controller: BtaskBoardBundle:Workgroup:showWorkgroups }
     options:
         expose: true

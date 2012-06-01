@@ -54,35 +54,31 @@ class WorkgroupController extends Controller
 	public function showWorkgroupsAction()
 	{
 		$request = $this->container->get('request');
-		if($request->isXmlHttpRequest()) {
-
-			$user = $this->get('security.context')->getToken()->getUser();
-
-			// Get workgroups
-			$em = $this->getDoctrine()->getEntityManager();
-			$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findBy(array('owner' => $user->getId()));
-
-			if (!$workgroups) {
-				// TODO: Return a notification
-				return new Response(null, 204);
-			}
-
-			// Return a JSON feed of workgroup templates
-			$workgroups_template[] = array();
-			foreach ($workgroups as $workgroup) {
-		    	$workgroups_template[] = $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array('workgroup' => $workgroup))->getContent();
-			}
-
-			if(!$workgroups_template) {
-				// TODO: Return a notification
-				return new Response(null, 204);
-			}
-
-			return new Response(json_encode($workgroups_template), 200);
-		}
-		else {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
 		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get workgroups
+		$em = $this->getDoctrine()->getEntityManager();
+		$workgroups = $em->getRepository('BtaskBoardBundle:Workgroup')->findByOwner($user->getId());
+
+		if (!$workgroups) {
+			// TODO: Return a notification
+			return new Response(null, 204);
+		}
+
+		// Return a JSON feed of workgroup templates
+		$workgroups_template[] = array();
+		foreach ($workgroups as $workgroup) {
+	    	$workgroups_template[] = $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array('workgroup' => $workgroup))->getContent();
+		}
+
+		$response = new Response(json_encode($workgroups_template), 200);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
 	}
 
 
