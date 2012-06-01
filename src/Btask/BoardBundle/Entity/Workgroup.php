@@ -57,7 +57,7 @@ class Workgroup
     protected $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="workgroups", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="workgroups")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", nullable=false)
      */
     protected $owner;
@@ -72,6 +72,8 @@ class Workgroup
 
     public function __construct()
     {
+        // By default a user isn't not the default workgroup
+        $this->shared = false;
         $this->collaborations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

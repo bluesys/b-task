@@ -89,44 +89,37 @@ class WorkgroupController extends Controller
 	public function createWorkgroupAction()
 	{
 		$request = $this->container->get('request');
-		if($request->isXmlHttpRequest()) {
-
-			$user = $this->get('security.context')->getToken()->getUser();
-
-			// Generate the form
-			// TODO: Move this logic below in a form handler
-			$workgroup = new Workgroup;
-		    $form = $this->createForm(new WorkgroupType(), $workgroup);
-
-		    if($request->getMethod() == 'POST') {
-		        $form->bindRequest($request);
-
-		        if( $form->isValid() ) {
-					$em = $this->getDoctrine()->getEntityManager();
-		        	$em->persist($workgroup);
-		            $em->flush();
-
-					$workgroupCollaboration = new WorkgroupCollaboration;
-					$workgroupCollaboration->setParticipant($user);
-					$workgroupCollaboration->setWorkgroup($workgroup);
-					$workgroupCollaboration->setOwner(true);
-					$workgroupCollaboration->setShared(false);
-
-		            $em->persist($workgroupCollaboration);
-		            $em->flush();
-
-		            // TODO: Return a notification
-					return new Response(null, 200);
-		        }
-		    }
-
-			return $this->render('BtaskBoardBundle:Overview:form_create_workgroup.html.twig', array(
-				'form' => $form->createView(),
-			));
-		}
-		else {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
 		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Generate the form
+		// TODO: Move this logic below in a form handler
+		$workgroup = new Workgroup;
+	    $form = $this->createForm(new WorkgroupType(), $workgroup);
+
+	    if($request->getMethod() == 'POST') {
+	        $form->bindRequest($request);
+
+	        if( $form->isValid() ) {
+				$em = $this->getDoctrine()->getEntityManager();
+
+				// Assign this workgroup to the current user
+				$workgroup->setOwner($user);
+
+	        	$em->persist($workgroup);
+	            $em->flush();
+
+	            // TODO: Return a notification
+				return new Response(null, 200);
+	        }
+	    }
+
+		return $this->render('BtaskBoardBundle:Overview:form_create_workgroup.html.twig', array(
+			'form' => $form->createView(),
+		));
 	}
 
 
@@ -137,49 +130,47 @@ class WorkgroupController extends Controller
 	public function updateWorkgroupAction($id)
 	{
 		$request = $this->container->get('request');
-		if($request->isXmlHttpRequest()) {
-
-			$user = $this->get('security.context')->getToken()->getUser();
-
-			// Get the workgroup
-			$em = $this->getDoctrine()->getEntityManager();
-			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
-
-			if (!$workgroup) {
-				throw new NotFoundHttpException();
-			}
-
-			// Check if the workgroup is owned by the current logged user
-			if (!$workgroup->hasOwner($user)) {
-				throw new AccessDeniedHttpException();
-			}
-
-		    $form = $this->createForm(new WorkgroupType(), $workgroup);
-
-			// Generate the form
-			// TODO: Move this logic below in a form handler
-			$request = $this->container->get('request');
-		    if( $request->getMethod() == 'POST' ) {
-		        $form->bindRequest($request);
-
-		        if( $form->isValid() ) {
-					$em = $this->getDoctrine()->getEntityManager();
-		        	$em->persist($workgroup);
-		            $em->flush();
-
-					// TODO: Return a notification
-					return new Response(null, 200);
-		        }
-		    }
-
-			return $this->render('BtaskBoardBundle:Overview:form_update_workgroup.html.twig', array(
-				'form' => $form->createView(),
-				'workgroup' => $workgroup,
-			));
-		}
-		else {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
 		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get the workgroup
+		$em = $this->getDoctrine()->getEntityManager();
+		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
+
+		if (!$workgroup) {
+			throw new NotFoundHttpException();
+		}
+
+		// Check if the workgroup is owned by the current logged user
+		if (!$workgroup->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+	    $form = $this->createForm(new WorkgroupType(), $workgroup);
+
+		// Generate the form
+		// TODO: Move this logic below in a form handler
+		$request = $this->container->get('request');
+	    if( $request->getMethod() == 'POST' ) {
+	        $form->bindRequest($request);
+
+	        if( $form->isValid() ) {
+				$em = $this->getDoctrine()->getEntityManager();
+	        	$em->persist($workgroup);
+	            $em->flush();
+
+				// TODO: Return a notification
+				return new Response(null, 200);
+	        }
+	    }
+
+		return $this->render('BtaskBoardBundle:Overview:form_update_workgroup.html.twig', array(
+			'form' => $form->createView(),
+			'workgroup' => $workgroup,
+		));
 	}
 
 
@@ -190,31 +181,29 @@ class WorkgroupController extends Controller
 	public function deleteWorkgroupAction($id)
 	{
 		$request = $this->container->get('request');
-		if($request->isXmlHttpRequest()) {
-
-			$user = $this->get('security.context')->getToken()->getUser();
-
-			// Get the workgroup
-			$em = $this->getDoctrine()->getEntityManager();
-			$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
-
-			if (!$workgroup) {
-				throw new NotFoundHttpException();
-			}
-
-			// Check if the workgroup is owned by the current logged user
-			if(!$workgroup->hasOwner($user)) {
-				throw new AccessDeniedHttpException();
-			}
-
-			$em->remove($workgroup);
-			$em->flush();
-
-			// TODO: Return a notification
-			return new Response(null, 200);
-		}
-		else {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
 		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get the workgroup
+		$em = $this->getDoctrine()->getEntityManager();
+		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
+
+		if (!$workgroup) {
+			throw new NotFoundHttpException();
+		}
+
+		// Check if the workgroup is owned by the current logged user
+		if(!$workgroup->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		$em->remove($workgroup);
+		$em->flush();
+
+		// TODO: Return a notification
+		return new Response(null, 200);
 	}
 }
