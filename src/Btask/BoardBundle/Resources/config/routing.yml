@@ -111,7 +111,7 @@ BtaskBoardBundle_project_create:
     pattern:  /project/create/
     defaults: { _controller: BtaskBoardBundle:Project:createProject }
     requirements:
-        workgroup_id: \w+
+        workgroup_slug: \w+
     options:
         expose: true
 

@@ -1,0 +1,22 @@
+<form id="workgroup-form-create" class="form" action="{{ path('BtaskBoardBundle_project_create') }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	<div class="project">
+	{{ form_errors(form.project) }}
+	{{ form_widget(form.project) }}
+	</div>
+
+    <div id="navigation-panel">
+		{{ form_errors(form.project) }}
+		{{ form_widget(form.project) }}
+
+		{{ form_errors(form.participant) }}
+		{{ form_widget(form.participant) }}
+
+		{{ form_errors(form.workgroup) }}
+		{{ form_widget(form.workgroup) }}
+
+		{{ form_widget(form._token) }}
+		<input class="btn" type="reset" value="{{ 'navigation.project.reset'|trans }}" />
+		<input class="btn" type="submit" value="{{ 'navigation.project.create'|trans }}" />
+	</div>
+</form>

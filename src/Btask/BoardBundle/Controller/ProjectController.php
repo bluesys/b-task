@@ -9,8 +9,10 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Btask\BoardBundle\Entity\Project;
-use Btask\BoardBundle\Entity\ProjectCollaboration;
 use Btask\BoardBundle\Form\Type\ProjectType;
+use Btask\BoardBundle\Entity\Collaboration;
+use Btask\BoardBundle\Form\Type\CollaborationType;
+use Btask\BoardBundle\Form\Handler\CollaborationHandler;
 
 class ProjectController extends Controller
 {
@@ -148,33 +150,25 @@ class ProjectController extends Controller
 
 		$user = $this->get('security.context')->getToken()->getUser();
 
+		$em = $this->getDoctrine()->getEntityManager();
+
+		// TODO: Set a default selected workgroup
+		// Get the workgroup where the use want to create his project
+		//$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
+
 		// Generate the form
-		// TODO: Move this logic below in a form handler
-		$workgroup = new Workgroup;
-	    $form = $this->createForm(new WorkgroupType(), $workgroup);
+	    $form = $this->createForm(new CollaborationType(), new Collaboration);
+        $formHandler = new CollaborationHandler($form, $request, $em, $user);
 
-	    if($request->getMethod() == 'POST') {
-	        $form->bindRequest($request);
+        if($formHandler->process()) {
+			// TODO: Return a notification
+			return new Response(null, 200);
+        }
 
-	        if( $form->isValid() ) {
-				$em = $this->getDoctrine()->getEntityManager();
-
-				// Assign this workgroup to the current user
-				$workgroup->setOwner($user);
-
-	        	$em->persist($workgroup);
-	            $em->flush();
-
-	            // TODO: Return a notification
-				return new Response(null, 200);
-	        }
-	    }
-
-		return $this->render('BtaskBoardBundle:Overview:form_create_workgroup.html.twig', array(
+		return $this->render('BtaskBoardBundle:Overview:form_create_project.html.twig', array(
 			'form' => $form->createView(),
 		));
 	}
-
 
 	/**
      * Delete a project

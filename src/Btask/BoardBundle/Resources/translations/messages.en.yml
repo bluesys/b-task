@@ -21,6 +21,11 @@ navigation:
         delete: Delete
         reset: Cancel
 
+    project:
+        create: Save
+        update: update
+        reset: Cancel
+
 panel:
     option:
         detail:

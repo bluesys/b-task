@@ -11,11 +11,6 @@ class ProjectType extends AbstractType
     {
         $builder->add('name');
         $builder->add('color');
-        $builder->add('workgroups', 'entity', array(
-            'class' => 'BtaskBoardBundle:Workgroup',
-            'property' => 'name',
-            'multiple' => true
-        ));
     }
 
     public function getDefaultOptions(array $options)

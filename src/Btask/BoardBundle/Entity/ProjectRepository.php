@@ -13,7 +13,7 @@ class ProjectRepository extends EntityRepository
 	 * @param array|null $orderBy
 	 * @param int|null $limit
 	 * @param int|null $offset
-	 * @return array workgroups.
+	 * @return array projects.
 	 */
 	public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
 	{
@@ -29,15 +29,6 @@ class ProjectRepository extends EntityRepository
 
 					$parameters['workgroup_id'] = $value;
 					break;
-
-				// Sort by participant
-				case 'participant':
-					$qb->innerJoin('p.participations', 'pp');
-					$qb->andWhere('pp.participant = :user_id');
-
-					$parameters['user_id'] = $value;
-					break;
-
 				default:
 					throw new \InvalidArgumentException('parameter not available');
 				break;
