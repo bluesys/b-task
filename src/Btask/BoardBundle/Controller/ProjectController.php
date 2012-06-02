@@ -199,7 +199,7 @@ class ProjectController extends Controller
 		$collaboration->setProject($project);
 
 		// Generate the form
-	    $form = $this->createForm(new CollaborationType(), $collaboration);
+	    $form = $this->createForm(new CollaborationType($user), $collaboration);
         $formHandler = new CollaborationHandler($form, $request, $em, $user);
 
         if($formHandler->process()) {
