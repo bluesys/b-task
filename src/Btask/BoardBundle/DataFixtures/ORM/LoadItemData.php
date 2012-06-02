@@ -159,6 +159,18 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
 
             $this->addReference('workgroup'.$i, $workgroup);
         }
+
+        for ($i = 9; $i <= 12; $i++) {
+            $workgroup = new Workgroup();
+            $workgroup->setName('Workgroup '.$i);
+            $workgroup->setOwner($this->manager->merge($this->getReference('user1')));
+            $workgroup->setShared(false);
+
+            $this->manager->persist($workgroup);
+            $this->manager->flush();
+
+            $this->addReference('workgroup'.$i, $workgroup);
+        }
     }
 
     /**

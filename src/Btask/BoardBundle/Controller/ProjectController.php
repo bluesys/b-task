@@ -144,9 +144,9 @@ class ProjectController extends Controller
 	public function createProjectAction()
 	{
 		$request = $this->container->get('request');
-		if(!$request->isXmlHttpRequest()) {
+		/*if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
-		}
+		}*/
 
 		$user = $this->get('security.context')->getToken()->getUser();
 
@@ -157,7 +157,7 @@ class ProjectController extends Controller
 		//$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
 
 		// Generate the form
-	    $form = $this->createForm(new CollaborationType(), new Collaboration);
+	    $form = $this->createForm(new CollaborationType($user), new Collaboration);
         $formHandler = new CollaborationHandler($form, $request, $em, $user);
 
         if($formHandler->process()) {
