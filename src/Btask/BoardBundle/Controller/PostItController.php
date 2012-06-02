@@ -22,35 +22,32 @@ class PostItController extends Controller
     {
 		$request = $this->container->get('request');
 		if($request->isXmlHttpRequest()) {
-
-			$user = $this->get('security.context')->getToken()->getUser();
-
-			// Get all the post-it from the logged user
-			$em = $this->getDoctrine()->getEntityManager();
-			$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
-			$postsIt = $em->getRepository('BtaskBoardBundle:Item')->findBy(array('type' => $postItType->getId(), 'owner' => $user->getId()));
-
-			if (!$postsIt) {
-				return new Response(null, 204);
-			}
-
-			// Return a JSON feed of workgroup templates
-			$post_it_template = array();
-			foreach ($postsIt as $postIt) {
-    			$post_it_template[] = $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array('post_it' => $postIt))->getContent();
-			}
-
-			if(!$post_it_template) {
-				// TODO: Return a notification
-				return new Response(null, 204);
-			}
-
-			return new Response(json_encode($post_it_template), 200);
+			throw new NotFoundHttpException();
 		}
-		else {
-            throw new NotFoundHttpException();
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get all the post-it from the logged user
+		$em = $this->getDoctrine()->getEntityManager();
+		$postsIt = $em->getRepository('BtaskBoardBundle:Item')->findPostItBy(array('owner' => $user->getId()));
+
+		if (!$postsIt) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
+
+		// Return a JSON feed of posit-it templates
+		$post_it_template = array();
+		foreach ($postsIt as $postIt) {
+			$post_it_template[] = $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array('post_it' => $postIt))->getContent();
+		}
+
+		$response = new Response(json_encode($post_it_template), 200);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
     }
+
 
 	/**
 	 * Display a post-it of the logged user
@@ -60,35 +57,28 @@ class PostItController extends Controller
     {
 		$request = $this->container->get('request');
 		if($request->isXmlHttpRequest()) {
-
-			$user = $this->get('security.context')->getToken()->getUser();
-
-			// Get all the post-it from the logged user
-			$em = $this->getDoctrine()->getEntityManager();
-			$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
-			$postIt = $em->getRepository('BtaskBoardBundle:Item')->findBy(array( 'type' => $postItType->getId(), 'owner' => $user->getId()));
-
-			if (!$postsIt) {
-				return new Response(null, 204);
-			}
-
-			// Return a JSON feed of workgroup templates
-			$post_it_template = array();
-			foreach ($postsIt as $postIt) {
-    			$post_it_template[] = $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array('post_it' => $postIt))->getContent();
-			}
-
-			if(!$post_it_template) {
-				// TODO: Return a notification
-				return new Response(null, 204);
-			}
-
-			return new Response(json_encode($post_it_template), 200);
+			throw new NotFoundHttpException();
 		}
-		else {
-            throw new NotFoundHttpException();
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get the post-it
+		$em = $this->getDoctrine()->getEntityManager();
+		$postIt = $em->getRepository('BtaskBoardBundle:Item')->find($id);
+
+		if (!$postIt) {
+			return new Response(null, 204);
 		}
+
+		if (!$postIt->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		return $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array(
+			'post_it' => $postIt
+		));
     }
+
 
 	/**
 	 * Display a form to create a post-it

@@ -33,6 +33,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
         $this->owner = $manager->merge($this->getReference('user1'));
         $this->executor = $manager->merge($this->getReference('user2'));
 
+        $this->loadPostIt();
         $this->loadWorkgroups();
         $this->loadProjects();
         $this->loadCollaboration();
@@ -55,6 +56,24 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $this->manager->persist($itemType);
 
             $this->addReference($type, $itemType);
+        }
+
+        $this->manager->flush();
+    }
+
+    /**
+     * Load fake post-it
+     *
+     */
+    public function loadPostIt()
+    {
+        for ($i = 1; $i <= 4; $i++) {
+            $postIt = new Item();
+            $postIt->setSubject('That is the amazing post-it '.$i);
+            $postIt->setType($this->manager->merge($this->getReference($this->types['0'])));
+            $postIt->setOwner($this->executor);
+
+            $this->manager->persist($postIt);
         }
 
         $this->manager->flush();

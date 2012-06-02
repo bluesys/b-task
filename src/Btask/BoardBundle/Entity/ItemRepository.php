@@ -54,7 +54,6 @@ class ItemRepository extends EntityRepository
 
         foreach ($criteria as $key => $value) {
             switch ($key) {
-
                 // Select tasks by their state (Overdue, Planned or Done)
                 case 'state':
 
@@ -101,6 +100,43 @@ class ItemRepository extends EntityRepository
 
                     $qb->andWhere('i.executor = :executor');
                     $parameters['executor'] = $value;
+
+                    break;
+            }
+        }
+
+        $qb->setParameters($parameters);
+
+        ($offset) ? $qb->setFirstResult($offset) : null;
+        ($limit) ? $qb->setMaxResults($limit) : null;
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * Finds post-it by a set of criteria
+     *
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @param datetime $date
+     * @return array $post-it.
+     */
+    public function findPostItBy(array $criteria, array $orderBy = null, $limit = null, $offset = null, $date = null)
+    {
+
+        $qb = $this->createQueryBuilder('i');
+        $qb->innerJoin('i.type', 'it');
+        $qb->andWhere('it.name = :type');
+        $parameters = array('type' => 'Post-it');
+
+        foreach ($criteria as $key => $value) {
+            switch ($key) {
+                // Sort by owner
+                case 'owner':
+                    $qb->andWhere('i.owner = :owner');
+                    $parameters['owner'] = $value;
 
                     break;
             }

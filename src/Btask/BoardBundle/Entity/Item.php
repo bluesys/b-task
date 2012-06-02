@@ -404,4 +404,13 @@ class Item
         return $this->executor;
     }
 
+
+    public function hasOwner(User  $user) {
+        if($this->owner === $user) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
