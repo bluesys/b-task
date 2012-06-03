@@ -32,6 +32,12 @@ class TaskType extends AbstractType
         ));
         $builder->add('status');
         $builder->add('priority');
+        $builder->add('executor', 'entity', array(
+            'class' => 'BtaskUserBundle:User',
+            'property' => 'email',
+            'multiple' => false,
+            'expanded' => true,
+        ));
         $builder->add('project', 'entity', array(
             'class' => 'BtaskBoardBundle:Project',
             'property' => 'name',
