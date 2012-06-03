@@ -54,6 +54,14 @@ BtaskBoardBundle_task_udpate:
     options:
         expose: true
 
+BtaskBoardBundle_task_delete:
+    pattern:  /task/{id}/delete/
+    defaults: { _controller: BtaskBoardBundle:Task:deleteTask }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
 BtaskBoardBundle_tasks_by_state_show:
     pattern:  /tasks/{state}/
     defaults: { _controller: BtaskBoardBundle:Task:showTasksByState }

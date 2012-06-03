@@ -119,4 +119,35 @@ class TaskController extends Controller
 		// TODO: Return message if status passed is the current status or if the task has been updated
 		return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
     }
+
+	/**
+	 * Delete a task
+	 *
+	 */
+	public function deleteTaskAction($id) {
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get the task
+		$em = $this->getDoctrine()->getEntityManager();
+		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+
+		if (!$task) {
+			throw new NotFoundHttpException();
+		}
+
+		if (!$task->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		$em->remove($task);
+		$em->flush();
+
+		// TODO: Return a notification
+		return new Response(null, 200);
+	}
 }

@@ -30,14 +30,14 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
-        $this->owner = $manager->merge($this->getReference('user1'));
-        $this->executor = $manager->merge($this->getReference('user2'));
+        $this->executor = $manager->merge($this->getReference('user1'));
+        $this->owner = $manager->merge($this->getReference('user2'));
 
-        $this->loadPostIt();
         $this->loadWorkgroups();
         $this->loadProjects();
         $this->loadCollaboration();
         $this->loadItemType();
+        $this->loadPostIt();
         $this->loadOverdueTasks();
         $this->loadPlannedTasks();
         $this->loadDoneTasks();
@@ -151,7 +151,6 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(false);
-            $task->setOwner($this->owner);
             $task->setOwner($this->owner);
             $task->setExecutor($this->executor);
 

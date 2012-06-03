@@ -123,7 +123,7 @@ class Item
     /**
      * @Gedmo\Versioned
      *
-     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="tasks", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="\Btask\UserBundle\Entity\User", inversedBy="tasks", cascade={"persist"})
      * @ORM\JoinColumn(name="executor_id", referencedColumnName="id")
      */
     protected $executor;
