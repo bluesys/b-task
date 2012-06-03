@@ -413,4 +413,11 @@ class Item
         return false;
     }
 
+    public function hasExecutor(User  $user) {
+        if($this->executor === $user) {
+            return true;
+        }
+
+        return false;
+    }
 }

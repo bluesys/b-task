@@ -87,20 +87,27 @@ class ItemRepository extends EntityRepository
 
                         default:
                             throw new \InvalidArgumentException('state parameter not available');
+                            break;
                     }
                     break;
 
                 // Select tasks by their executor
                 case 'executor':
-
-                    // Check if the parameter is an user
-                    if (!(is_object($value)) && !($value instanceof \Btask\UserBundle\Entity\User)) {
-                        throw new \InvalidArgumentException('executor parameter not available, must be an instance of \Btask\UserBundle\Entity\User');
-                    }
-
                     $qb->andWhere('i.executor = :executor');
                     $parameters['executor'] = $value;
 
+                    break;
+
+                // Select tasks by project
+                case 'project':
+                    $qb->innerJoin('i.project', 'ip');
+                    $qb->andWhere('i.project = :project_id');
+                    $parameters['project_id'] = $value;
+
+                    break;
+
+                default:
+                    throw new \InvalidArgumentException('parameter not available');
                     break;
             }
         }
@@ -112,6 +119,7 @@ class ItemRepository extends EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
 
     /**
      * Finds post-it by a set of criteria

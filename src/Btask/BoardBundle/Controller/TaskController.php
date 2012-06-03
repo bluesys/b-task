@@ -13,6 +13,44 @@ use Btask\BoardBundle\Form\Type\TaskType;
 
 class TaskController extends Controller
 {
+	/**
+     * Display all tasks by project
+     *
+     */
+	public function showTasksByProjectAction($project_slug) {
+
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+		$em = $this->getDoctrine()->getEntityManager();
+
+		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
+
+		if (!$project) {
+			throw new NotFoundHttpException();
+		}
+
+		// Get tasks by project
+		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('project' => $project->getId()));
+
+		if (!$tasks) {
+			throw new NotFoundHttpException();
+		}
+
+		// Return a JSON feed of workgroup templates
+		$tasks_template = array();
+		foreach ($tasks as $task) {
+		    $tasks_template[] = $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array('task' => $task))->getContent();
+		}
+
+		$response = new Response(json_encode($tasks_template), 200);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
+
+
     /**
      * Display overdue, planned and done tasks of the logged user for a specific date
      *
@@ -32,11 +70,48 @@ class TaskController extends Controller
 				return new Response(null, 204);
 			}
 
-			return $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array(
-				'tasks' => $tasks
-			));
+			// Return a JSON feed of workgroup templates
+			$tasks_template = array();
+			foreach ($tasks as $task) {
+			    $tasks_template[] = $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array('task' => $task))->getContent();
+			}
+
+			$response = new Response(json_encode($tasks_template), 200);
+			$response->headers->set('Content-Type', 'application/json');
+
+			return $response;
 		}
     }
+
+
+	/**
+	 * Display a task
+	 *
+	 */
+	public function showTaskAction($id) {
+
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		// Get the task
+		$em = $this->getDoctrine()->getEntityManager();
+		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+
+		if (!$task) {
+			throw new NotFoundHttpException();
+		}
+
+		if (!$task->hasOwner($user) || !$task->hasExecutor($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		return $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array(
+			'task' => $task,
+		));
+	}
+
 
     /**
      * Display a form to udpate a task of the logged user
@@ -94,6 +169,7 @@ class TaskController extends Controller
 		}
 	}
 
+
     /**
      * Toggle the status of the current task (open or close)
      *
@@ -125,6 +201,7 @@ class TaskController extends Controller
 	 *
 	 */
 	public function deleteTaskAction($id) {
+
 		$request = $this->container->get('request');
 		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();

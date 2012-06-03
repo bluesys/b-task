@@ -29,6 +29,14 @@ class ProjectRepository extends EntityRepository
 
 					$parameters['workgroup_id'] = $value;
 					break;
+
+				// Sort by slug
+				case 'slug':
+					$qb->andWhere('p.slug = :project_slug');
+					$parameters['project_slug'] = $value;
+
+					break;
+
 				default:
 					throw new \InvalidArgumentException('parameter not available');
 				break;

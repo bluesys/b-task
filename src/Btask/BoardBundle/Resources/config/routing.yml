@@ -46,8 +46,16 @@ BtaskBoardBundle_posts_it_show:
 
 
 # Task
+BtaskBoardBundle_task_by_project_show:
+    pattern:  /{project_slug}/tasks/
+    defaults: { _controller: BtaskBoardBundle:Task:showTasksByProject }
+    requirements:
+        project_slug: \w+
+    options:
+        expose: true
+
 BtaskBoardBundle_task_udpate:
-    pattern:  /task/{id}/edit
+    pattern:  /task/{id}/edit/
     defaults: { _controller: BtaskBoardBundle:Task:editTask }
     requirements:
         id: \d+
@@ -71,13 +79,13 @@ BtaskBoardBundle_tasks_by_state_show:
         expose: true
 
 BtaskBoardBundle_task_close:
-    pattern:  /task/{id}/close
+    pattern:  /task/{id}/close/
     defaults: { _controller: BtaskBoardBundle:Task:toggleStatusTask, status: false }
     requirements:
         id: \d+
 
 BtaskBoardBundle_task_open:
-    pattern:  /task/{id}/open
+    pattern:  /task/{id}/open/
     defaults: { _controller: BtaskBoardBundle:Task:toggleStatusTask, status: true }
     requirements:
         id: \d+

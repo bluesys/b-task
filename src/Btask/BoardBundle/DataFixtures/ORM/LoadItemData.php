@@ -126,6 +126,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setStatus(true);
             $task->setOwner($this->owner);
             $task->setExecutor($this->executor);
+            $task->setProject($this->manager->merge($this->getReference('project1')));
 
             $this->manager->persist($task);
         }
