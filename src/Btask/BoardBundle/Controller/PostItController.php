@@ -171,4 +171,35 @@ class PostItController extends Controller
 	       	'actionUrl' => $actionUrl,
 	    ));
 	}
+
+	/**
+	 * Delete a post-it
+	 *
+	 */
+	public function deletePostItAction($id) {
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get the post-it
+		$em = $this->getDoctrine()->getEntityManager();
+		$postIt =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+
+		if (!$postIt) {
+			throw new NotFoundHttpException();
+		}
+
+		if (!$postIt->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		$em->remove($postIt);
+		$em->flush();
+
+		// TODO: Return a notification
+		return new Response(null, 200);
+	}
 }
