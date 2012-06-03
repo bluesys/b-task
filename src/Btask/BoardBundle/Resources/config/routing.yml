@@ -56,7 +56,7 @@ BtaskBoardBundle_task_by_project_show:
 
 BtaskBoardBundle_task_udpate:
     pattern:  /task/{id}/edit/
-    defaults: { _controller: BtaskBoardBundle:Task:editTask }
+    defaults: { _controller: BtaskBoardBundle:Task:updateTask }
     requirements:
         id: \d+
     options:

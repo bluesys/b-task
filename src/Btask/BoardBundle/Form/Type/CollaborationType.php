@@ -39,7 +39,7 @@ class CollaborationType extends AbstractType
                 return $er->createQueryBuilder('w')
                     ->where("w.owner = :user")
                     ->setParameter('user', $user);
-            },
+        },
         ));
     }
 

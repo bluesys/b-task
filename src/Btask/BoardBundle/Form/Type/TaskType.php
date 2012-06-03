@@ -4,16 +4,46 @@ namespace Btask\BoardBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
+use Doctrine\ORM\EntityRepository;
+
+use Btask\UserBundle\Entity\User;
 
 class TaskType extends AbstractType
 {
+    public function __construct (User $user)
+    {
+        // Get the logged user
+        $this->user = $user;
+    }
+
     public function buildForm(FormBuilder $builder, array $options)
     {
+        $user = $this->user;
+
+        $builder->add('subject');
         $builder->add('detail');
-        $builder->add('due', 'text');
-        $builder->add('planned', 'text');
+        $builder->add('due', 'date', array(
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+        ));
+        $builder->add('planned', 'date', array(
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+        ));
         $builder->add('status');
         $builder->add('priority');
+        $builder->add('project', 'entity', array(
+            'class' => 'BtaskBoardBundle:Project',
+            'property' => 'name',
+            'multiple' => false,
+            'expanded' => true,
+            'query_builder' => function(EntityRepository $er) use ($user) {
+                return $er->createQueryBuilder('p')
+                    ->innerJoin('p.collaborations', 'pc')
+                    ->andWhere('pc.participant = :participant')
+                    ->setParameter('participant', $user);
+            })
+        );
     }
 
     public function getDefaultOptions(array $options)

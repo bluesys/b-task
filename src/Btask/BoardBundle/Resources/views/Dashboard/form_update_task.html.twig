@@ -1,0 +1,43 @@
+<form action="{{ path('BtaskBoardBundle_task_udpate', { 'id': task.id }) }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	<div class="task accordion-group" data-id="{{ task.id }}">
+		<div class="meta accordion-heading">
+			<h6>{{ task.project.name }}</h6>
+			<h5>
+				{{ form_errors(form.subject) }}
+				{{ form_widget(form.subject) }}
+			</h5>
+			<input class="btn" type="submit" value="{{ 'dashboard.task.save'|trans }}" />
+			<div class="infos">
+				<em class="duedate">{{ task.due | date('F dS Y') }}</em>
+				<a class="underling" href="#">{{ task.owner.email }}</a>
+			</div>
+		</div>
+		<div id="task-{{ task.id }}" class="accordion-body collapse">
+			<div class="accordion-inner">
+				{{ task.detail }}
+			</div>
+		</div>
+	</div>
+	<div id="panel-edit">
+		{{ form_errors(form.detail) }}
+		{{ form_widget(form.detail) }}
+
+		{{ form_errors(form.planned) }}
+		{{ form_widget(form.planned) }}
+
+		{{ form_errors(form.due) }}
+		{{ form_widget(form.due) }}
+
+		{{ form_errors(form.status) }}
+		{{ form_widget(form.status) }}
+
+		{{ form_errors(form.priority) }}
+		{{ form_widget(form.priority) }}
+
+		{{ form_errors(form.project) }}
+		{{ form_widget(form.project) }}
+
+		{{ form_widget(form._token) }}
+	</div>
+</form>

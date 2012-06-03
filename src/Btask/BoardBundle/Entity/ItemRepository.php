@@ -93,8 +93,8 @@ class ItemRepository extends EntityRepository
 
                 // Select tasks by their executor
                 case 'executor':
-                    $qb->andWhere('i.executor = :executor');
-                    $parameters['executor'] = $value;
+                    $qb->andWhere('i.executor = :executor_id');
+                    $parameters['executor_id'] = $value;
 
                     break;
 

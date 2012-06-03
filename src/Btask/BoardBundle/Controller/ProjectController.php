@@ -199,8 +199,8 @@ class ProjectController extends Controller
 		$collaboration->setProject($project);
 
 		// Generate the form
-	    $form = $this->createForm(new CollaborationType($user), $collaboration);
-        $formHandler = new CollaborationHandler($form, $request, $em, $user);
+		$form = $this->createForm(new CollaborationType($user), $collaboration);
+		$formHandler = new CollaborationHandler($form, $request, $em, $user);
 
         if($formHandler->process()) {
 			// TODO: Return a notification
@@ -209,6 +209,7 @@ class ProjectController extends Controller
 
 		return $this->render('BtaskBoardBundle:Overview:form_create_project.html.twig', array(
 			'form' => $form->createView(),
+			'project' => $project,
 		));
 	}
 
