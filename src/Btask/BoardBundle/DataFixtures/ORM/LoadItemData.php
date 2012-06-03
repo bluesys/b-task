@@ -38,6 +38,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
         $this->loadCollaboration();
         $this->loadItemType();
         $this->loadPostIt();
+        $this->loadNotes();
         $this->loadOverdueTasks();
         $this->loadPlannedTasks();
         $this->loadDoneTasks();
@@ -74,6 +75,24 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $postIt->setOwner($this->executor);
 
             $this->manager->persist($postIt);
+        }
+
+        $this->manager->flush();
+    }
+
+    /**
+     * Load fake notes
+     *
+     */
+    public function loadNotes()
+    {
+        for ($i = 1; $i <= 4; $i++) {
+            $note = new Item();
+            $note->setSubject('That is the amazing note '.$i);
+            $note->setType($this->manager->merge($this->getReference($this->types['2'])));
+            $note->setOwner($this->executor);
+            $note->setProject($this->manager->merge($this->getReference('project1')));
+            $this->manager->persist($note);
         }
 
         $this->manager->flush();

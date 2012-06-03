@@ -117,7 +117,49 @@ class ItemRepository extends EntityRepository
         ($offset) ? $qb->setFirstResult($offset) : null;
         ($limit) ? $qb->setMaxResults($limit) : null;
 
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Finds notes by a set of criteria
+     *
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @param datetime $date
+     * @return array $notes
+     */
+    public function findNotesBy(array $criteria, array $orderBy = null, $limit = null, $offset = null, $date = null)
+    {
+
+        $qb = $this->createQueryBuilder('i');
+        $qb->innerJoin('i.type', 'it');
+        $qb->andWhere('it.name = :type');
+        $parameters = array('type' => 'Note');
+
+        foreach ($criteria as $key => $value) {
+            switch ($key) {
+                // Select notes by project
+                case 'project':
+                    $qb->innerJoin('i.project', 'ip');
+                    $qb->andWhere('i.project = :project_id');
+                    $parameters['project_id'] = $value;
+
+                    break;
+
+                default:
+                    throw new \InvalidArgumentException('parameter not available');
+                    break;
+            }
+        }
+
+        $qb->setParameters($parameters);
+
+        ($offset) ? $qb->setFirstResult($offset) : null;
+        ($limit) ? $qb->setMaxResults($limit) : null;
+
+        return $qb->getQuery()->getResult();
     }
 
 
@@ -155,6 +197,6 @@ class ItemRepository extends EntityRepository
         ($offset) ? $qb->setFirstResult($offset) : null;
         ($limit) ? $qb->setMaxResults($limit) : null;
 
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getResult();
     }
 }

@@ -137,6 +137,7 @@ class ProjectController extends Controller
 		return $response;
 	}
 
+
    /**
      * Display a form to create a project
      *
@@ -169,6 +170,7 @@ class ProjectController extends Controller
 			'form' => $form->createView(),
 		));
 	}
+
 
    /**
      * Display a form to update a project
@@ -212,6 +214,7 @@ class ProjectController extends Controller
 			'project' => $project,
 		));
 	}
+
 
 	/**
      * Delete a project

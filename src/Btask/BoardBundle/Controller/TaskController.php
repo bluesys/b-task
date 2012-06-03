@@ -184,6 +184,7 @@ class TaskController extends Controller
 		return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
     }
 
+
 	/**
 	 * Delete a task
 	 *

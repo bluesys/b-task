@@ -46,7 +46,7 @@ BtaskBoardBundle_posts_it_show:
 
 
 # Task
-BtaskBoardBundle_task_by_project_show:
+BtaskBoardBundle_tasks_by_project_show:
     pattern:  /{project_slug}/tasks/
     defaults: { _controller: BtaskBoardBundle:Task:showTasksByProject }
     requirements:
@@ -83,20 +83,65 @@ BtaskBoardBundle_task_close:
     defaults: { _controller: BtaskBoardBundle:Task:toggleStatusTask, status: false }
     requirements:
         id: \d+
+    options:
+        expose: true
 
 BtaskBoardBundle_task_open:
     pattern:  /task/{id}/open/
     defaults: { _controller: BtaskBoardBundle:Task:toggleStatusTask, status: true }
     requirements:
         id: \d+
-
+    options:
+        expose: true
 
 # Note
-BtaskBoardBundle_note_edit:
-    pattern:  /note/{id}/edit
-    defaults: { _controller: BtaskBoardBundle:Default:editNote }
+BtaskBoardBundle_notes_by_project_show:
+    pattern:  /{project_slug}/notes/
+    defaults: { _controller: BtaskBoardBundle:Note:showNotesByProject }
+    requirements:
+        project_slug: \w+
+    options:
+        expose: true
+
+BtaskBoardBundle_note_show:
+    pattern:  /notes/{id}/
+    defaults: { _controller: BtaskBoardBundle:Note:showNote }
     requirements:
         id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_notes_show:
+    pattern:  /notes/
+    defaults: { _controller: BtaskBoardBundle:Note:showNotes }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_note_edit:
+    pattern:  /note/create/
+    defaults: { _controller: BtaskBoardBundle:Note:createNote }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_note_edit:
+    pattern:  /note/{id}/edit/
+    defaults: { _controller: BtaskBoardBundle:Note:updateNote }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_note_delete:
+    pattern:  /note/{id}/delete/
+    defaults: { _controller: BtaskBoardBundle:Note:deleteNote }
+    requirements:
+        id: \d+
+    options:
+        expose: true
 
 # Project
 BtaskBoardBundle_project_participants_show:
