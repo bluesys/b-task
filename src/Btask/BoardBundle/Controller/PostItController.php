@@ -64,8 +64,7 @@ class PostItController extends Controller
 
 		// Get the post-it
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a post-it
-		$postIt = $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$postIt = $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
 		if (!$postIt) {
 			return new Response(null, 204);
@@ -128,6 +127,7 @@ class PostItController extends Controller
 		}*/
 	}
 
+
 	/**
 	 * Display a form to edit a post-it
 	 *
@@ -174,6 +174,7 @@ class PostItController extends Controller
 	    ));
 	}
 
+
 	/**
 	 * Delete a post-it
 	 *
@@ -188,8 +189,7 @@ class PostItController extends Controller
 
 		// Get the post-it
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a post-it
-		$postIt =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$postIt = $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
 		if (!$postIt) {
 			throw new NotFoundHttpException();

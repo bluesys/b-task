@@ -36,7 +36,7 @@ class ItemRepository extends EntityRepository
      * @param int|null $limit
      * @param int|null $offset
      * @param datetime $date
-     * @return array $tasks
+     * @return collection tasks.
      */
     public function findTasksBy(array $criteria, array $orderBy = null, $limit = null, $offset = null, $date = null)
     {
@@ -128,7 +128,7 @@ class ItemRepository extends EntityRepository
      * @param int|null $limit
      * @param int|null $offset
      * @param datetime $date
-     * @return array $notes
+     * @return collection notes.
      */
     public function findNotesBy(array $criteria, array $orderBy = null, $limit = null, $offset = null, $date = null)
     {
@@ -180,7 +180,7 @@ class ItemRepository extends EntityRepository
      * @param int|null $limit
      * @param int|null $offset
      * @param datetime $date
-     * @return array $post-it.
+     * @return collection post-it.
      */
     public function findPostItBy(array $criteria, array $orderBy = null, $limit = null, $offset = null, $date = null)
     {
@@ -207,5 +207,121 @@ class ItemRepository extends EntityRepository
         ($limit) ? $qb->setMaxResults($limit) : null;
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Finds one post-it
+     *
+     * @param array $criteria
+     * @return object post-it.
+     */
+    public function findOnePostItBy(array $criteria) {
+        $qb = $this->createQueryBuilder('i');
+        $qb->innerJoin('i.type', 'it');
+        $qb->andWhere('it.name = :type');
+        $parameters = array('type' => 'Post-it');
+
+        foreach ($criteria as $key => $value) {
+            switch ($key) {
+                // Sort by id
+                case 'id':
+                    $qb->andWhere('i.id = :id');
+                    $parameters['id'] = $value;
+
+                    break;
+
+                default:
+                    throw new \InvalidArgumentException('parameter not available');
+                    break;
+            }
+
+        }
+
+        $qb->setParameters($parameters);
+
+        try {
+            return $qb->getQuery()->getSingleResult();
+        }
+        catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
+
+    /**
+     * Finds one task
+     *
+     * @param array $criteria
+     * @return object task.
+     */
+    public function findOneTaskBy(array $criteria) {
+        $qb = $this->createQueryBuilder('i');
+        $qb->innerJoin('i.type', 'it');
+        $qb->andWhere('it.name = :type');
+        $parameters = array('type' => 'Task');
+
+        foreach ($criteria as $key => $value) {
+            switch ($key) {
+                // Sort by id
+                case 'id':
+                    $qb->andWhere('i.id = :id');
+                    $parameters['id'] = $value;
+
+                    break;
+
+                default:
+                    throw new \InvalidArgumentException('parameter not available');
+                    break;
+            }
+
+        }
+
+        $qb->setParameters($parameters);
+
+        try {
+            return $qb->getQuery()->getSingleResult();
+        }
+        catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
+
+    /**
+     * Finds one note
+     *
+     * @param array $criteria
+     * @return object note.
+     */
+    public function findOneNoteBy(array $criteria) {
+        $qb = $this->createQueryBuilder('i');
+        $qb->innerJoin('i.type', 'it');
+        $qb->andWhere('it.name = :type');
+        $parameters = array('type' => 'Note');
+
+        foreach ($criteria as $key => $value) {
+            switch ($key) {
+                // Sort by id
+                case 'id':
+                    $qb->andWhere('i.id = :id');
+                    $parameters['id'] = $value;
+
+                    break;
+
+                default:
+                    throw new \InvalidArgumentException('parameter not available');
+                    break;
+            }
+
+        }
+
+        $qb->setParameters($parameters);
+
+        try {
+            return $qb->getQuery()->getSingleResult();
+        }
+        catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
     }
 }

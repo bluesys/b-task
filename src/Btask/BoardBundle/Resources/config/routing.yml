@@ -94,6 +94,14 @@ BtaskBoardBundle_task_open:
     options:
         expose: true
 
+BtaskBoardBundle_task_show:
+    pattern:  /tasks/{id}/
+    defaults: { _controller: BtaskBoardBundle:Task:showTask }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
 # Note
 BtaskBoardBundle_notes_by_project_show:
     pattern:  /{project_slug}/notes/

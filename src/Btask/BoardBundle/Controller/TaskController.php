@@ -99,16 +99,17 @@ class TaskController extends Controller
 			throw new NotFoundHttpException();
 		}
 
+		$user = $this->get('security.context')->getToken()->getUser();
+
 		// Get the task
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a task
-		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
 		if (!$task) {
 			throw new NotFoundHttpException();
 		}
 
-		if (!$task->hasOwner($user) || !$task->hasExecutor($user)) {
+		if (!$task->isSharedTo($user)) {
 			throw new AccessDeniedHttpException();
 		}
 
@@ -133,8 +134,7 @@ class TaskController extends Controller
 
 		// Get the task
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a task
-		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
 		if (!$task) {
             throw new NotFoundHttpException();
@@ -169,8 +169,7 @@ class TaskController extends Controller
 		$request = $this->container->get('request');
 
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a task
-		$task = $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
 		if (!$task) {
 			throw new NotFoundHttpException();
@@ -203,8 +202,7 @@ class TaskController extends Controller
 
 		// Get the task
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a task
-		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
 		if (!$task) {
 			throw new NotFoundHttpException();

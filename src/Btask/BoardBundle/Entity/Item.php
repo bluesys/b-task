@@ -420,4 +420,28 @@ class Item
 
         return false;
     }
+
+
+    /**
+     * Check if a user has a relation with an item
+     *
+     */
+    public function isSharedTo(User $user) {
+        // By the Collaboration way
+        if ($this->project) {
+            foreach ($this->project->getCollaborations() as $registredCollaboration) {
+                if($registredCollaboration->getParticipant() === $user) {
+                    return true;
+                }
+            }
+        }
+
+        // By the owner and executor way
+        if($this->owner === $user || $this->executor === $user) {
+            return true;
+        }
+
+
+        return false;
+    }
 }

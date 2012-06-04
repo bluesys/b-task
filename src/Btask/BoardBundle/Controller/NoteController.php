@@ -84,6 +84,31 @@ class NoteController extends Controller
 		return $response;
 	}
 
+	public function showNoteAction($id) {
+
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$note = $em->getRepository('BtaskBoardBundle:Item')->findOneNoteBy(array('id' => $id));
+
+		if(!$note) {
+			throw new NotFoundHttpException();
+		}
+
+		if (!$note->isSharedTo($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		return $this->render('BtaskBoardBundle:Dashboard:note.html.twig', array(
+			'note' => $note,
+		));
+	}
+
 	/**
 	 * Delete a note
 	 *
@@ -98,8 +123,7 @@ class NoteController extends Controller
 		$user = $this->get('security.context')->getToken()->getUser();
 
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a note
-		$note = $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$note = $em->getRepository('BtaskBoardBundle:Item')->findOneNoteBy(array('id' => $id));
 
 		if(!$note) {
 			throw new NotFoundHttpException();
