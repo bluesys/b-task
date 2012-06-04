@@ -40,7 +40,41 @@ class NoteController extends Controller
 		}
 
 		// Return a JSON feed of notes templates
-		$tasks_template = array();
+		$notes_template = array();
+		foreach ($notes as $note) {
+			$notes_template[] = $this->render('BtaskBoardBundle:Dashboard:note.html.twig', array('note' => $note))->getContent();
+		}
+
+		$response = new Response(json_encode($notes_template), 200);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
+
+	/**
+     * Display all notes
+     *
+     */
+	public function showNotesAction() {
+
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+
+		// Get notes
+		$notes = $em->getRepository('BtaskBoardBundle:Item')->findNotesBy(array('user' => $user->getId()));
+
+		if (!$notes) {
+			throw new NotFoundHttpException();
+		}
+
+		// Return a JSON feed of notes templates
+		$notes_template = array();
 		foreach ($notes as $note) {
 			$notes_template[] = $this->render('BtaskBoardBundle:Dashboard:note.html.twig', array('note' => $note))->getContent();
 		}

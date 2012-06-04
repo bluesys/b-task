@@ -148,6 +148,15 @@ class ItemRepository extends EntityRepository
 
                     break;
 
+                // Select notes by user
+                case 'user':
+                    $qb->innerJoin('i.project', 'ip');
+                    $qb->innerJoin('ip.collaborations', 'ipc');
+                    $qb->andWhere('ipc.participant = :user_id');
+                    $parameters['user_id'] = $value;
+
+                    break;
+
                 default:
                     throw new \InvalidArgumentException('parameter not available');
                     break;
