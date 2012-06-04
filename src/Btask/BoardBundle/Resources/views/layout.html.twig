@@ -17,6 +17,7 @@
 </div>
 <div id="overview" class="row-fluid">
     {% include 'BtaskBoardBundle:Default:navigation.html.twig' %}
+    <div id="content"></div>
 </div>
 {% endblock %}
 
@@ -27,7 +28,8 @@
         '@BtaskBoardBundle/Resources/public/js/main.js'
         '@BtaskBoardBundle/Resources/public/js/dashboard.js'
         '@BtaskBoardBundle/Resources/public/js/navigation.js'
-        '@BtaskBoardBundle/Resources/public/js/content.js'
+        '@BtaskBoardBundle/Resources/public/js/tasks.js'
+        '@BtaskBoardBundle/Resources/public/js/notes.js'
         '@BtaskBoardBundle/Resources/public/js/bootstrap-datepicker.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

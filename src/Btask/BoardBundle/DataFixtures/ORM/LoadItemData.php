@@ -117,7 +117,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
             $task->setOwner($this->owner);
-            $task->setExecutor($this->executor);
+            $task->setExecutor($this->manager->merge($this->getReference('user2')));
 
             $this->manager->persist($task);
         }
@@ -144,7 +144,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(true);
             $task->setOwner($this->owner);
-            $task->setExecutor($this->executor);
+            $task->setExecutor($this->manager->merge($this->getReference('user2')));
             $task->setProject($this->manager->merge($this->getReference('project1')));
 
             $this->manager->persist($task);
@@ -171,7 +171,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(false);
-            $task->setOwner($this->owner);
+            $task->setOwner($this->manager->merge($this->getReference('user2')));
             $task->setExecutor($this->executor);
 
             $this->manager->persist($task);

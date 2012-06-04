@@ -21,7 +21,7 @@ class PostItController extends Controller
     public function showPostsItAction()
     {
 		$request = $this->container->get('request');
-		if($request->isXmlHttpRequest()) {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
 		}
 
@@ -56,7 +56,7 @@ class PostItController extends Controller
     public function showPostItAction($id)
     {
 		$request = $this->container->get('request');
-		if($request->isXmlHttpRequest()) {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
 		}
 

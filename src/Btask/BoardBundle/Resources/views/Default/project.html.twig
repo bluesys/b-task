@@ -1,0 +1,42 @@
+<div id="streamline">
+    <div id="summary">
+        <h2>Today, {{ "now"|date("d F Y") }}</h2>
+        <select id="users" name="users">
+        </select>
+    </div>
+    <div id="tasks" class="accordion" data-collapse-type="manual">
+        <div class="status accordion-group">
+            <div class="title accordion-heading">
+                <a href="#overdue" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.overdue' | trans }}</a>
+            </div>
+            <div id="overdue" class="accordion-body collapse-content in">
+                <div class="accordion-inner">
+                    <div id="overdue-tasks" class="accordion" data-collapse-type="manual">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="status accordion-group">
+            <div class="title accordion-heading">
+                <a href="#planned" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.planned' | trans }}</a>
+            </div>
+            <div id="planned" class="accordion-body collapse-content in">
+                <div class="accordion-inner">
+                    <div id="planned-tasks" class="accordion" data-collapse-type="manual">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="status accordion-group">
+            <div class="title accordion-heading">
+                <a href="#done" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.done' | trans }}</a>
+            </div>
+            <div id="done" class="accordion-body collapse-content in">
+                <div class="accordion-inner">
+                    <div id="done-tasks" class="accordion" data-collapse-type="manual">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

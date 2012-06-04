@@ -75,72 +75,17 @@ this.prepareWorkgroup = function( $e ){
 
 this.prepareProject = function( $e ){
     // prepare edit
-    $e.find('a').click( function( e ){
-
+    $e.click( function( e ){
         e.preventDefault();
 
-        var $this = $(this);
-
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('href'),
-            success: function( data ){
-                if( $this.hasClass('edit')){
-
-                    var $data = $(data)
-                    var $initVal = $e.find('.header').html();
-
-                    $resetBt = $data.find('input[type="reset"]')
-                    $saveBt = $data.find('input[type="submit"]')
-
-                    $resetBt.click( function( e ) {
-                       $e.find('.header').html( $initVal );
-                    })
-
-                    $saveBt.click( function( e ) {
-
-                        e.preventDefault();
-
-                        $.ajax({
-                            type: "POST",
-                            url: $data.attr('action'),
-                            data: $data.serialize(),
-                            success: function( data ){
-                                var $data = $(data)
-
-                                $e.replaceWith( $data );
-                                prepareWorkgroup( $data );
-                            }
-                        })
-                    });
-
-                    $e.find('div.header').html( $data );
-
-
-
-                }
-                else if( $this.hasClass('remove') ){
-                    var $data = $(data)
-                    $.ajax({
-                        type: "POST",
-                        url: $data.attr('action'),
-                        data: $data.serialize(),
-                        success: function( data ){
-                            e.preventDefault();
-
-                            var $data = $(data)
-
-                            $e.replaceWith( $data );
-                            prepareWorkgroup( $data );
-                        }
-                    })
-                    $e.remove();
-                }
-            }
+        initView( $('#content'), Routing.generate('BtaskBoardBundle_project'), function(){
+            setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug')}) )
         });
+
+
     })
 
-    return $e;
+
     return $e;
 }
 
@@ -171,7 +116,6 @@ this.setNavigation = function(){
     $.ajax({
         type: "GET",
         url: Routing.generate('BtaskBoardBundle_workgroups_show'),
-        //cache: true,
         success: function(data){
 
             $.each( data, function( i, e){
@@ -187,7 +131,6 @@ this.setNavigation = function(){
 
 
 $(function(){
-
     // init navigation
     setNavigation();
 
