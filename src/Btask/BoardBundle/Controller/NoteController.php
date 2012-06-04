@@ -9,6 +9,8 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Btask\BoardBundle\Entity\Item;
+use Btask\BoardBundle\Form\Type\NoteType;
+use Btask\BoardBundle\Form\Handler\NoteHandler;
 
 class NoteController extends Controller
 {
@@ -16,7 +18,8 @@ class NoteController extends Controller
      * Display all notes by project
      *
      */
-	public function showNotesByProjectAction($project_slug) {
+	public function showNotesByProjectAction($project_slug)
+	{
 
 		$request = $this->container->get('request');
 		if(!$request->isXmlHttpRequest()) {
@@ -51,11 +54,13 @@ class NoteController extends Controller
 		return $response;
 	}
 
+
 	/**
      * Display all notes
      *
      */
-	public function showNotesAction() {
+	public function showNotesAction()
+	{
 
 		$request = $this->container->get('request');
 		if(!$request->isXmlHttpRequest()) {
@@ -84,7 +89,13 @@ class NoteController extends Controller
 		return $response;
 	}
 
-	public function showNoteAction($id) {
+
+	/**
+	 * Display a note
+	 *
+	 */
+	public function showNoteAction($id)
+	{
 
 		$request = $this->container->get('request');
 		if(!$request->isXmlHttpRequest()) {
@@ -109,11 +120,53 @@ class NoteController extends Controller
 		));
 	}
 
+
+	/**
+	 * Update a note
+	 *
+	 */
+	public function updateNoteAction($id)
+	{
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$note = $em->getRepository('BtaskBoardBundle:Item')->findOneNoteBy(array('id' => $id));
+
+		if(!$note) {
+			throw new NotFoundHttpException();
+		}
+
+		if (!$note->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		// Generate the form
+	    $form = $this->createForm(new NoteType($user), $note);
+        $formHandler = new NoteHandler($form, $request, $em, $user);
+
+        if($formHandler->process()) {
+			// TODO: Return a notification
+			return new Response(null, 200);
+        }
+
+		return $this->render('BtaskBoardBundle:Dashboard:form_update_note.html.twig', array(
+			'form' => $form->createView(),
+			'note' => $note,
+		));
+	}
+
+
 	/**
 	 * Delete a note
 	 *
 	 */
-	public function deleteNoteAction($id) {
+	public function deleteNoteAction($id)
+	{
 
 		$request = $this->container->get('request');
 		if(!$request->isXmlHttpRequest()) {

@@ -10,7 +10,7 @@ use Btask\BoardBundle\Entity\Collaboration;
 use Btask\BoardBundle\Entity\Item;
 use Btask\UserBundle\Entity\User;
 
-class TaskHandler
+class NoteHandler
 {
     protected $form;
     protected $request;
@@ -41,7 +41,7 @@ class TaskHandler
 
     public function onSuccess(Item $task)
     {
-        // Assign the task to the current user
+        // Assign the note to the current user
     	$task->setOwner($this->user);
 
         $this->em->persist($task);

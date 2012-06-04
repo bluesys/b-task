@@ -127,7 +127,7 @@ BtaskBoardBundle_notes_show:
     options:
         expose: true
 
-BtaskBoardBundle_note_edit:
+BtaskBoardBundle_note_create:
     pattern:  /note/create/
     defaults: { _controller: BtaskBoardBundle:Note:createNote }
     requirements:
@@ -135,7 +135,7 @@ BtaskBoardBundle_note_edit:
     options:
         expose: true
 
-BtaskBoardBundle_note_edit:
+BtaskBoardBundle_note_update:
     pattern:  /note/{id}/edit/
     defaults: { _controller: BtaskBoardBundle:Note:updateNote }
     requirements:

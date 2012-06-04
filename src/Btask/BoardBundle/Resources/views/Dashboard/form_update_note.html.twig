@@ -1,0 +1,18 @@
+<form action="{{ path('BtaskBoardBundle_note_update', { 'id': note.id }) }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	<div class="note alert-info" data-id="{{ note.id }}">
+	    <a class="close" data-dismiss="alert" href="#">×</a>
+			{{ form_errors(form.subject) }}
+			{{ form_widget(form.subject) }}
+		<input class="btn" type="submit" value="{{ 'dashboard.note.save'|trans }}" />
+	</div>
+	<div id="panel-edit">
+		{{ form_errors(form.detail) }}
+		{{ form_widget(form.detail) }}
+
+		{{ form_errors(form.project) }}
+		{{ form_widget(form.project) }}
+
+		{{ form_widget(form._token) }}
+	</div>
+</form>
