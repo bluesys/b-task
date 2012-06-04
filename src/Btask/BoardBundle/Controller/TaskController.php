@@ -18,7 +18,7 @@ class TaskController extends Controller
      * Display all tasks by project
      *
      */
-	public function showTasksByProjectAction($project_slug) {
+	public function showTasksByStateAndByProjectAction($project_slug, $state) {
 
 		$request = $this->container->get('request');
 		if(!$request->isXmlHttpRequest()) {
@@ -35,7 +35,7 @@ class TaskController extends Controller
 		}
 
 		// Get tasks by project
-		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('project' => $project->getId()));
+		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('state' => $state, 'project' => $project->getId()));
 
 		if (!$tasks) {
 			throw new NotFoundHttpException();
