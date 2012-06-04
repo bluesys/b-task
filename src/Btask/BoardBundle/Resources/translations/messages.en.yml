@@ -2,6 +2,7 @@
 dashboard:
     postit:
         save: Save
+        cancel: Cancel
         edit: Edit
 
 overview:

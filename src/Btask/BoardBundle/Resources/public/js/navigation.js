@@ -79,7 +79,7 @@ this.prepareProject = function( $e ){
         e.preventDefault();
 
         initView( $('#content'), Routing.generate('BtaskBoardBundle_project'), function(){
-            setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug')}) )
+            setTask4Project( $e );
         });
 
 

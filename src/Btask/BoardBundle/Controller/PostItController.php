@@ -176,6 +176,41 @@ class PostItController extends Controller
 
 
 	/**
+     * Close the current postit (status = false)
+     *
+     */
+    public function closePostItAction($id)
+    {
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$postIt = $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
+
+		if (!$postIt) {
+			throw new NotFoundHttpException();
+		}
+
+		if (!$postIt->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		// Set postit status to false
+		$postIt->setStatus(false);
+		$em->persist($postIt);
+		$em->flush();
+
+		// TODO: Return a notification
+		return new Response(null, 200);
+    }
+
+
+
+	/**
 	 * Delete a post-it
 	 *
 	 */

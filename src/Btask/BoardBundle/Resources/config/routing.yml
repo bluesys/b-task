@@ -38,6 +38,14 @@ BtaskBoardBundle_post_it_delete:
     options:
         expose: true
 
+BtaskBoardBundle_postit_close:
+    pattern:  /post-it/{id}/close/
+    defaults: { _controller: BtaskBoardBundle:PostIt:closePostIt }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
 BtaskBoardBundle_post_it_show:
     pattern:  /post-it/{id}/
     defaults: { _controller: BtaskBoardBundle:PostIt:showPostIt }

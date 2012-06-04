@@ -1,5 +1,5 @@
 
-this.prepareTask = function( $e ){
+this.prepareTask = function( $e, project ){
    // prepare edit
     $e.find('a').click( function( e ){
 
@@ -18,9 +18,13 @@ this.prepareTask = function( $e ){
                         type: "POST",
                         url: Routing.generate('BtaskBoardBundle_task_close', {'id': $e.data('id')}),
                         success: function( data ){
-                            setTasks( $('#overdue-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'overdue'}) )
-            				setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'planned'}) )
-            				setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'done'}) )
+                        	if( project ){
+                        		setTask4Project( $e );
+                        	}
+                        	else {
+                        		setTask4Today( $e );
+                        	}
+
                         }
                     })
 
@@ -72,13 +76,23 @@ this.setTasks = function( $e, url ){
 }
 
 
+this.setTask4Project = function ( $e ){
+	setTasks( $('#overdue-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug'),'state': 'overdue'}), true )
+    setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug'),'state': 'planned'}), true )
+    setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug'),'state': 'done'}), true )
+}
+
+this.setTask4Today = function ( $e ){
+	setTasks( $('#overdue-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'overdue'}) )
+    setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'planned'}) )
+    setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'done'}) )
+}
+
 
 
 $(function(){
 
 	initView( $('#content'), Routing.generate('BtaskBoardBundle_today'), function(){
-            setTasks( $('#overdue-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'overdue'}) )
-            setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'planned'}) )
-            setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'done'}) )
+           setTask4Today();
     });
 })
