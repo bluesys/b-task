@@ -55,10 +55,12 @@ BtaskBoardBundle_posts_it_show:
 
 # Task
 BtaskBoardBundle_tasks_by_project_show:
-    pattern:  /{project_slug}/tasks/
-    defaults: { _controller: BtaskBoardBundle:Task:showTasksByProject }
+    pattern:  /{project_slug}/tasks/{state}
+    defaults: { _controller: BtaskBoardBundle:Task:showTasksByStateAndByProject }
     requirements:
         project_slug: \w+
+    requirements:
+        state: (overdue|planned|done)
     options:
         expose: true
 
