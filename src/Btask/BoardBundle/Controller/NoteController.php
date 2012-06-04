@@ -64,9 +64,8 @@ class NoteController extends Controller
 
 		$user = $this->get('security.context')->getToken()->getUser();
 
-		$em = $this->getDoctrine()->getEntityManager();
-
 		// Get notes
+		$em = $this->getDoctrine()->getEntityManager();
 		$notes = $em->getRepository('BtaskBoardBundle:Item')->findNotesBy(array('user' => $user->getId()));
 
 		if (!$notes) {
@@ -83,5 +82,37 @@ class NoteController extends Controller
 		$response->headers->set('Content-Type', 'application/json');
 
 		return $response;
+	}
+
+	/**
+	 * Delete a note
+	 *
+	 */
+	public function deleteNoteAction($id) {
+
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a note
+		$note = $em->getRepository('BtaskBoardBundle:Item')->find($id);
+
+		if(!$note) {
+			throw new NotFoundHttpException();
+		}
+
+		if (!$note->hasOwner($user)) {
+			throw new AccessDeniedHttpException();
+		}
+
+		$em->remove($note);
+		$em->flush();
+
+		// TODO: Return a notification
+		return new Response(null, 200);
 	}
 }

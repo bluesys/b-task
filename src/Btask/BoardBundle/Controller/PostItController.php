@@ -64,6 +64,7 @@ class PostItController extends Controller
 
 		// Get the post-it
 		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a post-it
 		$postIt = $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$postIt) {
@@ -142,6 +143,7 @@ class PostItController extends Controller
 
 		// Get the item
 		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a post-it
 		$item =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$item) {
@@ -186,6 +188,7 @@ class PostItController extends Controller
 
 		// Get the post-it
 		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a post-it
 		$postIt =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$postIt) {

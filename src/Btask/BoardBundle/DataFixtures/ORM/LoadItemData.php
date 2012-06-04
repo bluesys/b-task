@@ -90,7 +90,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $note = new Item();
             $note->setSubject('That is the amazing note '.$i);
             $note->setType($this->manager->merge($this->getReference($this->types['2'])));
-            $note->setOwner($this->executor);
+            $note->setOwner($this->owner);
             $note->setProject($this->manager->merge($this->getReference('project1')));
             $this->manager->persist($note);
         }

@@ -101,6 +101,7 @@ class TaskController extends Controller
 
 		// Get the task
 		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a task
 		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$task) {
@@ -132,6 +133,7 @@ class TaskController extends Controller
 
 		// Get the task
 		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a task
 		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$task) {
@@ -167,6 +169,7 @@ class TaskController extends Controller
 		$request = $this->container->get('request');
 
 		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a task
 		$task = $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$task) {
@@ -200,6 +203,7 @@ class TaskController extends Controller
 
 		// Get the task
 		$em = $this->getDoctrine()->getEntityManager();
+		// TODO: Check if it's a task
 		$task =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
 
 		if (!$task) {
