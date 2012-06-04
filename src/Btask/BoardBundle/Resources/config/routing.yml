@@ -1,13 +1,13 @@
 # General
 BtaskBoardBundle_today:
     pattern:  /today
-    defaults: { _controller: BtaskBoardBundle:Default:today }
+    defaults: { _controller: BtaskBoardBundle:Default:showToday }
     options:
         expose: true
 
 BtaskBoardBundle_project:
     pattern:  /project
-    defaults: { _controller: BtaskBoardBundle:Default:project }
+    defaults: { _controller: BtaskBoardBundle:Default:showProject }
     options:
         expose: true
 

@@ -163,7 +163,9 @@ class WorkgroupController extends Controller
 	            $em->flush();
 
 				// TODO: Return a notification
-				return new Response(null, 200);
+				return $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array(
+					'workgroup' => $workgroup,
+				));
 	        }
 	    }
 

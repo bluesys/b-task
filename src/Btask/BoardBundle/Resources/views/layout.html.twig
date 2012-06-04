@@ -24,8 +24,10 @@
     {{ parent() }}
 
     {% javascripts output="assets/tesst-javascripts.js"
+        '@BtaskBoardBundle/Resources/public/js/main.js'
         '@BtaskBoardBundle/Resources/public/js/dashboard.js'
         '@BtaskBoardBundle/Resources/public/js/navigation.js'
+        '@BtaskBoardBundle/Resources/public/js/content.js'
         '@BtaskBoardBundle/Resources/public/js/bootstrap-datepicker.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
