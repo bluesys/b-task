@@ -41,7 +41,7 @@ class ProjectController extends Controller
             throw new AccessDeniedHttpException();
 		}
 
-		return $this->render('BtaskBoardBundle:Overview:project.html.twig', array(
+		return $this->render('BtaskBoardBundle:Project:project.html.twig', array(
 			'project' => $project,
 		));
 	}
@@ -85,7 +85,7 @@ class ProjectController extends Controller
 		// Return a JSON feed of workgroup templates
 		$projects_template[] = array();
 		foreach ($projects as $project) {
-	    	$projects_template[] = $this->render('BtaskBoardBundle:Overview:project.html.twig', array('project' => $project))->getContent();
+	    	$projects_template[] = $this->render('BtaskBoardBundle:Project:project.html.twig', array('project' => $project))->getContent();
 		}
 
 		$response = new Response(json_encode($projects_template), 200);
@@ -128,7 +128,7 @@ class ProjectController extends Controller
 		// Return a JSON feed of workgroup templates
 		$users_template = array();
 		foreach ($users as $user) {
-		    $users_template[] = $this->render('BtaskBoardBundle:Overview:user.html.twig', array('user' => $user))->getContent();
+		    $users_template[] = $this->render('BtaskUserBundle:User:user.html.twig', array('user' => $user))->getContent();
 		}
 
 		$response = new Response(json_encode($users_template), 200);
@@ -158,6 +158,7 @@ class ProjectController extends Controller
 		//$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
 
 		// Generate the form
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_project_create');
 	    $form = $this->createForm(new CollaborationType($user), new Collaboration);
         $formHandler = new CollaborationHandler($form, $request, $em, $user);
 
@@ -166,8 +167,9 @@ class ProjectController extends Controller
 			return new Response(null, 200);
         }
 
-		return $this->render('BtaskBoardBundle:Overview:form_create_project.html.twig', array(
+		return $this->render('BtaskBoardBundle:Project:form_create_project.html.twig', array(
 			'form' => $form->createView(),
+			'$actionUrl' => $actionUrl,
 		));
 	}
 
@@ -201,6 +203,7 @@ class ProjectController extends Controller
 		$collaboration->setProject($project);
 
 		// Generate the form
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_project_update', array('id' => $id));
 		$form = $this->createForm(new CollaborationType($user), $collaboration);
 		$formHandler = new CollaborationHandler($form, $request, $em, $user);
 
@@ -209,9 +212,10 @@ class ProjectController extends Controller
 			return new Response(null, 200);
         }
 
-		return $this->render('BtaskBoardBundle:Overview:form_create_project.html.twig', array(
+		return $this->render('BtaskBoardBundle:Project:form_project.html.twig', array(
 			'form' => $form->createView(),
 			'project' => $project,
+			'$actionUrl' => $actionUrl,
 		));
 	}
 

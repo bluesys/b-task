@@ -21,10 +21,11 @@ class TaskType extends AbstractType
         $user = $this->user;
 
         $builder->add('subject');
-        $builder->add('detail');
+        $builder->add('detail', 'text', array('required' => false));
         $builder->add('due', 'date', array(
             'widget' => 'single_text',
             'format' => 'dd-MM-yyyy',
+            'required' => false,
         ));
         $builder->add('planned', 'date', array(
             'widget' => 'single_text',
@@ -37,12 +38,14 @@ class TaskType extends AbstractType
             'property' => 'email',
             'multiple' => false,
             'expanded' => true,
+            'required' => false,
         ));
         $builder->add('project', 'entity', array(
             'class' => 'BtaskBoardBundle:Project',
             'property' => 'name',
             'multiple' => false,
             'expanded' => true,
+            'required' => false,
             'query_builder' => function(EntityRepository $er) use ($user) {
                 return $er->createQueryBuilder('p')
                     ->innerJoin('p.collaborations', 'pc')

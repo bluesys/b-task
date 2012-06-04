@@ -39,7 +39,7 @@ class PostItController extends Controller
 		// Return a JSON feed of posit-it templates
 		$post_it_template = array();
 		foreach ($postsIt as $postIt) {
-			$post_it_template[] = $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array('post_it' => $postIt))->getContent();
+			$post_it_template[] = $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array('post_it' => $postIt))->getContent();
 		}
 
 		$response = new Response(json_encode($post_it_template), 200);
@@ -74,7 +74,7 @@ class PostItController extends Controller
 			throw new AccessDeniedHttpException();
 		}
 
-		return $this->render('BtaskBoardBundle:Dashboard:post-it.html.twig', array(
+		return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
 			'post_it' => $postIt
 		));
     }
@@ -117,7 +117,7 @@ class PostItController extends Controller
 		        }
 		    }
 
-		    return $this->render('BtaskBoardBundle:Dashboard:form_item.html.twig', array(
+		    return $this->render('BtaskBoardBundle:PostIt:form_item.html.twig', array(
 		        'form' => $form->createView(),
 		       	'actionUrl' => $actionUrl,
 		    ));
@@ -167,7 +167,7 @@ class PostItController extends Controller
 	        }
 	    }
 
-	    return $this->render('BtaskBoardBundle:Dashboard:form_item.html.twig', array(
+	    return $this->render('BtaskBoardBundle:PostIt:form_item.html.twig', array(
 	        'form' => $form->createView(),
 	       	'item' => $item,
 	       	'actionUrl' => $actionUrl,

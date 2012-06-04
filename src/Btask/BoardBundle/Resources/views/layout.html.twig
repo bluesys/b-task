@@ -13,60 +13,10 @@
     <div id="notifications">
     </div>
     <div id="post-it">
-        <div class="post-it form alert">
-            <a class="close" data-dismiss="alert" href="#">×</a>
-            {% render "BtaskBoardBundle:PostIt:createPostIt" %}
-        </div>
     </div>
 </div>
 <div id="overview" class="row-fluid">
-    {% include 'BtaskBoardBundle:Overview:panel-item.html.twig' %}
-    {% include 'BtaskBoardBundle:Overview:navigation.html.twig' %}
-    <div id="streamline">
-        <div id="summary">
-            <h2>Today, {{ "now"|date("d F Y") }}</h2>
-            <select id="users" name="users">
-                {% for i in range(0, 5) %}
-                <option>Person {{ i }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div id="tasks" class="accordion" data-collapse-type="manual">
-            <div class="status accordion-group">
-                <div class="title accordion-heading">
-                    <a href="#overdue" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.overdue' | trans }}</a>
-                </div>
-                <div id="overdue" class="accordion-body collapse-content in">
-                    <div class="accordion-inner">
-                        <div id="overdue-tasks" class="accordion" data-collapse-type="manual">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="status accordion-group">
-                <div class="title accordion-heading">
-                    <a href="#planned" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.planned' | trans }}</a>
-                </div>
-                <div id="planned" class="accordion-body collapse-content in">
-                    <div class="accordion-inner">
-                        <div id="planned-tasks" class="accordion" data-collapse-type="manual">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="status accordion-group">
-                <div class="title accordion-heading">
-                    <a href="#done" data-parent="#tasks" data-toggle="collapse" class="accordion-toggle">{{ 'overview.streamline.tasks.done' | trans }}</a>
-                </div>
-                <div id="done" class="accordion-body collapse-content in">
-                    <div class="accordion-inner">
-                        <div id="done-tasks" class="accordion" data-collapse-type="manual">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'BtaskBoardBundle:Default:navigation.html.twig' %}
 </div>
 {% endblock %}
 
@@ -83,18 +33,6 @@
 
     <script type="text/javascript">
     $(function() {
-        // Show the form to create a post-it in dashboard
-        $('.post-it.add').click(function () {
-            $('.post-it.form').css({ 'display' : 'inline-block' });
-        });
-
-        /*
-        getPostIt();
-        getOverdueTasks();
-        getPlannedTasks();
-        getDoneTasks();
-        getWorkgroups();
-        createWorkgroup();*/
         $('#navigation').show();
     });
     </script>

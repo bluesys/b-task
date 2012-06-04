@@ -45,7 +45,7 @@ class NoteController extends Controller
 		// Return a JSON feed of notes templates
 		$notes_template = array();
 		foreach ($notes as $note) {
-			$notes_template[] = $this->render('BtaskBoardBundle:Dashboard:note.html.twig', array('note' => $note))->getContent();
+			$notes_template[] = $this->render('BtaskBoardBundle:Note:note.html.twig', array('note' => $note))->getContent();
 		}
 
 		$response = new Response(json_encode($notes_template), 200);
@@ -80,7 +80,7 @@ class NoteController extends Controller
 		// Return a JSON feed of notes templates
 		$notes_template = array();
 		foreach ($notes as $note) {
-			$notes_template[] = $this->render('BtaskBoardBundle:Dashboard:note.html.twig', array('note' => $note))->getContent();
+			$notes_template[] = $this->render('BtaskBoardBundle:Note:note.html.twig', array('note' => $note))->getContent();
 		}
 
 		$response = new Response(json_encode($notes_template), 200);
@@ -115,7 +115,7 @@ class NoteController extends Controller
 			throw new AccessDeniedHttpException();
 		}
 
-		return $this->render('BtaskBoardBundle:Dashboard:note.html.twig', array(
+		return $this->render('BtaskBoardBundle:Note:note.html.twig', array(
 			'note' => $note,
 		));
 	}
@@ -154,7 +154,7 @@ class NoteController extends Controller
 			return new Response(null, 200);
         }
 
-		return $this->render('BtaskBoardBundle:Dashboard:form_update_note.html.twig', array(
+		return $this->render('BtaskBoardBundle:Note:form_note.html.twig', array(
 			'form' => $form->createView(),
 			'note' => $note,
 		));

@@ -2,6 +2,14 @@
 BtaskBoardBundle_today:
     pattern:  /today
     defaults: { _controller: BtaskBoardBundle:Default:today }
+    options:
+        expose: true
+
+BtaskBoardBundle_project:
+    pattern:  /project
+    defaults: { _controller: BtaskBoardBundle:Default:project }
+    options:
+        expose: true
 
 BtaskBoardBundle_board:
     pattern:  /
@@ -127,14 +135,6 @@ BtaskBoardBundle_notes_show:
     options:
         expose: true
 
-BtaskBoardBundle_note_create:
-    pattern:  /note/create/
-    defaults: { _controller: BtaskBoardBundle:Note:createNote }
-    requirements:
-        id: \d+
-    options:
-        expose: true
-
 BtaskBoardBundle_note_update:
     pattern:  /note/{id}/edit/
     defaults: { _controller: BtaskBoardBundle:Note:updateNote }
@@ -184,7 +184,7 @@ BtaskBoardBundle_project_create:
     options:
         expose: true
 
-BtaskBoardBundle_project_edit:
+BtaskBoardBundle_project_update:
     pattern:  /project/{id}/edit/
     defaults: { _controller: BtaskBoardBundle:Project:updateProject }
     requirements:

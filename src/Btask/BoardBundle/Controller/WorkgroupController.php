@@ -41,7 +41,7 @@ class WorkgroupController extends Controller
 			throw new AccessDeniedHttpException();
 		}
 
-		return $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array(
+		return $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array(
 			'workgroup' => $workgroup,
 		));
 	}
@@ -72,7 +72,7 @@ class WorkgroupController extends Controller
 		// Return a JSON feed of workgroup templates
 		$workgroups_template[] = array();
 		foreach ($workgroups as $workgroup) {
-	    	$workgroups_template[] = $this->render('BtaskBoardBundle:Overview:workgroup.html.twig', array('workgroup' => $workgroup))->getContent();
+	    	$workgroups_template[] = $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array('workgroup' => $workgroup))->getContent();
 		}
 
 		$response = new Response(json_encode($workgroups_template), 200);
@@ -117,7 +117,7 @@ class WorkgroupController extends Controller
 	        }
 	    }
 
-		return $this->render('BtaskBoardBundle:Overview:form_create_workgroup.html.twig', array(
+		return $this->render('BtaskBoardBundle:Workgroup:form_create_workgroup.html.twig', array(
 			'form' => $form->createView(),
 		));
 	}
@@ -167,7 +167,7 @@ class WorkgroupController extends Controller
 	        }
 	    }
 
-		return $this->render('BtaskBoardBundle:Overview:form_update_workgroup.html.twig', array(
+		return $this->render('BtaskBoardBundle:Workgroup:form_update_workgroup.html.twig', array(
 			'form' => $form->createView(),
 			'workgroup' => $workgroup,
 		));

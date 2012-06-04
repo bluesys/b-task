@@ -2,7 +2,9 @@
 	{{ form_errors(form) }}
 	<div class="task accordion-group" data-id="{{ task.id }}">
 		<div class="meta accordion-heading">
+			{% if (task.project )%}
 			<h6>{{ task.project.name }}</h6>
+			{% endif %}
 			<h5>
 				{{ form_errors(form.subject) }}
 				{{ form_widget(form.subject) }}

@@ -44,7 +44,7 @@ class TaskController extends Controller
 		// Return a JSON feed of workgroup templates
 		$tasks_template = array();
 		foreach ($tasks as $task) {
-			$tasks_template[] = $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array('task' => $task))->getContent();
+			$tasks_template[] = $this->render('BtaskBoardBundle:Task:task.html.twig', array('task' => $task))->getContent();
 		}
 
 		$response = new Response(json_encode($tasks_template), 200);
@@ -78,7 +78,7 @@ class TaskController extends Controller
 		// Return a JSON feed of workgroup templates
 		$tasks_template = array();
 		foreach ($tasks as $task) {
-			$tasks_template[] = $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array('task' => $task))->getContent();
+			$tasks_template[] = $this->render('BtaskBoardBundle:Task:task.html.twig', array('task' => $task))->getContent();
 		}
 
 		$response = new Response(json_encode($tasks_template), 200);
@@ -113,7 +113,7 @@ class TaskController extends Controller
 			throw new AccessDeniedHttpException();
 		}
 
-		return $this->render('BtaskBoardBundle:Dashboard:task.html.twig', array(
+		return $this->render('BtaskBoardBundle:Task:task.html.twig', array(
 			'task' => $task,
 		));
 	}
@@ -126,9 +126,9 @@ class TaskController extends Controller
 	public function updateTaskAction($id)
 	{
 		$request = $this->container->get('request');
-		if(!$request->isXmlHttpRequest()) {
+		/*if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
-		}
+		}*/
 
 		$user = $this->get('security.context')->getToken()->getUser();
 
@@ -153,7 +153,7 @@ class TaskController extends Controller
 			return new Response(null, 200);
         }
 
-		return $this->render('BtaskBoardBundle:Dashboard:form_update_task.html.twig', array(
+		return $this->render('BtaskBoardBundle:Task:form_task.html.twig', array(
 			'form' => $form->createView(),
 			'task' => $task,
 		));
@@ -180,10 +180,13 @@ class TaskController extends Controller
 			$task->setStatus($status);
 			$em->persist($task);
 			$em->flush();
+
+			// TODO: Return a notification
+			return new Response(null, 200);
 		}
 
-		// TODO: Return message if status passed is the current status or if the task has been updated
-		return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
+		// TODO: Return a notification
+		return new Response(null, 204);
     }
 
 
