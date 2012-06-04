@@ -5,12 +5,6 @@ BtaskBoardBundle_today:
     options:
         expose: true
 
-BtaskBoardBundle_project:
-    pattern:  /project
-    defaults: { _controller: BtaskBoardBundle:Default:showProject }
-    options:
-        expose: true
-
 BtaskBoardBundle_board:
     pattern:  /
     defaults: { _controller: BtaskBoardBundle:Default:showBoard }
@@ -244,5 +238,13 @@ BtaskBoardBundle_workgroup_show:
 BtaskBoardBundle_workgroups_show:
     pattern:  /workgroups/
     defaults: { _controller: BtaskBoardBundle:Workgroup:showWorkgroups }
+    options:
+        expose: true
+
+BtaskBoardBundle_project:
+    pattern:  /{project_slug}
+    defaults: { _controller: BtaskBoardBundle:Default:showProject }
+    requirements:
+        project_slug: \w+
     options:
         expose: true
