@@ -99,7 +99,7 @@ class Item
     /**
      * @Gedmo\Versioned
      *
-     * @ORM\ManyToOne(targetEntity="ItemType", inversedBy="items", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="ItemType", inversedBy="items", cascade={"persist"})
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      */
     protected $type;

@@ -1,9 +1,26 @@
+<style type="text/css">
+	.panel{
+
+		position:absolute;
+		margin-left:250px;
+		margin-top:-70px;
+		background:#ddd;
+		width:220px;
+		padding:20px;
+		border:solid 1px #000;
+	}
+</style>
 <div class="post-it alert">
 <form action="{{ actionUrl }}" method="post" {{ form_enctype(form) }}>
 	{{ form_errors(form) }}
 
+
+
     {{ form_errors(form.subject) }}
     {{ form_widget(form.subject) }}
+    <div class="panel">
+        {{ form_errors(form.type) }}
+    {{ form_widget(form.type) }}
 
 	{{ form_errors(form.detail) }}
 	{{ form_widget(form.detail) }}
@@ -24,6 +41,7 @@
 	{{ form_widget(form.project) }}
 
 	{{ form_widget(form._token) }}
+	</div>
 	<input class="btn" type="reset" value="{{ 'dashboard.postit.cancel'|trans }}" />
 	<input class="btn" type="submit" value="{{ 'dashboard.postit.save'|trans }}" />
 </form>

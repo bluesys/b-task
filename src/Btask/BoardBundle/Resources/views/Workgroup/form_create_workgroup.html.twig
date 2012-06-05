@@ -1,9 +1,13 @@
-<form id="workgroup-form-create" class="form" action="{{ path('BtaskBoardBundle_workgroup_create') }}" method="post" {{ form_enctype(form) }}>
-	{{ form_errors(form) }}
+<div class="workgroup">
+	<div class="header">
+		<form id="workgroup-form-create" class="form" action="{{ path('BtaskBoardBundle_workgroup_create') }}" method="post" {{ form_enctype(form) }}>
+		{{ form_errors(form) }}
 
-    {{ form_errors(form.name) }}
-    {{ form_widget(form.name) }}
-	{{ form_rest(form) }}
-	<input class="btn" type="reset" value="{{ 'navigation.workgroup.reset'|trans }}" />
-	<input class="btn" type="submit" value="{{ 'navigation.workgroup.create'|trans }}" />
-</form>
+   		{{ form_errors(form.name) }}
+    	{{ form_widget(form.name) }}
+		{{ form_rest(form) }}
+		<input class="btn" type="reset" value="{{ 'navigation.workgroup.reset'|trans }}" />
+		<input class="btn" type="submit" value="{{ 'navigation.workgroup.create'|trans }}" />
+		</form>
+	</div>
+</div>

@@ -45,22 +45,9 @@ class PostItHandler
         // Assign the the item to the connected user
         $item->setOwner($this->user);
 
-        // Get item types
-        $postItType = $this->em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
-        $taskType = $this->em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Task');
-        $noteType = $this->em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Note');
-
-        // If a planned date was entered, set item as task
-        if($item->getPlanned()) {
-            $item->setType($taskType);
-        }
-        // If a detail was entered, set item as note
-        elseif ($item->getDetail()) {
-            $item->setType($noteType);
-        }
-        // else, set item as post-it
-        else {
-            $item->setType($postItType);
+        // If this task is not assigned, assign-it to the current user
+        if(!$item->getExecutor()) {
+            $item->setExecutor($this->user);
         }
 
         $this->em->persist($item);

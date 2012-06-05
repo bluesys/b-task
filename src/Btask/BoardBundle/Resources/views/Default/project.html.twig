@@ -2,8 +2,9 @@
     <div id="summary">
         <h2>{{ project.name }}</h2>
         <select id="users" name="users">
+            <option value="" selected="selected">Participants</option>
 		{% for collaboration in project.collaborations %}
-			<option value="#">{{ collaboration.participant.email }}</option>
+			<option value="{{ collaboration.participant.id }}" >{{ collaboration.participant.email }}</option>
 		{% endfor %}
         </select>
     </div>
@@ -14,7 +15,7 @@
             </div>
             <div id="overdue" class="accordion-body collapse-content in">
                 <div class="accordion-inner">
-                    <div id="overdue-tasks" class="accordion" data-collapse-type="manual">
+                    <div id="overdue-tasks" class="accordion list" data-collapse-type="manual">
                     </div>
                 </div>
             </div>
@@ -25,7 +26,7 @@
             </div>
             <div id="planned" class="accordion-body collapse-content in">
                 <div class="accordion-inner">
-                    <div id="planned-tasks" class="accordion" data-collapse-type="manual">
+                    <div id="planned-tasks" class="accordion list" data-collapse-type="manual">
                     </div>
                 </div>
             </div>
@@ -36,7 +37,7 @@
             </div>
             <div id="done" class="accordion-body collapse-content in">
                 <div class="accordion-inner">
-                    <div id="done-tasks" class="accordion" data-collapse-type="manual">
+                    <div id="done-tasks" class="accordion list" data-collapse-type="manual">
                     </div>
                 </div>
             </div>

@@ -1,4 +1,19 @@
+<style type="text/css">
+	.panel{
+
+		position:absolute;
+		margin-left:720px;
+		margin-top:-10px;
+		background:#ddd;
+		width:220px;
+		padding:20px;
+		border:solid 1px #000;
+	}
+</style>
+
 <form action="{{ path('BtaskBoardBundle_task_udpate', { 'id': task.id }) }}" method="post" {{ form_enctype(form) }}>
+
+
 	{{ form_errors(form) }}
 	<div class="task accordion-group" data-id="{{ task.id }}">
 		<div class="meta accordion-heading">
@@ -21,7 +36,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="panel-edit">
+	<div class="panel">
 		{{ form_errors(form.detail) }}
 		{{ form_widget(form.detail) }}
 

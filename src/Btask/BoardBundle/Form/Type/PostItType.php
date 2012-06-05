@@ -48,6 +48,13 @@ class PostItType extends AbstractType
                     ->setParameter('participant', $user);
             })
         );
+        $builder->add('type', 'entity', array(
+            'class' => 'BtaskBoardBundle:ItemType',
+            'property' => 'name',
+            'multiple' => false,
+            'expanded' => true,
+            'required' => false,
+        ));
 
     }
 

@@ -182,7 +182,7 @@ class ItemRepository extends EntityRepository
      * @param datetime $date
      * @return collection post-it.
      */
-    public function findPostItBy(array $criteria, array $orderBy = null, $limit = null, $offset = null, $date = null)
+    public function findPostItBy(array $criteria, $limit = null, $offset = null, $date = null)
     {
 
         $qb = $this->createQueryBuilder('i');
@@ -216,6 +216,8 @@ class ItemRepository extends EntityRepository
 
         ($offset) ? $qb->setFirstResult($offset) : null;
         ($limit) ? $qb->setMaxResults($limit) : null;
+
+        $qb->orderBy('i.created', 'DESC');
 
         return $qb->getQuery()->getResult();
     }

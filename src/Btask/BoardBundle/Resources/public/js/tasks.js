@@ -1,52 +1,54 @@
+this.prepareTaskEdition = function( $data, $init ){
+
+    $resetBt = $data.find('form input[type="reset"]')
+    $saveBt = $data.find('form input[type="submit"]')
+
+    $resetBt.click( function( e ) {
+        e.preventDefault();
+        $data.replaceWith( $init )
+    })
+
+    $saveBt.click( function( e ) {
+
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: $data.find('form').attr('action'),
+            data: $data.find('form').serialize(),
+            success: function( data ){
+                setTasks();
+            }
+        })
+    });
+}
+
+
 
 this.prepareTask = function( $e, project ){
    // prepare edit
     $e.find('a').click( function( e ){
+        if( $(this).attr('href') == '#') return;
 
         e.preventDefault();
-
         var $this = $(this);
 
         $.ajax({
             type: "GET",
             url: $(this).attr('href'),
             success: function( data ){
-                if( $this.hasClass('close')){
+                var $data = $(data);
 
+                if( $this.hasClass('edit')){
 
-                	$.ajax({
-                        type: "POST",
-                        url: Routing.generate('BtaskBoardBundle_task_close', {'id': $e.data('id')}),
-                        success: function( data ){
-                        	if( project ){
-                        		setTask4Project( $e );
-                        	}
-                        	else {
-                        		setTask4Today( $e );
-                        	}
-
-                        }
-                    })
+                	var $init = $e;
+                    $e.replaceWith( $data );
+                    prepareTaskEdition( $data , $init );
 
 
                 }
-                else if( $this.hasClass('remove') ){
-                    var $data = $(data)
-                    $.ajax({
-                        type: "POST",
-                        url: $data.attr('action'),
-                        data: $data.serialize(),
-                        success: function( data ){
-                            e.preventDefault();
-
-                            var $data = $(data)
-
-                            $e.replaceWith( $data );
-                            prepareWorkgroup( $data );
-
-                        }
-                    })
-                    $e.remove();
+                else{
+                   setTasks();
+                   return;
                 }
             }
         });
@@ -57,42 +59,59 @@ this.prepareTask = function( $e, project ){
 }
 
 
-this.setTasks = function( $e, url ){
-	$.ajax({
-        type: "GET",
-        url: url,
-        success: function( data ){
-        	$e.html('')
-            $.each( data, function( i, e){
-                var $mytask = prepareTask( $(e) );
-                $e.append( $mytask )
-            })
-        },
-        error: function(){
+this.getTaskUrl = function ( project, user, st){
 
-        	$e.html('')
-        }
+    var params = new Object();
+    if( user ) params.user = user
+    if( st ) params.state = st
+
+    if( project ) {
+        params.project_slug = project;
+        url = Routing.generate('BtaskBoardBundle_tasks_by_project_show', params);
+
+    }
+    else {
+        url = Routing.generate('BtaskBoardBundle_tasks_by_state_show', params);
+    }
+
+    return url
+}
+
+this.setTasks = function( ){
+
+    $('#tasks div.list' ).each( function( k, e ){
+        $e = $(e)
+
+        var project     = $('#navigation').find('.project.on').data('slug');
+        var state       = $e.parent().parent().attr('id');
+        var user        = $('#users').val();
+
+        url = getTaskUrl( project, user, state )
+
+        $.ajax({
+            type: "GET",
+            async: false,
+            url: url,
+            success: function( data ){
+                $e.html('')
+                $.each( data, function( i, e ){
+                    var $mytask = prepareTask( $(e) );
+                    $e.append( $mytask )
+                })
+            },
+            error: function(){
+                $e.html('')
+            }
+        })
+
     })
+
 }
-
-
-this.setTask4Project = function ( $e ){
-	setTasks( $('#overdue-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug'),'state': 'overdue'}), true )
-    setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug'),'state': 'planned'}), true )
-    setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug'),'state': 'done'}), true )
-}
-
-this.setTask4Today = function ( ){
-	setTasks( $('#overdue-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'overdue'}) )
-    setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'planned'}) )
-    setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'done'}) )
-}
-
 
 
 $(function(){
 
 	initView( $('#content'), Routing.generate('BtaskBoardBundle_today'), function(){
-           setTask4Today();
+           setTasks();
     });
 })
