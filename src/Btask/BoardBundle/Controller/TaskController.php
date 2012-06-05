@@ -15,6 +15,45 @@ use Btask\BoardBundle\Form\Handler\TaskHandler;
 class TaskController extends Controller
 {
 	/**
+     * Display all tasks by project and by user
+     *
+     */
+	public function showTasksByProjectByUserAction($project_slug, $state, $user_id) {
+
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
+
+		if (!$project && !$project->isSharedTo($user)) {
+			throw new NotFoundHttpException();
+		}
+
+		// Get tasks by project
+		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('state' => $state, 'project' => $project->getId(), 'executor' => $user->getId()));
+
+		if (!$tasks) {
+			throw new NotFoundHttpException();
+		}
+
+		// Return a JSON feed of workgroup templates
+		$tasks_template = array();
+		foreach ($tasks as $task) {
+			$tasks_template[] = $this->render('BtaskBoardBundle:Task:task.html.twig', array('task' => $task))->getContent();
+		}
+
+		$response = new Response(json_encode($tasks_template), 200);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
+
+	/**
      * Display all tasks by project
      *
      */
