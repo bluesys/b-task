@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Btask\BoardBundle\Entity\Workgroup;
 use Btask\BoardBundle\Entity\WorkgroupCollaboration;
 use Btask\BoardBundle\Form\Type\WorkgroupType;
+use Btask\BoardBundle\Form\Handler\WorkgroupHandler;
 
 class WorkgroupController extends Controller
 {
@@ -96,26 +97,15 @@ class WorkgroupController extends Controller
 		$user = $this->get('security.context')->getToken()->getUser();
 
 		// Generate the form
-		// TODO: Move this logic below in a form handler
 		$workgroup = new Workgroup;
-	    $form = $this->createForm(new WorkgroupType(), $workgroup);
+		$form = $this->createForm(new WorkgroupType($user), $workgroup);
+		$formHandler = new WorkgroupHandler($form, $request, $em, $user);
 
-	    if($request->getMethod() == 'POST') {
-	        $form->bindRequest($request);
-
-	        if( $form->isValid() ) {
-				$em = $this->getDoctrine()->getEntityManager();
-
-				// Assign this workgroup to the current user
-				$workgroup->setOwner($user);
-
-	        	$em->persist($workgroup);
-	            $em->flush();
-
-	            // TODO: Return a notification
-				return new Response(null, 200);
-	        }
-	    }
+		if($formHandler->process()) {
+			return $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array(
+				'workgroup' => $workgroup,
+			));
+		}
 
 		return $this->render('BtaskBoardBundle:Workgroup:form_create_workgroup.html.twig', array(
 			'form' => $form->createView(),
@@ -149,25 +139,14 @@ class WorkgroupController extends Controller
 			throw new AccessDeniedHttpException();
 		}
 
-	    $form = $this->createForm(new WorkgroupType(), $workgroup);
+		$form = $this->createForm(new WorkgroupType($user), $workgroup);
+		$formHandler = new WorkgroupHandler($form, $request, $em, $user);
 
-		// Generate the form
-		// TODO: Move this logic below in a form handler
-		$request = $this->container->get('request');
-	    if( $request->getMethod() == 'POST' ) {
-	        $form->bindRequest($request);
-
-	        if( $form->isValid() ) {
-				$em = $this->getDoctrine()->getEntityManager();
-	        	$em->persist($workgroup);
-	            $em->flush();
-
-				// TODO: Return a notification
-				return $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array(
-					'workgroup' => $workgroup,
-				));
-	        }
-	    }
+		if($formHandler->process()) {
+			return $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array(
+				'workgroup' => $workgroup,
+			));
+		}
 
 		return $this->render('BtaskBoardBundle:Workgroup:form_update_workgroup.html.twig', array(
 			'form' => $form->createView(),
