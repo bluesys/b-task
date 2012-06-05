@@ -101,7 +101,7 @@ class PostItController extends Controller
         $postIt->setStatus(true);
 
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
-		$form = $this->createForm(new PostItType(), $postIt);
+		$form = $this->createForm(new PostItType($user), $postIt);
 		$formHandler = new PostItHandler($form, $request, $em, $user);
 
         if($formHandler->process()) {
@@ -147,7 +147,7 @@ class PostItController extends Controller
 
 		// Generate the form
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_update', array('id' => $id));
-		$form = $this->createForm(new PostItType(), $postIt);
+		$form = $this->createForm(new PostItType($user), $postIt);
 		$formHandler = new PostItHandler($form, $request, $em, $user);
 
         if($formHandler->process()) {
