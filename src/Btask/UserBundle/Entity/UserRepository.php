@@ -30,6 +30,18 @@ class UserRepository extends EntityRepository
 					$parameters['project_id'] = $value;
 					break;
 
+				case 'usernameCanonical':
+					$qb->andWhere('u.usernameCanonical = :usernameCanonical');
+
+					$parameters['usernameCanonical'] = $value;
+					break;
+
+				case 'emailCanonical':
+					$qb->andWhere('u.emailCanonical = :emailCanonical');
+
+					$parameters['emailCanonical'] = $value;
+					break;
+
 				default:
 					throw new \InvalidArgumentException('parameter not available');
 				break;
