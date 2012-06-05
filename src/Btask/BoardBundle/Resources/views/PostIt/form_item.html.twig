@@ -17,15 +17,10 @@
 	{{ form_errors(form.priority) }}
 	{{ form_widget(form.priority) }}
 
-	<input type="text" name="user_email" />
-	<a class="btn" href="#">{{ 'dashboard.postit.user'|trans }}</a>
 	{{ form_errors(form.executor) }}
 	{{ form_widget(form.executor) }}
 
-	{{ form_errors(form.project) }}
-	{{ form_widget(form.project) }}
-
-		{{ form_widget(form._token) }}
+	{{ form_widget(form._token) }}
 	{{ form_rest(form) }}
 	<input class="btn" type="reset" value="{{ 'dashboard.postit.cancel'|trans }}" />
 	<input class="btn" type="submit" value="{{ 'dashboard.postit.save'|trans }}" />

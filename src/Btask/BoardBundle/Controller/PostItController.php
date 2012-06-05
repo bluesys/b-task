@@ -94,22 +94,25 @@ class PostItController extends Controller
 		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
-
 		$em = $this->getDoctrine()->getEntityManager();
-		$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
 
 	    // Generate the form
-		$item = new Item;
-        $item->setStatus(true);
+		$postIt = new Item;
+        $postIt->setStatus(true);
 
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
-		$form = $this->createForm(new PostItType($user), $item);
+		$form = $this->createForm(new PostItType(), $postIt);
 		$formHandler = new PostItHandler($form, $request, $em, $user);
 
         if($formHandler->process()) {
-			return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
-				'post_it' => $item,
-			));
+			// Return the created post-it or null if is a task or a note
+			if($postIt->getType()->getName() == 'Post-it') {
+				return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
+					'post_it' => $postIt,
+				));
+			}
+
+			return new Response(null, 200);
     	}
 
 	    return $this->render('BtaskBoardBundle:PostIt:form_item.html.twig', array(
@@ -132,28 +135,35 @@ class PostItController extends Controller
 			throw new MethodNotAllowedHttpException(array('Ajax request'));
 		}
 
+		$user = $this->get('security.context')->getToken()->getUser();
+
 		// Get the item
 		$em = $this->getDoctrine()->getEntityManager();
-		$item =  $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy($id);
+		$postIt =  $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
-		if (!$item) {
+		if (!$postIt) {
             throw new NotFoundHttpException();
         }
 
 		// Generate the form
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_update', array('id' => $id));
-		$form = $this->createForm(new PostItType($user), $item);
+		$form = $this->createForm(new PostItType(), $postIt);
 		$formHandler = new PostItHandler($form, $request, $em, $user);
 
         if($formHandler->process()) {
-			return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
-				'post_it' => $item,
-			));
+			// Return the created post-it or null if is a task or a note
+			if($postIt->getType()->getName() == 'Post-it') {
+				return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
+					'post_it' => $postIt,
+				));
+			}
+
+			return new Response(null, 200);
     	}
 
 	    return $this->render('BtaskBoardBundle:PostIt:form_item.html.twig', array(
 	        'form' => $form->createView(),
-	       	'item' => $item,
+	       	'item' => $postIt,
 	       	'actionUrl' => $actionUrl,
 	    ));
 	}

@@ -2,6 +2,8 @@ parameters:
 #    btask_dashboard.example.class: Btask\BoardBundle\Example
 
 services:
-#    btask_dashboard.example:
-#        class: %btask_dashboard.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    btask_board.type.user_selector:
+        class: Btask\BoardBundle\Form\Type\UserSelectorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: user_selector }
