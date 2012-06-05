@@ -10,6 +10,22 @@ class PostItType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('subject');
+        $builder->add('detail');
+        $builder->add('due', 'date', array(
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+            'required' => false,
+        ));
+        $builder->add('planned', 'date', array(
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+        ));
+        $builder->add('priority');
+        $builder->add('executor', 'entity', array(
+            'class' => 'BtaskUserBundle:User',
+            'property' => 'email',
+        ));
+
     }
 
     public function getDefaultOptions(array $options)

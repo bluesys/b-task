@@ -22,15 +22,15 @@ this.preparePostitEdition = function( $data, $init ){
         console.log($data.find('form').attr('action'));
         $.ajax({
             type: "POST",
-                url: $data.find('form').attr('action'),
-                data: $data.find('form').serialize(),
-                success: function( data ){
-                    var $postit = $(data)
-                    $data.replaceWith( $postit );
-                    preparePostit( $postit );
-                }
-            })
-        });
+            url: $data.find('form').attr('action'),
+            data: $data.find('form').serialize(),
+            success: function( data ){
+                var $postit = $(data)
+                $data.replaceWith( $postit );
+                preparePostit( $postit );
+            }
+        })
+    });
 }
 
 
