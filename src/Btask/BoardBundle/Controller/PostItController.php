@@ -100,6 +100,8 @@ class PostItController extends Controller
 
 	    // Generate the form
 		$item = new Item;
+        $item->setStatus(true);
+
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
 		$form = $this->createForm(new PostItType($user), $item);
 		$formHandler = new PostItHandler($form, $request, $em, $user);
@@ -132,31 +134,22 @@ class PostItController extends Controller
 
 		// Get the item
 		$em = $this->getDoctrine()->getEntityManager();
-		// TODO: Check if it's a post-it
-		$item =  $em->getRepository('BtaskBoardBundle:Item')->find($id);
+		$item =  $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy($id);
 
 		if (!$item) {
             throw new NotFoundHttpException();
         }
 
 		// Generate the form
-		// TODO: Move this logic below in a form handler
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_update', array('id' => $id));
-	    $form = $this->createForm(new PostItType(), $item);
+		$form = $this->createForm(new PostItType($user), $item);
+		$formHandler = new PostItHandler($form, $request, $em, $user);
 
-	    $request = $this->get('request');
-	    if( $request->getMethod() == 'POST' ) {
-	        $form->bindRequest($request);
-
-	        if( $form->isValid() ) {
-	            $em->persist($item);
-	            $em->flush();
-
-				return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
-					'post_it' => $item,
-				));
-	        }
-	    }
+        if($formHandler->process()) {
+			return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
+				'post_it' => $item,
+			));
+    	}
 
 	    return $this->render('BtaskBoardBundle:PostIt:form_item.html.twig', array(
 	        'form' => $form->createView(),

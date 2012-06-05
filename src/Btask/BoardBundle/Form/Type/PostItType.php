@@ -4,6 +4,7 @@ namespace Btask\BoardBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
+use Btask\UserBundle\Form\Type\UserFormType;
 
 class PostItType extends AbstractType
 {
@@ -25,7 +26,11 @@ class PostItType extends AbstractType
             'class' => 'BtaskUserBundle:User',
             'property' => 'email',
         ));
-
+        $builder->add('executor', 'collection', array(
+            'type' => new UserFormType(),
+            'allow_add' => true,
+            'by_reference' => false,
+        ));
     }
 
     public function getDefaultOptions(array $options)

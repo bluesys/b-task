@@ -42,9 +42,8 @@ class PostItHandler
 
     public function onSuccess(Item $item)
     {
-        // Assign the the item to the connected user and open it
+        // Assign the the item to the connected user
         $item->setOwner($this->user);
-        $item->setStatus(true);
 
         // Get item types
         $postItType = $this->em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');

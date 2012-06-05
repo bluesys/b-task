@@ -5,6 +5,7 @@ dashboard:
         save: Save
         cancel: Cancel
         edit: Edit
+        user: Add an executor
 
 overview:
     streamline:
