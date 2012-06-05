@@ -82,7 +82,7 @@ this.setTask4Project = function ( $e ){
     setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_project_show', {'project_slug': $e.data('slug'),'state': 'done'}), true )
 }
 
-this.setTask4Today = function ( $e ){
+this.setTask4Today = function ( ){
 	setTasks( $('#overdue-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'overdue'}) )
     setTasks( $('#planned-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'planned'}) )
     setTasks( $('#done-tasks'), Routing.generate('BtaskBoardBundle_tasks_by_state_show', {'state': 'done'}) )

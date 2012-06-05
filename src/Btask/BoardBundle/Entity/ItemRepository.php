@@ -198,6 +198,17 @@ class ItemRepository extends EntityRepository
                     $parameters['owner'] = $value;
 
                     break;
+
+                // Sort by opened status
+                case 'status':
+                    $qb->andWhere('i.status = :true');
+                    $parameters['true'] = $value;
+
+                    break;
+
+                default:
+                    throw new \InvalidArgumentException('parameter not available');
+                    break;
             }
         }
 

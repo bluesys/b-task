@@ -29,7 +29,7 @@ class PostItController extends Controller
 
 		// Get all the post-it from the logged user
 		$em = $this->getDoctrine()->getEntityManager();
-		$postsIt = $em->getRepository('BtaskBoardBundle:Item')->findPostItBy(array('owner' => $user->getId()));
+		$postsIt = $em->getRepository('BtaskBoardBundle:Item')->findPostItBy(array('owner' => $user->getId(), 'status' => true));
 
 		if (!$postsIt) {
 			// TODO: Return a notification
@@ -98,6 +98,7 @@ class PostItController extends Controller
 		    $item = new Item;
 		    $item->setType($postItType);
 		    $item->setOwner($user);
+		    $item->setStatus(true);
 
 		    // Generate the form
 		    // TODO: Move this logic below in a form handler
@@ -112,8 +113,9 @@ class PostItController extends Controller
 		            $em->persist($item);
 		            $em->flush();
 
-					// TODO: Return a notification
-		            return new Response(null, 200);
+					return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
+						'post_it' => $item
+					));
 		        }
 		    }
 
@@ -163,7 +165,9 @@ class PostItController extends Controller
 	            $em->persist($item);
 	            $em->flush();
 
-	            return $this->redirect( $this->generateUrl('BtaskBoardBundle_board') );
+				return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
+					'post_it' => $item,
+				));
 	        }
 	    }
 

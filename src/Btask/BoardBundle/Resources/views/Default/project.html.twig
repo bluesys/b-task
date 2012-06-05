@@ -2,7 +2,7 @@
     <div id="summary">
         <h2>{{ project.name }}</h2>
         <select id="users" name="users">
-		{% for project.collaborations in collaboration %}
+		{% for collaboration in project.collaborations %}
 			<option value="#">{{ collaboration.participant.email }}</option>
 		{% endfor %}
         </select>

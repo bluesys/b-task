@@ -24,7 +24,7 @@ class DefaultController extends Controller
 
 	/**
 	 * Display the project view
-	 * 
+	 *
 	 */
     public function showProjectAction($project_slug)
     {
@@ -38,15 +38,15 @@ class DefaultController extends Controller
 		// Get the project
 		$em = $this->getDoctrine()->getEntityManager();
 		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
-		
-		if(!project) {
+
+		if(!$project) {
 			throw new NotFoundHttpException();
 		}
-		
-		if(!project->isSharedTo($user)) {
+
+		if(!$project->isSharedTo($user)) {
             throw new AccessDeniedHttpException();
 		}
-		
+
         return $this->render('BtaskBoardBundle:Default:project.html.twig', array(
 			'project' => $project,
         ));

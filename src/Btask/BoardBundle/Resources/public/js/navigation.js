@@ -78,7 +78,7 @@ this.prepareProject = function( $e ){
     $e.click( function( e ){
         e.preventDefault();
 
-        initView( $('#content'), Routing.generate('BtaskBoardBundle_project'), function(){
+        initView( $('#content'), Routing.generate('BtaskBoardBundle_project', { 'project_slug' : $e.data('slug') }), function(){
             setTask4Project( $e );
         });
 

@@ -1,6 +1,7 @@
 
 dashboard:
     postit:
+        close: Close
         save: Save
         cancel: Cancel
         edit: Edit

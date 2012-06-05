@@ -73,6 +73,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $postIt->setSubject('That is the amazing post-it '.$i);
             $postIt->setType($this->manager->merge($this->getReference($this->types['0'])));
             $postIt->setOwner($this->owner);
+            $postIt->setStatus(true);
 
             $this->manager->persist($postIt);
         }
