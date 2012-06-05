@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Entity\ItemType;
 use Btask\BoardBundle\Form\Type\PostItType;
+use Btask\BoardBundle\Form\Handler\PostItHandler;
 
 class PostItController extends Controller
 {
@@ -87,46 +88,32 @@ class PostItController extends Controller
     public function createPostItAction()
 	{
 		$request = $this->container->get('request');
-		//if($request->isXmlHttpRequest()) {
+		// Check if it is an Ajax request
+		if(!$request->isXmlHttpRequest()) {
+			throw new MethodNotAllowedHttpException(array('Ajax request'));
+		}
 
-			$user = $this->get('security.context')->getToken()->getUser();
+		$user = $this->get('security.context')->getToken()->getUser();
 
-			$em = $this->getDoctrine()->getEntityManager();
-			$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
+		$em = $this->getDoctrine()->getEntityManager();
+		$postItType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
 
-			// Create and set default value to the post-it
-		    $item = new Item;
-		    $item->setType($postItType);
-		    $item->setOwner($user);
-		    $item->setStatus(true);
+	    // Generate the form
+		$item = new Item;
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
+		$form = $this->createForm(new PostItType($user), $item);
+		$formHandler = new PostItHandler($form, $request, $em, $user);
 
-		    // Generate the form
-		    // TODO: Move this logic below in a form handler
-			$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
-		    $form = $this->createForm(new PostItType(), $item);
+        if($formHandler->process()) {
+			return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
+				'post_it' => $item,
+			));
+    	}
 
-		    $request = $this->get('request');
-		    if( $request->getMethod() == 'POST' ) {
-		        $form->bindRequest($request);
-
-		        if( $form->isValid() ) {
-		            $em->persist($item);
-		            $em->flush();
-
-					return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
-						'post_it' => $item
-					));
-		        }
-		    }
-
-		    return $this->render('BtaskBoardBundle:PostIt:form_item.html.twig', array(
-		        'form' => $form->createView(),
-		       	'actionUrl' => $actionUrl,
-		    ));
-		/*}
-		else {
-            throw new NotFoundHttpException();
-		}*/
+	    return $this->render('BtaskBoardBundle:PostIt:form_item.html.twig', array(
+	        'form' => $form->createView(),
+	       	'actionUrl' => $actionUrl,
+	    ));
 	}
 
 

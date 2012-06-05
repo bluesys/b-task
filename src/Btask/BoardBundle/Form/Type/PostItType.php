@@ -13,12 +13,12 @@ class PostItType extends AbstractType
         $builder->add('detail');
         $builder->add('due', 'date', array(
             'widget' => 'single_text',
-            'format' => 'dd-MM-yyyy',
+            'format' => 'd-m-Y',
             'required' => false,
         ));
         $builder->add('planned', 'date', array(
             'widget' => 'single_text',
-            'format' => 'dd-MM-yyyy',
+            'format' => 'd-m-Y',
         ));
         $builder->add('priority');
         $builder->add('executor', 'entity', array(
