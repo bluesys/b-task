@@ -176,17 +176,17 @@ this.setNavigation = function(){
                 setProjects( $myWorkgroup );
                 $ct.append( $myWorkgroup )
             })
-/*
+
             $.ajax({
                 type: "GET",
-                url: Routing.generate('BtaskBoardBundle_sharedProjects' ),
+                url: Routing.generate('BtaskBoardBundle_projects_unassigned_show' ),
                 success: function( data ){
                     $.each( data, function( i, e){
                         var $myProject = prepareProject( $(e) );
                         $('#workgroup-shared div.projects').append( $myProject )
-                })
-            }*/
-
+                    });
+                }
+            });
         }
     });
 
@@ -204,7 +204,7 @@ this.prepareWorkgroupAdd = function(){
             url: $(this).attr('href'),
             success: function(data){
                 var $data = $(data);
-                $('#navigation').append( $data )
+                $('#navigation .myworkgroups').append( $data )
 
                 prepareWorkgroupEdition($data, false);
 
