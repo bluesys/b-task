@@ -50,6 +50,12 @@ class PostItHandler
             $item->setExecutor($this->user);
         }
 
+        // If there is no type assign it the default
+        if(!$item->getType()) {
+            $postItType = $this->em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Post-it');
+            $item->setType($postItType);
+        }
+
         $this->em->persist($item);
         $this->em->flush();
     }

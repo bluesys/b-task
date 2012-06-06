@@ -23,6 +23,8 @@ navigation:
         update: Save
         delete: Delete
         reset: Cancel
+        project:
+            add: Add a project
 
     project:
         create: Save

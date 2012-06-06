@@ -73,7 +73,6 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $postIt->setSubject('That is the amazing post-it '.$i);
             $postIt->setType($this->manager->merge($this->getReference($this->types['0'])));
             $postIt->setOwner($this->owner);
-            $postIt->setStatus(true);
 
             $this->manager->persist($postIt);
         }
@@ -116,7 +115,6 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task->setDue($dueDate);
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
-            $task->setStatus(true);
             $task->setOwner($this->owner);
             $task->setExecutor($this->manager->merge($this->getReference('user2')));
 
@@ -143,7 +141,6 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
 
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
-            $task->setStatus(true);
             $task->setOwner($this->owner);
             $task->setExecutor($this->manager->merge($this->getReference('user2')));
             $task->setProject($this->manager->merge($this->getReference('project1')));
@@ -191,7 +188,6 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $workgroup = new Workgroup();
             $workgroup->setName('Workgroup '.$i);
             $workgroup->setOwner($this->manager->merge($this->getReference('user2')));
-            $workgroup->setShared(false);
 
             $this->manager->persist($workgroup);
             $this->manager->flush();
@@ -203,7 +199,6 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $workgroup = new Workgroup();
             $workgroup->setName('Workgroup '.$i);
             $workgroup->setOwner($this->manager->merge($this->getReference('user1')));
-            $workgroup->setShared(false);
 
             $this->manager->persist($workgroup);
             $this->manager->flush();

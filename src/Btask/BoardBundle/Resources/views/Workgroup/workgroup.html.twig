@@ -7,7 +7,7 @@
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu pull-right">
-				<li><a href="{{ path('BtaskBoardBundle_project_create', { 'workgroup_slug': workgroup.slug }) }}" class="addProject">add project</a></li>
+				<li><a href="{{ path('BtaskBoardBundle_project_create', { 'workgroup_slug': workgroup.slug }) }}" class="addProject">{{ 'navigation.workgroup.project.add'|trans }}</a></li>
 				<li><a href="{{ path('BtaskBoardBundle_workgroup_update', { 'id': workgroup.id }) }}" class="edit">{{ 'navigation.workgroup.edit'|trans }}</a></li>
 				<li><a href="{{ path('BtaskBoardBundle_workgroup_delete', { 'id': workgroup.id }) }}" class="remove">{{ 'navigation.workgroup.remove'|trans }}</a></li>
 			</ul>

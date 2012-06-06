@@ -129,6 +129,12 @@ class Item
     protected $executor;
 
 
+
+    public function __construct()
+    {
+        $this->setStatus(true);
+    }
+
     /**
      * Get id
      *
