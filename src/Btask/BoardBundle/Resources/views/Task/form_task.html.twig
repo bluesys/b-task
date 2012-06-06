@@ -1,4 +1,7 @@
-<style type="text/css">
+
+
+<form action="{{ path('BtaskBoardBundle_task_udpate', { 'id': task.id }) }}" method="post" {{ form_enctype(form) }}>
+	<style type="text/css">
 	.panel{
 
 		position:absolute;
@@ -9,10 +12,7 @@
 		padding:20px;
 		border:solid 1px #000;
 	}
-</style>
-
-<form action="{{ path('BtaskBoardBundle_task_udpate', { 'id': task.id }) }}" method="post" {{ form_enctype(form) }}>
-
+	</style>
 
 	{{ form_errors(form) }}
 	<div class="task accordion-group" data-id="{{ task.id }}">
@@ -24,7 +24,8 @@
 				{{ form_errors(form.subject) }}
 				{{ form_widget(form.subject) }}
 			</h5>
-			<input class="btn" type="submit" value="{{ 'dashboard.task.save'|trans }}" />
+			<input class="btn" type="reset" value="cancel" />
+			<input class="btn" type="submit" value="save" />
 			<div class="infos">
 				<em class="duedate">{{ task.due | date('F dS Y') }}</em>
 				<a class="underling" href="#">{{ task.owner.email }}</a>

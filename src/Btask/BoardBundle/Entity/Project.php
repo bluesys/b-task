@@ -71,6 +71,7 @@ class Project
 
     public function __construct()
     {
+        $this->color = '#eee';
         $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
         $this->collaborations = new \Doctrine\Common\Collections\ArrayCollection();
     }

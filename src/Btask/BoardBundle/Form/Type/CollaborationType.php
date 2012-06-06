@@ -30,6 +30,7 @@ class CollaborationType extends AbstractType
             'multiple' => false,
             'expanded' => true
         ));
+        /*
         $builder->add('workgroup', 'entity', array(
             'class' => 'BtaskBoardBundle:Workgroup',
             'property' => 'name',
@@ -41,6 +42,7 @@ class CollaborationType extends AbstractType
                     ->setParameter('user', $user);
         },
         ));
+        */
     }
 
     public function getDefaultOptions(array $options)

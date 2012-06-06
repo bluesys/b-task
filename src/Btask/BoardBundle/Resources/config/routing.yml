@@ -181,7 +181,7 @@ BtaskBoardBundle_projects_by_workgroup_show:
         expose: true
 
 BtaskBoardBundle_project_create:
-    pattern:  /project/create/
+    pattern:  /{workgroup_slug}/project/create/
     defaults: { _controller: BtaskBoardBundle:Project:createProject }
     requirements:
         workgroup_slug: \w+
@@ -242,7 +242,7 @@ BtaskBoardBundle_workgroups_show:
         expose: true
 
 BtaskBoardBundle_project:
-    pattern:  /{project_slug}
+    pattern:  /{project_slug}/
     defaults: { _controller: BtaskBoardBundle:Default:showProject }
     requirements:
         project_slug: \w+

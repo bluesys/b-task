@@ -142,7 +142,7 @@ class ProjectController extends Controller
      * Display a form to create a project
      *
      */
-	public function createProjectAction()
+	public function createProjectAction($workgroup_slug)
 	{
 		$request = $this->container->get('request');
 		if(!$request->isXmlHttpRequest()) {
@@ -152,24 +152,33 @@ class ProjectController extends Controller
 		$user = $this->get('security.context')->getToken()->getUser();
 
 		$em = $this->getDoctrine()->getEntityManager();
+		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
 
+		if(!$workgroup) {
+			throw new NotFoundHttpException();
+		}
+		if(!$workgroup->hasOwner($user)) {
+            throw new AccessDeniedHttpException();
+		}
 		// TODO: Set a default selected workgroup
 		// Get the workgroup where the use want to create his project
 		//$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
 
+
+
 		// Generate the form
-		$actionUrl = $this->generateUrl('BtaskBoardBundle_project_create');
+		$actionUrl = $this->generateUrl('BtaskBoardBundle_project_create', array('workgroup_slug' => $workgroup_slug));
 	    $form = $this->createForm(new CollaborationType($user), new Collaboration);
-        $formHandler = new CollaborationHandler($form, $request, $em, $user);
+        $formHandler = new CollaborationHandler($form, $request, $em, $user, $workgroup);
 
         if($formHandler->process()) {
 			// TODO: Return a notification
 			return new Response(null, 200);
         }
 
-		return $this->render('BtaskBoardBundle:Project:form_create_project.html.twig', array(
+		return $this->render('BtaskBoardBundle:Project:form_project.html.twig', array(
 			'form' => $form->createView(),
-			'$actionUrl' => $actionUrl,
+			'actionUrl' => $actionUrl,
 		));
 	}
 
@@ -215,7 +224,7 @@ class ProjectController extends Controller
 		return $this->render('BtaskBoardBundle:Project:form_project.html.twig', array(
 			'form' => $form->createView(),
 			'project' => $project,
-			'$actionUrl' => $actionUrl,
+			'actionUrl' => $actionUrl,
 		));
 	}
 

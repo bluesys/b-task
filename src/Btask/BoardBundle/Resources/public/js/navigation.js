@@ -1,5 +1,5 @@
 this.prepareWorkgroupEdition = function( $data, $init ){
-    console.log( $data )
+
     $resetBt = $data.find('form input[type="reset"]')
     $saveBt = $data.find('form input[type="submit"]')
 
@@ -7,6 +7,7 @@ this.prepareWorkgroupEdition = function( $data, $init ){
 
         if( $init ) {
             $data.replaceWith( $init );
+            prepareWorkgroup( $init );
         }
         else {
             $data.remove();
@@ -26,7 +27,8 @@ this.prepareWorkgroupEdition = function( $data, $init ){
             success: function( data ){
                 var $ndata = $(data)
 
-                $data.replaceWith( $data );
+                $data.replaceWith( $ndata );
+
                 prepareWorkgroup( $ndata );
                 setProjects( $ndata );
             }
@@ -39,8 +41,12 @@ this.prepareWorkgroupEdition = function( $data, $init ){
 
 this.prepareWorkgroup = function( $e ){
 
+
+
     // prepare edit
     $e.find('a').click( function( e ){
+
+        if( $(this).attr('href') == '#' ) return;
 
         e.preventDefault();
 
@@ -53,24 +59,24 @@ this.prepareWorkgroup = function( $e ){
                 if( $this.hasClass('edit')){
 
                     var $data = $(data)
-                    var $initVal = $e;
+                    var $init = $e;
+
                     $e.replaceWith( $data );
-                    prepareWorkgroupEdition( $data, $initVal );
+                    prepareWorkgroupEdition( $data, $init );
+
+
+                }
+                else if( $this.hasClass('addProject')  ){
+
+                    var $data = $(data);
+                    $e.show();
+                    $e.find('div.projects').append( $data )
+                    prepareProject($data, false);
 
 
                 }
                 else if( $this.hasClass('remove') ){
-                    var $data = $(data)
-                    $.ajax({
-                        type: "POST",
-                        url: $data.attr('action'),
-                        data: $data.serialize(),
-                        success: function( data ){
-
-                            $e.remove();
-                        }
-                    })
-
+                    $e.remove();
                 }
             }
         });
@@ -136,9 +142,31 @@ this.setNavigation = function(){
 }
 
 
+this.prepareWorkgroupAdd = function(){
+
+    $('#addWorkgroup').click( function( e ){
+
+        e.preventDefault();
+
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('href'),
+            success: function(data){
+                var $data = $(data);
+                $('#navigation').append( $data )
+
+                prepareWorkgroupEdition($data, false);
+
+
+            }
+        })
+    })
+}
+
 
 $(function(){
     // init navigation
     setNavigation();
+    prepareWorkgroupAdd()
 
 })

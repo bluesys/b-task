@@ -95,6 +95,7 @@ class WorkgroupController extends Controller
 		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
+		$em = $this->getDoctrine()->getEntityManager();
 
 		// Generate the form
 		$workgroup = new Workgroup;

@@ -10,7 +10,6 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('name');
-        $builder->add('color');
     }
 
     public function getDefaultOptions(array $options)

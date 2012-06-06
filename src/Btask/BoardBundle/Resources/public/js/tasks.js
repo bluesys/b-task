@@ -2,7 +2,7 @@ this.prepareTaskEdition = function( $data, $init ){
 
     $resetBt = $data.find('form input[type="reset"]')
     $saveBt = $data.find('form input[type="submit"]')
-
+    console.log( $data )
     $resetBt.click( function( e ) {
         e.preventDefault();
         $data.replaceWith( $init )
@@ -79,12 +79,13 @@ this.getTaskUrl = function ( project, user, st){
 
 this.setTasks = function( ){
 
+    var project     = $('#navigation').find('.project.on').data('slug');
+    var user        = $('#users').val();
+
     $('#tasks div.list' ).each( function( k, e ){
         $e = $(e)
 
-        var project     = $('#navigation').find('.project.on').data('slug');
         var state       = $e.parent().parent().attr('id');
-        var user        = $('#users').val();
 
         url = getTaskUrl( project, user, state )
 
@@ -112,6 +113,6 @@ this.setTasks = function( ){
 $(function(){
 
 	initView( $('#content'), Routing.generate('BtaskBoardBundle_today'), function(){
-           setTasks();
+          setTasks();
     });
 })

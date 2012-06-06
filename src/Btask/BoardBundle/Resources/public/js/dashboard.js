@@ -35,6 +35,7 @@ this.preparePostitEdition = function( $data, $init ){
 
 
 this.preparePostit = function( $e ){
+
 	$e.find('a').click( function( e ){
 
         e.preventDefault();
@@ -90,6 +91,7 @@ this.setPostits = function( ){
         success: function( data ){
         	$('#post-it').html('')
             $.each( data, function( i, e){
+
                 var $mypostit = preparePostit( $(e) );
                 $('#post-it').append( $mypostit )
             })
