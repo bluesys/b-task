@@ -1,9 +1,4 @@
 <div id="streamline">
-    <div id="summary">
-        <h2>Today, {{ "now"|date("d F Y") }}</h2>
-        <select id="users" name="users">
-        </select>
-    </div>
     <div id="tasks" class="accordion" data-collapse-type="manual">
         <div class="status accordion-group">
             <div class="title accordion-heading">
@@ -15,6 +10,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="summary">
+            <h2>Today <em>{{ "now"|date("d F Y") }}</em></h2>
         </div>
         <div class="status accordion-group">
             <div class="title accordion-heading">
