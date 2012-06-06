@@ -172,6 +172,12 @@ BtaskBoardBundle_project_show:
     options:
         expose: true
 
+BtaskBoardBundle_projects_unassigned_show:
+    pattern:  /projects/unassigned/
+    defaults: { _controller: BtaskBoardBundle:Project:showUnassignedProjects }
+    options:
+        expose: true
+
 BtaskBoardBundle_projects_by_workgroup_show:
     pattern:  /{workgroup_slug}/projects/
     defaults: { _controller: BtaskBoardBundle:Project:showProjectsByWorkgroup }

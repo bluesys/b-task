@@ -25,15 +25,30 @@ class ProjectRepository extends EntityRepository
 				// Sort by workgroup
 				case 'workgroup':
 					$qb->innerJoin('p.collaborations', 'pc');
-					$qb->andWhere('pc.workgroup = :workgroup_id');
 
-					$parameters['workgroup_id'] = $value;
+					if($value) {
+						$qb->andWhere('pc.workgroup = :workgroup_id');
+						$parameters['workgroup_id'] = $value;
+					}
+					else {
+						$qb->andWhere('pc.workgroup is NULL');
+					}
+
 					break;
 
 				// Sort by slug
 				case 'slug':
 					$qb->andWhere('p.slug = :project_slug');
 					$parameters['project_slug'] = $value;
+
+					break;
+
+				// Sort by slug
+				case 'user':
+					$qb->innerJoin('p.collaborations', 'pco');
+					$qb->andWhere('pco.participant = :participant_id');
+
+					$parameters['participant_id'] = $value;
 
 					break;
 

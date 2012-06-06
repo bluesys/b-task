@@ -218,7 +218,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function loadProjects()
     {
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $project = new Project();
             $project->setName('Project '.$i);
             $project->setColor('#eee');
@@ -242,6 +242,14 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $collaboration->setParticipant($this->manager->merge($this->getReference('user2')));
             $collaboration->setProject($this->manager->merge($this->getReference('project'.$i)));
             $collaboration->setWorkgroup($this->manager->merge($this->getReference('workgroup'.$i)));
+            $collaboration->setOwner(true);
+            $this->manager->persist($collaboration);
+        }
+
+        for ($i = 6; $i <= 10; $i++) {
+            $collaboration = new Collaboration();
+            $collaboration->setParticipant($this->manager->merge($this->getReference('user2')));
+            $collaboration->setProject($this->manager->merge($this->getReference('project'.$i)));
             $collaboration->setOwner(true);
             $this->manager->persist($collaboration);
         }

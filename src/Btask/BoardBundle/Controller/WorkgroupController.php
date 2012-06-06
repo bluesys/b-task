@@ -71,7 +71,7 @@ class WorkgroupController extends Controller
 		}
 
 		// Return a JSON feed of workgroup templates
-		$workgroups_template[] = array();
+		$workgroups_template = array();
 		foreach ($workgroups as $workgroup) {
 	    	$workgroups_template[] = $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array('workgroup' => $workgroup))->getContent();
 		}

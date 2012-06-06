@@ -83,7 +83,41 @@ class ProjectController extends Controller
 		}
 
 		// Return a JSON feed of workgroup templates
-		$projects_template[] = array();
+		$projects_template = array();
+		foreach ($projects as $project) {
+	    	$projects_template[] = $this->render('BtaskBoardBundle:Project:project.html.twig', array('project' => $project))->getContent();
+		}
+
+		$response = new Response(json_encode($projects_template), 200);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
+
+
+	/**
+	 * Display all unassigned projects
+	 *
+	 */
+	public function showUnassignedProjectsAction() {
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		// Get all projects which are unassigned to a workgroup
+		$em = $this->getDoctrine()->getEntityManager();
+		$projects = $em->getRepository('BtaskBoardBundle:Project')->findBy(array('workgroup' => null, 'user' => $user->getId()));
+
+		if (!$projects) {
+			// TODO: Return a notification
+			return new Response(null, 204);
+		}
+
+		// Return a JSON feed of workgroup templates
+		$projects_template = array();
 		foreach ($projects as $project) {
 	    	$projects_template[] = $this->render('BtaskBoardBundle:Project:project.html.twig', array('project' => $project))->getContent();
 		}
