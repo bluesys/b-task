@@ -39,6 +39,46 @@ this.prepareWorkgroupEdition = function( $data, $init ){
 }
 
 
+this.prepareProjectEdition = function( $data, $init ){
+
+
+
+
+
+    $resetBt = $data.find('input[type="reset"]')
+    $saveBt = $data.find('input[type="submit"]')
+
+    $resetBt.click( function( e ) {
+
+        if( $init ) {
+            $data.replaceWith( $init );
+            prepareProject( $init );
+        }
+        else {
+            $data.remove();
+
+        }
+
+    })
+
+    $saveBt.click( function( e ) {
+
+        e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: $data.attr('action'),
+            data: $data.serialize(),
+            success: function( data ){
+                setNavigation();
+            }
+        })
+    });
+
+
+}
+
+
 this.prepareWorkgroup = function( $e ){
 
 
@@ -67,11 +107,10 @@ this.prepareWorkgroup = function( $e ){
 
                 }
                 else if( $this.hasClass('addProject')  ){
-
                     var $data = $(data);
                     $e.show();
                     $e.find('div.projects').append( $data )
-                    prepareProject($data, false);
+                    prepareProjectEdition($data, false);
 
 
                 }
@@ -94,7 +133,6 @@ this.prepareProject = function( $e ){
         $(this).addClass('on');
         initView( $('#content'), Routing.generate('BtaskBoardBundle_project', { 'project_slug' : $e.data('slug') }), function(){
             setTasks();
-
         });
 
 
@@ -121,11 +159,13 @@ this.setProjects = function( $myWorkgroup ){
 
 this.setNavigation = function(){
 
-    var $ct = $('#navigation');
+    var $ct = $('#navigation .myworkgroups');
+    console.log($ct)
     if( !$ct.length ){
         return false;
     }
 
+    $ct.html('');
     $.ajax({
         type: "GET",
         url: Routing.generate('BtaskBoardBundle_workgroups_show'),
@@ -136,6 +176,17 @@ this.setNavigation = function(){
                 setProjects( $myWorkgroup );
                 $ct.append( $myWorkgroup )
             })
+/*
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('BtaskBoardBundle_sharedProjects' ),
+                success: function( data ){
+                    $.each( data, function( i, e){
+                        var $myProject = prepareProject( $(e) );
+                        $('#workgroup-shared div.projects').append( $myProject )
+                })
+            }*/
+
         }
     });
 

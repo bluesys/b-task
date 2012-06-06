@@ -51,8 +51,6 @@ class PostItType extends AbstractType
         $builder->add('type', 'entity', array(
             'class' => 'BtaskBoardBundle:ItemType',
             'property' => 'name',
-            'multiple' => false,
-            'expanded' => true,
             'required' => false,
         ));
 

@@ -1,5 +1,35 @@
 this.preparePostitEdition = function( $data, $init ){
 
+
+
+    $data.find('.tabs a').click(function( e ){
+        e.preventDefault()
+        $(this).parent().find('a').removeClass('active')
+        $(this).addClass('active')
+
+
+        if( $('.tabs a.active').attr('href') == 'note' ){
+            $data.find('fieldset').hide();
+            $data.find('fieldset.note').show();
+            $('#ftype select').val(30)
+        }
+        else if( $('.tabs a.active').attr('href') == 'task' ){
+            $data.find('fieldset').hide();
+            $data.find('fieldset.task').show();
+            if( $('#ftype select').val() == 30  ) $('#ftype select').val(28)
+        }
+
+        // TO CHANGE
+        $("#fplanned input").change(function(){
+
+            if( $(this).val() != '' ){
+                $('#ftype select').val(29)
+            }
+        })
+
+
+    })
+
     $resetBt = $data.find('form input[type="reset"]')
     $saveBt = $data.find('form input[type="submit"]')
 

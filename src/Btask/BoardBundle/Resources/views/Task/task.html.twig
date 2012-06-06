@@ -1,22 +1,13 @@
 <div class="task accordion-group" data-id="{{ task.id }}">
 	<div class="meta accordion-heading">
-		<h6>Project</h6>
+		<em class="duedate">{{ task.due | date('F dS Y') }}</em>
 		<h5>{{ task.subject }}</h5>
-	    <div class="actions">
-	    	{% if task.status == true %}
-			<a href="{{ path('BtaskBoardBundle_task_close', { 'id': task.id }) }}" class="btn close">
-				<i class="icon-ok"></i>
-			</a>
-			{% else %}
-			<a href="{{ path('BtaskBoardBundle_task_open', { 'id': task.id }) }}" class="btn reopen">
-				<i class="icon-remove"></i>
-			</a>
-			{% endif %}
-		</div>
-		<div class="infos">
-			<em class="duedate">{{ task.due | date('F dS Y') }}</em>
-			<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
-		</div>
+	    {% if task.status == true %}
+		<a href="{{ path('BtaskBoardBundle_task_close', { 'id': task.id }) }}" class="btn close"></a>
+		{% else %}
+		<a href="{{ path('BtaskBoardBundle_task_open', { 'id': task.id }) }}" class="btn reopen"></a>
+		{% endif %}
+		<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
 	</div>
 	<div id="task-{{ task.id }}" class="accordion-body collapse">
 		<div class="accordion-inner">

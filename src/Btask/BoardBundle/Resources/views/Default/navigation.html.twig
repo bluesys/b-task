@@ -1,5 +1,26 @@
 <div id="navigation">
 	<div id="workgroups" data-collapse-type="manual">
+		<div class="myworkgroups">
+
+		</div>
+		<div class="mysharedworkgroups">
+			<div class="workgroup"  data-slug="shared">
+			<div class="header">
+				<a class="title" href="#" data-parent="#workgroups" data-toggle="collapse">shared</a>
+				<div class="controls btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="icon-cog"></i>
+						<span class="caret"></span>
+					</a>
+				</div>
+			</div>
+			<div id="workgroup-shared" class="collapse-content collapse">
+				<div class="projects">
+				</div>
+			</div>
+		</div>
+
+		</div>
 	</div>
 	<div id="workgroup-create">
 		<a class="btn" href="{{ path('BtaskBoardBundle_workgroup_create') }}" id="addWorkgroup">{% trans %}navigation.workgroup.add{% endtrans %}</a>
