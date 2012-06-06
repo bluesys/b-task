@@ -341,6 +341,10 @@ body{
 				font-size: 1.077em;
 			}
 
+			.workgroup-create {
+				padding: 14px;
+				text-align: center;
+			}
 			.workgroup {
 				margin-top: -12px;
 
@@ -348,6 +352,18 @@ body{
 					padding: 10px 0 0 0;
 					position: relative;
 					background: transparent url("/bundles/btaskboard/img/sprite_nav.png") left -150px no-repeat;
+
+					form {
+						padding: 14px;
+						width: 100%;
+						input[type="text"] {
+							display: block;
+							width: 86%;
+						}
+						input.btn {
+							margin: 0 0 0 14px;
+						}
+					}
 
 					.title {
 						display: inline-block;
@@ -419,6 +435,23 @@ body{
 							padding: 11px 14px;
 							background-color: #A0B8DE!important;
 							color: #383734;
+
+							label {
+								display: none;
+							}
+
+							input {
+								width: 96%;
+							}
+						}
+
+						form #navigation-panel{
+							text-align: center;
+							padding-top: 9px;
+
+							input {
+								margin: 0 10px;
+							}
 						}
 					}
 				}
@@ -494,11 +527,11 @@ body{
 							}
 						}
 
-						.accordion-inner .task .meta {
+						.accordion-inner .task {
 							position: relative;
 							padding: 5px 10px;
 							margin: 0 0 4px 125px;
-							height: 20px;
+							height: auto;
 							line-height: 22px;
 							border: 1px solid #bfbeb8;
 							background: transparent url("/bundles/btaskboard/img/task_shadow.png") center bottom no-repeat;
@@ -522,12 +555,16 @@ body{
 							background-image: linear-gradient(top, #efeee8, #dfded8);
 							/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
 
-							h6 {
-								display: none;
+							.accordion-inner {
+								padding: 0;
 							}
 
 							h5 {
-								float: left;
+								padding-left: 22px;
+							}
+
+							h6 {
+								display: none;
 							}
 
 							em.duedate {
@@ -542,6 +579,31 @@ body{
 								display: none;
 							}
 
+							.edit {
+								float:left;
+								width: 0;
+								height: 0;
+								overflow: hidden;
+								margin: -5px 0 0 -10px;
+								padding: 26px 0 0 26px;
+								background: url("/bundles/btaskboard/img/sprite_task.png") 3px 5px no-repeat;
+
+								&:hover {
+									border: 1px solid #968f87;
+									margin: -1px 0 0 -1px;
+								}
+							}
+
+							.accordion-toggle {
+								position: absolute;
+								top: 0;
+								right: 30px;
+								width: 0;
+								height: 0;
+								overflow: hidden;
+								padding: 29px 0 0 29px;
+								background: url("/bundles/btaskboard/img/sprite_task.png") 3px -201px no-repeat;
+							}
 
 							.btn.close {
 								opacity: 1;
@@ -566,6 +628,25 @@ body{
 								}
 							}
 
+							.btn.reopen {
+								opacity: 1;
+								filter: alpha(opacity=100);
+								opacity: 1;
+								filter: alpha(opacity=100);
+								position:absolute;
+								right: -1px;
+								bottom: -2px;
+								width: 100%;
+								margin-left: -13px;
+								width: 0;
+								height: 0;
+								padding: 29px 0 0 29px;
+								background: #e0b98b;
+								-moz-border-radius: 1px;
+								-webkit-border-radius: 1px;
+								border-radius: 1px;
+							}
+
 
 							&:hover {
 								background: #ffffff;
@@ -575,7 +656,7 @@ body{
 						#overdue {
 							color: #e0584f;
 
-							.meta {
+							.task {
 								background-image: -moz-linear-gradient(top, #e1675e, #d76259);
 								background-image: -ms-linear-gradient(top, #e1675e, #d76259);
 								background-image: -o-linear-gradient(top, #e1675e, #d76259);
@@ -583,8 +664,21 @@ body{
 								background-image: -webkit-linear-gradient(top, #e1675e, #d76259);
 								background-image: linear-gradient(top, #e1675e, #d76259);
 
+								.accordion-body{
+									color: #ffffff;
+								}
+
 								h5 {
 									color: #ffffff;
+								}
+
+								.edit {
+									background: url("/bundles/btaskboard/img/sprite_task.png") 3px -245px no-repeat;
+
+									&:hover {
+										background-position: left 5px;
+										border: none;
+									}
 								}
 
 								&:hover {

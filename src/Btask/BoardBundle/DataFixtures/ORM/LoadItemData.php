@@ -112,6 +112,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
 
             $task = new Item();
             $task->setSubject('That is the amazing task '.$i);
+            $task->setDetail('This is the description');
             $task->setDue($dueDate);
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
@@ -138,7 +139,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task = new Item();
             $task->setSubject('Lorem Ipsum is simply dummy text '.$i);
             $task->setDue($dueDate);
-
+            $task->setDetail('This is the description');
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setOwner($this->owner);
@@ -166,6 +167,7 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
             $task = new Item();
             $task->setSubject('Lorem Ipsum is simply dummy text '.$i);
             $task->setDue($dueDate);
+            $task->setDetail('This is the description');
             $task->setPlanned($plannedDate);
             $task->setType($this->manager->merge($this->getReference($this->types['1'])));
             $task->setStatus(false);
