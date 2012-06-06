@@ -62,13 +62,6 @@ class Workgroup
      */
     protected $owner;
 
-    /**
-     * @var boolean $shared
-     *
-     * @ORM\Column(name="shared", type="boolean", nullable=false)
-     */
-    protected $shared;
-
 
     public function __construct()
     {
@@ -205,26 +198,6 @@ class Workgroup
     public function getOwner()
     {
         return $this->owner;
-    }
-
-    /**
-     * Set shared
-     *
-     * @param boolean $shared
-     */
-    public function setShared($shared)
-    {
-        $this->shared = $shared;
-    }
-
-    /**
-     * Get shared
-     *
-     * @return boolean
-     */
-    public function getShared()
-    {
-        return $this->shared;
     }
 
 

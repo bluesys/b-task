@@ -90,7 +90,7 @@ class PostItController extends Controller
 		$request = $this->container->get('request');
 		// Check if it is an Ajax request
 		if(!$request->isXmlHttpRequest()) {
-			throw new MethodNotAllowedHttpException(array('Ajax request'));
+			throw new NotFoundHttpException();
 		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
@@ -98,7 +98,6 @@ class PostItController extends Controller
 
 	    // Generate the form
 		$postIt = new Item;
-        $postIt->setStatus(true);
 
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_post_it_create');
 		$form = $this->createForm(new PostItType($user), $postIt);
@@ -132,7 +131,7 @@ class PostItController extends Controller
 
 		// Check if it is an Ajax request
 		if(!$request->isXmlHttpRequest()) {
-			throw new MethodNotAllowedHttpException(array('Ajax request'));
+			throw new NotFoundHttpException();
 		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
