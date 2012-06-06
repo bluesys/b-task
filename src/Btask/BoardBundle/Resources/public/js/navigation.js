@@ -160,7 +160,6 @@ this.setProjects = function( $myWorkgroup ){
 this.setNavigation = function(){
 
     var $ct = $('#navigation .myworkgroups');
-    console.log($ct)
     if( !$ct.length ){
         return false;
     }

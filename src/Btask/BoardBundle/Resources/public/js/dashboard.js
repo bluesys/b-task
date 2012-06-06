@@ -1,7 +1,21 @@
 this.preparePostitEdition = function( $data, $init ){
+    // Change the type of the item
+    $data.find("#fplanned input").change(function(){
+        if( $(this).val() != '' ){
+            $("#ftype select option").each(function(){
+                if ($(this).text() == "Task")
+                    $(this).attr("selected","selected");
+            });
+        }
+        else {
+            $("#ftype select option").each(function(){
+                if ($(this).text() == "Post-it")
+                    $(this).attr("selected","selected");
+            });
+        }
+    });
 
-
-
+    // Change the type of the item on tab click
     $data.find('.tabs a').click(function( e ){
         e.preventDefault()
         $(this).parent().find('a').removeClass('active')
@@ -11,21 +25,27 @@ this.preparePostitEdition = function( $data, $init ){
         if( $('.tabs a.active').attr('href') == 'note' ){
             $data.find('fieldset').hide();
             $data.find('fieldset.note').show();
-            $('#ftype select').val(30)
+            $("#ftype select option").each(function(){
+                if ($(this).text() == "Note")
+                    $(this).attr("selected","selected");
+            });
         }
         else if( $('.tabs a.active').attr('href') == 'task' ){
             $data.find('fieldset').hide();
             $data.find('fieldset.task').show();
-            if( $('#ftype select').val() == 30  ) $('#ftype select').val(28)
-        }
-
-        // TO CHANGE
-        $("#fplanned input").change(function(){
-
-            if( $(this).val() != '' ){
-                $('#ftype select').val(29)
+            if( $("#fplanned input").val() != '' ){
+                $("#ftype select option").each(function(){
+                    if ($(this).text() == "Task")
+                        $(this).attr("selected","selected");
+                });
             }
-        })
+            else {
+                $("#ftype select option").each(function(){
+                    if ($(this).text() == "Post-it")
+                        $(this).attr("selected","selected");
+                });
+            }
+        }
 
 
     })
