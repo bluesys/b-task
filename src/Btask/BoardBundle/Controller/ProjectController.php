@@ -32,13 +32,9 @@ class ProjectController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$project = $em->getRepository('BtaskBoardBundle:Project')->find($id);
 
-		if (!$project) {
+		if (!$project || !$project->isSharedTo($user)) {
 			// TODO: Return a notification
 			return new Response(null, 204);
-		}
-
-		if(!$project->isSharedTo($user)) {
-            throw new AccessDeniedHttpException();
 		}
 
 		return $this->render('BtaskBoardBundle:Project:project.html.twig', array(
@@ -64,14 +60,9 @@ class ProjectController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
 
-		if (!$workgroup) {
+		if (!$workgroup || !$workgroup->hasOwner($user)) {
 			// TODO: Return a notification
 			return new Response(null, 204);
-		}
-
-		if (!$workgroup->hasOwner($user)) {
-			// TODO: Return a notification
-            throw new AccessDeniedHttpException();
 		}
 
 		// Get all projects which are in the workgroup
@@ -146,7 +137,7 @@ class ProjectController extends Controller
 		$project = $em->getRepository('BtaskBoardBundle:Project')->find($id);
 
 		// Check if the project exist and if the user can see the content of this project
-		if (!$project && !$project->isSharedTo($user)) {
+		if (!$project || !$project->isSharedTo($user)) {
 			// TODO: Return a notification
 			return new Response(null, 204);
 		}
@@ -188,17 +179,10 @@ class ProjectController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
 
-		if(!$workgroup) {
-			throw new NotFoundHttpException();
+		if(!$workgroup || !$workgroup->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
-		if(!$workgroup->hasOwner($user)) {
-            throw new AccessDeniedHttpException();
-		}
-		// TODO: Set a default selected workgroup
-		// Get the workgroup where the use want to create his project
-		//$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->findOneBySlug($workgroup_slug);
-
-
 
 		// Generate the form
 		$actionUrl = $this->generateUrl('BtaskBoardBundle_project_create', array('workgroup_slug' => $workgroup_slug));
@@ -233,13 +217,9 @@ class ProjectController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$project = $em->getRepository('BtaskBoardBundle:Project')->find($id);
 
-		if(!$project) {
-			throw new NotFoundHttpException();
-		}
-
-		// Check if the user is the owner of the project
-		if(!$project->hasOwner($user)) {
-            throw new AccessDeniedHttpException();
+		if(!$project || !$project->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		$collaboration = new Collaboration;
@@ -280,14 +260,9 @@ class ProjectController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$project = $em->getRepository('BtaskBoardBundle:Project')->find($id);
 
-		if(!$project) {
+		if(!$project || !$project->hasOwner($user)) {
 			// TODO: Return a notification
 			return new Response(null, 204);
-		}
-
-		// Check if the current user can delete the project
-		if(!$project->hasOwner($user)) {
-            throw new AccessDeniedHttpException();
 		}
 
 		$em->remove($project);

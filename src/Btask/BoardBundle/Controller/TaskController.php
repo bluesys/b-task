@@ -30,15 +30,17 @@ class TaskController extends Controller
 		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
 		$user = $em->getRepository('BtaskUserBundle:User')->findOneById($user_id);
 
-		if (!$project && !$project->isSharedTo($user) || !$user) {
-			throw new NotFoundHttpException();
+		if (!$project && !$project->isSharedTo($user) && !$user) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Get tasks by project
 		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('state' => $state, 'project' => $project->getId(), 'executor' => $user->getId()));
 
 		if (!$tasks) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Return a JSON feed of workgroup templates
@@ -70,14 +72,16 @@ class TaskController extends Controller
 		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
 
 		if (!$project && !$project->isSharedTo($user)) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Get tasks by project
 		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('state' => $state, 'project' => $project->getId()));
 
 		if (!$tasks) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Return a JSON feed of workgroup templates
@@ -144,12 +148,9 @@ class TaskController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
-		if (!$task) {
-			throw new NotFoundHttpException();
-		}
-
-		if (!$task->isSharedTo($user)) {
-			throw new AccessDeniedHttpException();
+		if (!$task && !$task->isSharedTo($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		return $this->render('BtaskBoardBundle:Task:task.html.twig', array(
@@ -165,9 +166,9 @@ class TaskController extends Controller
 	public function updateTaskAction($id)
 	{
 		$request = $this->container->get('request');
-		/*if(!$request->isXmlHttpRequest()) {
+		if(!$request->isXmlHttpRequest()) {
 			throw new NotFoundHttpException();
-		}*/
+		}
 
 		$user = $this->get('security.context')->getToken()->getUser();
 
@@ -175,13 +176,10 @@ class TaskController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
-		if (!$task) {
-            throw new NotFoundHttpException();
+		if (!$task && !$task->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
         }
-
-		if (!$task->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
-		}
 
 		// Generate the form
 	    $form = $this->createForm(new TaskType($user), $task);
@@ -206,12 +204,16 @@ class TaskController extends Controller
     public function toggleStatusTaskAction($id, $status)
     {
 		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
 
 		$em = $this->getDoctrine()->getEntityManager();
 		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
 		if (!$task) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Open or close the task only if his current status is different
@@ -225,7 +227,7 @@ class TaskController extends Controller
 		}
 
 		// TODO: Return a notification
-		return new Response(null, 204);
+		return new Response(null, 417);
     }
 
 
@@ -246,12 +248,9 @@ class TaskController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$task = $em->getRepository('BtaskBoardBundle:Item')->findOneTaskBy(array('id' => $id));
 
-		if (!$task) {
-			throw new NotFoundHttpException();
-		}
-
-		if (!$task->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if (!$task && !$task->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		$em->remove($task);

@@ -33,15 +33,17 @@ class NoteController extends Controller
 		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
 		$user = $em->getRepository('BtaskUserBundle:User')->findOneById($user_id);
 
-		if (!$project && !$project->isSharedTo($user) || !$user) {
-			throw new NotFoundHttpException();
+		if (!$project && !$user) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Get notes by project
 		$notes = $em->getRepository('BtaskBoardBundle:Item')->findNotesBy(array('project' => $project->getId(), 'executor' => $user->getId()));
 
 		if (!$notes) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Get tasks by project
@@ -78,14 +80,16 @@ class NoteController extends Controller
 		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
 
 		if (!$project && !$project->isSharedTo($user)) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Get notes by project
 		$notes = $em->getRepository('BtaskBoardBundle:Item')->findNotesBy(array('project' => $project->getId()));
 
 		if (!$notes) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Return a JSON feed of notes templates
@@ -120,7 +124,8 @@ class NoteController extends Controller
 		$notes = $em->getRepository('BtaskBoardBundle:Item')->findNotesBy(array('user' => $user->getId()));
 
 		if (!$notes) {
-			throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Return a JSON feed of notes templates
@@ -153,12 +158,9 @@ class NoteController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$note = $em->getRepository('BtaskBoardBundle:Item')->findOneNoteBy(array('id' => $id));
 
-		if(!$note) {
-			throw new NotFoundHttpException();
-		}
-
-		if (!$note->isSharedTo($user)) {
-			throw new AccessDeniedHttpException();
+		if(!$note && !$note->isSharedTo($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		return $this->render('BtaskBoardBundle:Note:note.html.twig', array(
@@ -183,12 +185,9 @@ class NoteController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$note = $em->getRepository('BtaskBoardBundle:Item')->findOneNoteBy(array('id' => $id));
 
-		if(!$note) {
-			throw new NotFoundHttpException();
-		}
-
-		if (!$note->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if(!$note && !$note->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Generate the form
@@ -224,12 +223,9 @@ class NoteController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$note = $em->getRepository('BtaskBoardBundle:Item')->findOneNoteBy(array('id' => $id));
 
-		if(!$note) {
-			throw new NotFoundHttpException();
-		}
-
-		if (!$note->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if(!$note && !$note->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		$em->remove($note);

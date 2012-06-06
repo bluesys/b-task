@@ -67,12 +67,9 @@ class PostItController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$postIt = $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
-		if (!$postIt) {
+		if (!$postIt && !$postIt->hasOwner($user)) {
+			// TODO: Return a notification
 			return new Response(null, 204);
-		}
-
-		if (!$postIt->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
 		}
 
 		return $this->render('BtaskBoardBundle:PostIt:post-it.html.twig', array(
@@ -141,7 +138,8 @@ class PostItController extends Controller
 		$postIt =  $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
 		if (!$postIt) {
-            throw new NotFoundHttpException();
+			// TODO: Return a notification
+			return new Response(null, 204);
         }
 
 		// Generate the form
@@ -184,12 +182,9 @@ class PostItController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$postIt = $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
-		if (!$postIt) {
-			throw new NotFoundHttpException();
-		}
-
-		if (!$postIt->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if (!$postIt && !$postIt->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		// Set postit status to false
@@ -219,12 +214,9 @@ class PostItController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$postIt = $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
-		if (!$postIt) {
-			throw new NotFoundHttpException();
-		}
-
-		if (!$postIt->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if (!$postIt && !$postIt->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		$em->remove($postIt);

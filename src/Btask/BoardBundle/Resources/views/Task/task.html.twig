@@ -8,6 +8,7 @@
 		<a href="{{ path('BtaskBoardBundle_task_open', { 'id': task.id }) }}" class="btn reopen"></a>
 		{% endif %}
 		<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#tasks" href="#task-{{ task.id }}">Collapse</a>
 	</div>
 	<div id="task-{{ task.id }}" class="accordion-body collapse">
 		<div class="accordion-inner">

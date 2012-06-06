@@ -12,15 +12,24 @@ use Btask\BoardBundle\Entity\Project;
 
 class DefaultController extends Controller
 {
+	/**
+     * Display the board
+     *
+     */
     public function showBoardAction()
     {
         return $this->render('BtaskBoardBundle::layout.html.twig');
     }
 
+    /**
+     * Display the today view
+     *
+     */
     public function showTodayAction()
     {
         return $this->render('BtaskBoardBundle:Default:today.html.twig');
     }
+
 
 	/**
 	 * Display the project view
@@ -39,12 +48,9 @@ class DefaultController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
 
-		if(!$project) {
-			throw new NotFoundHttpException();
-		}
-
-		if(!$project->isSharedTo($user)) {
-            throw new AccessDeniedHttpException();
+		if(!$project && !$project->isSharedTo($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
         return $this->render('BtaskBoardBundle:Default:project.html.twig', array(

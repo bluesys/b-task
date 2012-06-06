@@ -33,13 +33,9 @@ class WorkgroupController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
 
-		if (!$workgroup) {
-			throw new NotFoundHttpException();
-		}
-
-		// Check if the workgroup is owned by the current logged user
-		if(!$workgroup->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if (!$workgroup && !$workgroup->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		return $this->render('BtaskBoardBundle:Workgroup:workgroup.html.twig', array(
@@ -131,13 +127,9 @@ class WorkgroupController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
 
-		if (!$workgroup) {
-			throw new NotFoundHttpException();
-		}
-
-		// Check if the workgroup is owned by the current logged user
-		if (!$workgroup->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if (!$workgroup && !$workgroup->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		$form = $this->createForm(new WorkgroupType($user), $workgroup);
@@ -173,13 +165,9 @@ class WorkgroupController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$workgroup = $em->getRepository('BtaskBoardBundle:Workgroup')->find($id);
 
-		if (!$workgroup) {
-			throw new NotFoundHttpException();
-		}
-
-		// Check if the workgroup is owned by the current logged user
-		if(!$workgroup->hasOwner($user)) {
-			throw new AccessDeniedHttpException();
+		if (!$workgroup && !$workgroup->hasOwner($user)) {
+			// TODO: Return a notification
+			return new Response(null, 204);
 		}
 
 		$em->remove($workgroup);
