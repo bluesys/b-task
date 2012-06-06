@@ -157,6 +157,13 @@ class ItemRepository extends EntityRepository
 
                     break;
 
+                // Sort by owner
+                case 'owner':
+                    $qb->andWhere('i.owner = :owner');
+                    $parameters['owner'] = $value;
+
+                    break;
+
                 default:
                     throw new \InvalidArgumentException('parameter not available');
                     break;

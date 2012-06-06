@@ -56,12 +56,21 @@ BtaskBoardBundle_posts_it_show:
 
 
 # Task
+BtaskBoardBundle_tasks_by_project_by_user_show:
+    pattern:  /{project_slug}/tasks/{state}/{user_id}
+    defaults: { _controller: BtaskBoardBundle:Task:showTasksByProjectByUser }
+    requirements:
+        project_slug: \w+
+        user_id: \d+
+        state: (overdue|planned|done)
+    options:
+        expose: true
+
 BtaskBoardBundle_tasks_by_project_show:
     pattern:  /{project_slug}/tasks/{state}
     defaults: { _controller: BtaskBoardBundle:Task:showTasksByStateAndByProject }
     requirements:
         project_slug: \w+
-    requirements:
         state: (overdue|planned|done)
     options:
         expose: true
@@ -115,6 +124,23 @@ BtaskBoardBundle_task_show:
         expose: true
 
 # Note
+BtaskBoardBundle_notes_by_project_by_user_show:
+    pattern:  /{project_slug}/notes/{user_id}
+    defaults: { _controller: BtaskBoardBundle:Notes:showNotesByProjectByUser }
+    requirements:
+        project_slug: \w+
+        user_id: \d+
+    options:
+        expose: true
+
+BtaskBoardBundle_notes_by_project_show:
+    pattern:  /{project_slug}/notes/
+    defaults: { _controller: BtaskBoardBundle:Note:showNotesByProjectAndByUser }
+    requirements:
+        project_slug: \w+
+    options:
+        expose: true
+
 BtaskBoardBundle_notes_by_project_show:
     pattern:  /{project_slug}/notes/
     defaults: { _controller: BtaskBoardBundle:Note:showNotesByProject }

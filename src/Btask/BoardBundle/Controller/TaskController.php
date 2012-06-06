@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Btask\BoardBundle\Entity\Item;
+use Btask\UserBundle\Entity\User;
 use Btask\BoardBundle\Form\Type\TaskType;
 use Btask\BoardBundle\Form\Handler\TaskHandler;
 
@@ -25,12 +26,11 @@ class TaskController extends Controller
 			throw new NotFoundHttpException();
 		}
 
-		$user = $this->get('security.context')->getToken()->getUser();
-
 		$em = $this->getDoctrine()->getEntityManager();
 		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
+		$user = $em->getRepository('BtaskUserBundle:User')->findOneById($user_id);
 
-		if (!$project && !$project->isSharedTo($user)) {
+		if (!$project && !$project->isSharedTo($user) || !$user) {
 			throw new NotFoundHttpException();
 		}
 

@@ -8,12 +8,58 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+use Btask\UserBundle\Entity\User;
 use Btask\BoardBundle\Entity\Item;
 use Btask\BoardBundle\Form\Type\NoteType;
 use Btask\BoardBundle\Form\Handler\NoteHandler;
 
 class NoteController extends Controller
 {
+	/**
+     * Display all notes by project and by user
+     *
+     */
+	public function showNotesByProjectByUserAction($project_slug, $user_id)
+	{
+
+		$request = $this->container->get('request');
+		if(!$request->isXmlHttpRequest()) {
+			throw new NotFoundHttpException();
+		}
+
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$em = $this->getDoctrine()->getEntityManager();
+		$project = $em->getRepository('BtaskBoardBundle:Project')->findOneBySlug($project_slug);
+		$user = $em->getRepository('BtaskUserBundle:User')->findOneById($user_id);
+
+		if (!$project && !$project->isSharedTo($user) || !$user) {
+			throw new NotFoundHttpException();
+		}
+
+		// Get notes by project
+		$notes = $em->getRepository('BtaskBoardBundle:Item')->findNotesBy(array('project' => $project->getId(), 'executor' => $user->getId()));
+
+		if (!$notes) {
+			throw new NotFoundHttpException();
+		}
+
+		// Get tasks by project
+		$tasks = $em->getRepository('BtaskBoardBundle:Item')->findTasksBy(array('state' => $state, 'project' => $project->getId(), 'executor' => $user->getId()));
+
+		// Return a JSON feed of notes templates
+		$notes_template = array();
+		foreach ($notes as $note) {
+			$notes_template[] = $this->render('BtaskBoardBundle:Note:note.html.twig', array('note' => $note))->getContent();
+		}
+
+		$response = new Response(json_encode($notes_template), 200);
+		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
+
+
 	/**
      * Display all notes by project
      *
