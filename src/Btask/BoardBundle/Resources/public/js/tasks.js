@@ -26,8 +26,7 @@ this.prepareTaskEdition = function( $data, $init ){
 
 this.prepareTask = function( $e, project ){
    // prepare edit
-    $e.find('a').click( function( e ){
-        if( $(this).attr('href') == '#') return;
+    $e.find('a.edit').click( function( e ){
 
         e.preventDefault();
         var $this = $(this);

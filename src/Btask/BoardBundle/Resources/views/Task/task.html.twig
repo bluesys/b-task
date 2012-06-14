@@ -1,7 +1,7 @@
 <div class="task accordion-group" data-id="{{ task.id }}">
 	<div class="meta accordion-heading">
 		<em class="duedate">{{ task.due | date('F dS Y') }}</em>
-		<a href="/" class="edit">edit task</a>
+		<a href="{{ path('BtaskBoardBundle_task_udpate', { 'id': task.id }) }}" class="edit">edit task</a>
 		<h5>{{ task.subject }}</h5>
 	    {% if task.status == true %}
 		<a href="{{ path('BtaskBoardBundle_task_close', { 'id': task.id }) }}" class="btn close"></a>
