@@ -21,14 +21,18 @@ class PostItType extends AbstractType
     {
         $user = $this->user;
 
+
         $builder->add('subject');
+
         $builder->add('detail');
+
         $builder->add('due', 'date', array(
             'input'  => 'datetime',
             'widget' => 'single_text',
             'format' => 'dd-MM-yyyy',
             'required' => false,
         ));
+
         $builder->add('planned', 'date', array(
             'input'  => 'datetime',
             'widget' => 'single_text',
@@ -36,7 +40,9 @@ class PostItType extends AbstractType
         ));
 
         $builder->add('priority');
+
         $builder->add('executor', 'user_selector');
+
         $builder->add('project', 'entity', array(
             'class' => 'BtaskBoardBundle:Project',
             'property' => 'name',
@@ -50,12 +56,12 @@ class PostItType extends AbstractType
                     ->setParameter('participant', $user);
             })
         );
+
         $builder->add('type', 'entity', array(
             'class' => 'BtaskBoardBundle:ItemType',
             'property' => 'name',
             'required' => false,
         ));
-
     }
 
     public function getDefaultOptions(array $options)

@@ -20,14 +20,18 @@ class TaskType extends AbstractType
     {
         $user = $this->user;
 
+
         $builder->add('subject');
+
         $builder->add('detail', 'text', array('required' => false));
+
         $builder->add('due', 'date', array(
             'input'  => 'datetime',
             'widget' => 'single_text',
             'format' => 'dd-MM-yyyy',
             'required' => false,
         ));
+
         $builder->add('planned', 'date', array(
             'input'  => 'datetime',
             'widget' => 'single_text',
@@ -35,7 +39,9 @@ class TaskType extends AbstractType
         ));
 
         $builder->add('status');
+
         $builder->add('priority');
+
         $builder->add('executor', 'entity', array(
             'class' => 'BtaskUserBundle:User',
             'property' => 'email',
@@ -43,6 +49,7 @@ class TaskType extends AbstractType
             'expanded' => true,
             'required' => false,
         ));
+
         $builder->add('project', 'entity', array(
             'class' => 'BtaskBoardBundle:Project',
             'property' => 'name',
