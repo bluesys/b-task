@@ -168,6 +168,7 @@ class PostItController extends Controller
 
 	/**
      * Close the current postit (status = false)
+     * and transform it to a task
      *
      */
     public function closePostItAction($id)
@@ -180,6 +181,7 @@ class PostItController extends Controller
 		$user = $this->get('security.context')->getToken()->getUser();
 
 		$em = $this->getDoctrine()->getEntityManager();
+		$taskType = $em->getRepository('BtaskBoardBundle:ItemType')->findOneByName('Task');
 		$postIt = $em->getRepository('BtaskBoardBundle:Item')->findOnePostItBy(array('id' => $id));
 
 		if (!$postIt && !$postIt->hasOwner($user)) {
@@ -189,6 +191,9 @@ class PostItController extends Controller
 
 		// Set postit status to false
 		$postIt->setStatus(false);
+		$postIt->setPlanned(new \Datetime('now'));
+		$postIt->setType($taskType);
+		$postIt->setExecutor($user);
 		$em->persist($postIt);
 		$em->flush();
 
