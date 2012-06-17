@@ -1,5 +1,6 @@
-<div class="note alert-info" data-id="{{ note.id }}">
-    <a class="close" data-dismiss="alert" href="#">×</a>
-	{{ note.subject }}
-	<a class="btn edit" href="#">{{ 'dashboard.note.edit'|trans }}</a>
+<div class="note alert" data-id="{{ note.id }}">
+	<em>{{ note.created|date("d F Y") }}</em>
+	<h5>{{ note.subject }}</h5>
+	<p>{{ note.detail }}</p>
+	<a href="{{ path('BtaskBoardBundle_note_update', { 'id': note.id }) }}" class="edit action button">{{ 'overview.streamline.notes.edit'|trans }}</a>
 </div>

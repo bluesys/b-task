@@ -86,12 +86,21 @@ class LoadItemData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function loadNotes()
     {
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $note = new Item();
             $note->setSubject('That is the amazing note '.$i);
             $note->setType($this->manager->merge($this->getReference($this->types['2'])));
             $note->setOwner($this->owner);
             $note->setProject($this->manager->merge($this->getReference('project1')));
+            $this->manager->persist($note);
+        }
+
+        for ($i = 3; $i <= 6; $i++) {
+            $note = new Item();
+            $note->setSubject('That is the amazing note without project'.$i);
+            $note->setType($this->manager->merge($this->getReference($this->types['2'])));
+            $note->setOwner($this->owner);
+            //$note->setProject($this->manager->merge($this->getReference('project1')));
             $this->manager->persist($note);
         }
 

@@ -13,6 +13,11 @@ overview:
             overdue: Overdue
             planned: Planned
             done: Done
+            cancel: Cancel
+            save: Save
+        notes:
+            edit: Edite note
+
 
 navigation:
     workgroup:

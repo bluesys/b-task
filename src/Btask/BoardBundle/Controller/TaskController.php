@@ -187,7 +187,9 @@ class TaskController extends Controller
 
         if($formHandler->process()) {
 			// TODO: Return a notification
-			return new Response(null, 200);
+			return $this->render('BtaskBoardBundle:Task:task.html.twig', array(
+				'task' => $task,
+			));
         }
 
 		return $this->render('BtaskBoardBundle:Task:form_task.html.twig', array(

@@ -1,18 +1,59 @@
-<form action="{{ path('BtaskBoardBundle_note_update', { 'id': note.id }) }}" method="post" {{ form_enctype(form) }}>
+<div class="note alert">
+
+<form  class="item" action="{{ path('BtaskBoardBundle_note_update', { 'id': note.id }) }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form.subject) }}
+    {{ form_widget(form.subject) }}
+    <div class="panel">
+    <div class="bound"></div>
+	<div class="tabs">
+	    <a href="task" class="left">post-it / tâche</a>
+    	<a href="note" class="right active">note</a>
+    	<div class="clr"></div>
+    </div>
 	{{ form_errors(form) }}
-	<div class="note alert-info" data-id="{{ note.id }}">
-	    <a class="close" data-dismiss="alert" href="#">×</a>
-			{{ form_errors(form.subject) }}
-			{{ form_widget(form.subject) }}
-		<input class="btn" type="submit" value="{{ 'dashboard.note.save'|trans }}" />
-	</div>
-	<div id="panel-edit">
+
+
+
+	<fieldset id="ftype">
+   		{{ form_errors(form.type) }}
+    	{{ form_widget(form.type) }}
+	</fieldset>
+	<fieldset id="fplanned" class="task">
+		<label>Date de planification</label>
+		{{ form_errors(form.planned) }}
+		{{ form_widget(form.planned, { 'attr': {'class': 'date'} }) }}
+	</fieldset>
+	<fieldset class="task">
+		<label>Date d’échéance</label>
+		{{ form_errors(form.due) }}
+		{{ form_widget(form.due, { 'attr': {'class': 'date'} }) }}
+	</fieldset>
+
+	<fieldset class="task note">
+		<label class="bloc">Détail</label>
 		{{ form_errors(form.detail) }}
 		{{ form_widget(form.detail) }}
+	</fieldset>
 
+	<fieldset class="task">
+		<label>Important ?</label>
+		{{ form_errors(form.priority) }}
+		{{ form_widget(form.priority) }}
+	</fieldset>
+
+	<fieldset class="task">
+		<label>Exécutant</label>
+		{{ form_errors(form.executor) }}
+		{{ form_widget(form.executor, { 'attr': {'class': 'larger'} }) }}
+	</fieldset>
+
+	<fieldset class="task note">
 		{{ form_errors(form.project) }}
 		{{ form_widget(form.project) }}
-
-		{{ form_widget(form._token) }}
+	</fieldset>
+	{{ form_widget(form._token) }}
 	</div>
+	<input class="btn" type="reset" value="{{ 'dashboard.postit.cancel'|trans }}" />
+	<input class="btn" type="submit" value="{{ 'dashboard.postit.save'|trans }}" />
 </form>
+</div>

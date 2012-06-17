@@ -1,22 +1,86 @@
 this.prepareTaskEdition = function( $data, $init ){
 
+    $data.find("#fplanned input").change(function(){
+        if( $(this).val() != '' ){
+            $("#ftype select option").each(function(){
+                if ($(this).text() == "Task")
+                    $(this).attr("selected","selected");
+            });
+        }
+        else {
+            $("#ftype select option").each(function(){
+                if ($(this).text() == "Post-it")
+                    $(this).attr("selected","selected");
+            });
+        }
+    });
+
+    // Change the type of the item on tab click
+    $data.find('.tabs a').click(function( e ){
+        e.preventDefault()
+        $(this).parent().find('a').removeClass('active')
+        $(this).addClass('active')
+
+
+        if( $('.tabs a.active').attr('href') == 'note' ){
+            $data.find('fieldset').hide();
+            $data.find('fieldset.note').show();
+            $("#ftype select option").each(function(){
+                if ($(this).text() == "Note")
+                    $(this).attr("selected","selected");
+            });
+        }
+        else if( $('.tabs a.active').attr('href') == 'task' ){
+            $data.find('fieldset').hide();
+            $data.find('fieldset.task').show();
+            if( $("#fplanned input").val() != '' ){
+                $("#ftype select option").each(function(){
+                    if ($(this).text() == "Task")
+                        $(this).attr("selected","selected");
+                });
+            }
+            else {
+                $("#ftype select option").each(function(){
+                    if ($(this).text() == "Post-it")
+                        $(this).attr("selected","selected");
+                });
+            }
+        }
+
+
+    })
+
     $resetBt = $data.find('form input[type="reset"]')
     $saveBt = $data.find('form input[type="submit"]')
-    console.log( $data )
+
     $resetBt.click( function( e ) {
+
         e.preventDefault();
-        $data.replaceWith( $init )
+
+        if( $init ){
+            $data.replaceWith( $init )
+            prepareTask( $init );
+        }
+        else {
+            $data.remove()
+        }
+
+
     })
 
     $saveBt.click( function( e ) {
-
         e.preventDefault();
+
         $.ajax({
             type: "POST",
             url: $data.find('form').attr('action'),
             data: $data.find('form').serialize(),
             success: function( data ){
+                var $task = $(data)
+                $data.replaceWith( $task );
+                prepareTask( $task );
                 setTasks();
+                setNotes();
             }
         })
     });
@@ -25,8 +89,8 @@ this.prepareTaskEdition = function( $data, $init ){
 
 
 this.prepareTask = function( $e, project ){
-   // prepare edit
-    $e.find('a.edit').click( function( e ){
+    // prepare edit
+    $e.find('a.action').click( function( e ){
 
         e.preventDefault();
         var $this = $(this);
@@ -38,12 +102,13 @@ this.prepareTask = function( $e, project ){
                 var $data = $(data);
 
                 if( $this.hasClass('edit')){
-
-                	var $init = $e;
+                    var $init = $e;
                     $e.replaceWith( $data );
                     prepareTaskEdition( $data , $init );
 
-
+                }
+                else if( $this.hasClass('close')){
+                    $e.remove()
                 }
                 else{
                    setTasks();
@@ -82,11 +147,11 @@ this.setTasks = function( ){
     var user        = $('#users').val();
 
     $('#tasks div.list' ).each( function( k, e ){
-        $e = $(e)
+        $e = $(e);
 
         var state       = $e.parent().parent().attr('id');
 
-        url = getTaskUrl( project, user, state )
+        url = getTaskUrl( project, user, state );
 
         $.ajax({
             type: "GET",
@@ -111,7 +176,8 @@ this.setTasks = function( ){
 
 $(function(){
 
-	initView( $('#content'), Routing.generate('BtaskBoardBundle_today'), function(){
+    initView( $('#content'), Routing.generate('BtaskBoardBundle_today'), function(){
           setTasks();
+          setNotes();
     });
 })

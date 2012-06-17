@@ -1,8 +1,6 @@
 <div class="post-it alert">
 
-
-
-<form action="{{ actionUrl }}" method="post" {{ form_enctype(form) }}>
+<form  class="item" action="{{ actionUrl }}" method="post" {{ form_enctype(form) }}>
 	{{ form_errors(form.subject) }}
     {{ form_widget(form.subject) }}
     <div class="panel">

@@ -20,13 +20,34 @@ class NoteType extends AbstractType
     {
         $user = $this->user;
 
+
         $builder->add('subject');
+
         $builder->add('detail');
+
+        $builder->add('due', 'date', array(
+            'input'  => 'datetime',
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+            'required' => false,
+        ));
+
+        $builder->add('planned', 'date', array(
+            'input'  => 'datetime',
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+        ));
+
+        $builder->add('priority');
+
+        $builder->add('executor', 'user_selector');
+
         $builder->add('project', 'entity', array(
             'class' => 'BtaskBoardBundle:Project',
             'property' => 'name',
             'multiple' => false,
             'expanded' => true,
+            'required' => false,
             'query_builder' => function(EntityRepository $er) use ($user) {
                 return $er->createQueryBuilder('p')
                     ->innerJoin('p.collaborations', 'pc')
@@ -34,6 +55,12 @@ class NoteType extends AbstractType
                     ->setParameter('participant', $user);
             })
         );
+
+        $builder->add('type', 'entity', array(
+            'class' => 'BtaskBoardBundle:ItemType',
+            'property' => 'name',
+            'required' => false,
+        ));
     }
 
     public function getDefaultOptions(array $options)

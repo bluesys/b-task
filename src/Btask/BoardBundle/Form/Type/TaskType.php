@@ -23,7 +23,7 @@ class TaskType extends AbstractType
 
         $builder->add('subject');
 
-        $builder->add('detail', 'text', array('required' => false));
+        $builder->add('detail');
 
         $builder->add('due', 'date', array(
             'input'  => 'datetime',
@@ -38,17 +38,9 @@ class TaskType extends AbstractType
             'format' => 'dd-MM-yyyy',
         ));
 
-        $builder->add('status');
-
         $builder->add('priority');
 
-        $builder->add('executor', 'entity', array(
-            'class' => 'BtaskUserBundle:User',
-            'property' => 'email',
-            'multiple' => false,
-            'expanded' => true,
-            'required' => false,
-        ));
+        $builder->add('executor', 'user_selector');
 
         $builder->add('project', 'entity', array(
             'class' => 'BtaskBoardBundle:Project',
@@ -63,6 +55,12 @@ class TaskType extends AbstractType
                     ->setParameter('participant', $user);
             })
         );
+
+        $builder->add('type', 'entity', array(
+            'class' => 'BtaskBoardBundle:ItemType',
+            'property' => 'name',
+            'required' => false,
+        ));
     }
 
     public function getDefaultOptions(array $options)

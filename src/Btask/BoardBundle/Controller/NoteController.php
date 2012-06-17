@@ -196,7 +196,9 @@ class NoteController extends Controller
 
         if($formHandler->process()) {
 			// TODO: Return a notification
-			return new Response(null, 200);
+			return $this->render('BtaskBoardBundle:Note:note.html.twig', array(
+				'note' => $note,
+			));
         }
 
 		return $this->render('BtaskBoardBundle:Note:form_note.html.twig', array(

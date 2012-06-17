@@ -133,6 +133,7 @@ this.prepareProject = function( $e ){
         $(this).addClass('on');
         initView( $('#content'), Routing.generate('BtaskBoardBundle_project', { 'project_slug' : $e.data('slug') }), function(){
             setTasks();
+            setNotes();
         });
 
 
