@@ -48,222 +48,233 @@ body{
 	margin-top: 40px;
 
 
+	#login {
+		padding: 20px;
+		margin:50px auto;
+		float:none;
+		background-color:#eee;
+		border-radius: 4px;
+		border: 1px solid #ddd;
 
+		form {
+			margin: 0;
+		}
+
+		#remember_me {
+			display: inline-block;
+		}
+
+		.clear {
+			margin-bottom: 9px;
+		}
+	}
 
 
 
 	form.item {
+		position: relative;
+
+		textarea {
+			width: 100%;
+			height: 50px;
+			margin-bottom: 5px;
+		}
+
+		fieldset#ftype {
+			display:none;
+		}
+
+		input[type=reset], input[type=submit]{
+			-moz-border-radius: 1px;
+			-webkit-border-radius: 1px;
+			border-radius: 1px;
+			border: 1px solid #9c9ea0;
+			margin: 6px 0 0 25px;
+			-moz-box-shadow: inset 1px 1px 1px #f5f6f7;
+			-webkit-box-shadow: inset 1px 1px 1px #f5f6f7;
+			box-shadow: inset 1px 1px 1px #f5f6f7;
+			/*Inner elements should not cover inner shadows*/
+			/*IE 7 AND 8 DO NOT SUPPORT INSET SHADOWS*/
+			/*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = '#e1e5e9', endColorstr = '#c9cbce');*/
+			/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+			/*Element must have a height (not auto)*/
+			/*All filters must be placed together*/
+			/*-ms-filter: "progid: DXImageTransform.Microsoft.gradient(startColorstr = '#e1e5e9', endColorstr = '#c9cbce')";*/
+			/*Element must have a height (not auto)*/
+			/*All filters must be placed together*/
+			background-image: -moz-linear-gradient(top, #e1e5e9, #c9cbce);
+			background-image: -ms-linear-gradient(top, #e1e5e9, #c9cbce);
+			background-image: -o-linear-gradient(top, #e1e5e9, #c9cbce);
+			background-image: -webkit-gradient(linear, center top, center bottom, from(#e1e5e9), to(#c9cbce));
+			background-image: -webkit-linear-gradient(top, #e1e5e9, #c9cbce);
+			background-image: linear-gradient(top, #e1e5e9, #c9cbce);
+			/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
+			opacity: 0.8;
+			/*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity = 80);*/
+			/*-ms-filter must come before filter*/
+			/*filter: alpha(opacity = 80);*/
+			/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+			/*All filters must be placed together*/
+
+			&:hover{
+				background: #ffffff;
+			}
+		}
+
+		.panel{
+			position:absolute;
+			right: -306px;
+			top: -13px;
+			width:250px;
+			padding: 0 16px 16px 16px;
+			border:solid 3px #4d4b45;
+			z-index: 1;
+
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			border-radius: 5px;
+			/*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
+			-moz-box-shadow: 0px 1px 8px #4d4b45;
+			-webkit-box-shadow: 0px 1px 8px #4d4b45;
+			box-shadow: 0px 1px 8px #4d4b45;
+			/*filter: progid: DXImageTransform.Microsoft.Shadow(strength = 1, direction = 180, color = '#000000');*/
+			/*-ms-filter: "progid: DXImageTransform.Microsoft.Shadow(strength = 1, Direction = 180, Color = '#000000')";*/
+			/*Shadows look very different in IE (Only cardinal directions supported)*/
+			/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+			/*Element should have a background-color*/
+			/*All filters must be placed together*/
+			/*IE 7 AND 8 DO NOT SUPPORT BLUR PROPERTY OF SHADOWS*/
+			/*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = '#bdb9ad', endColorstr = '#a49f93');*/
+			/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+			/*Element must have a height (not auto)*/
+			/*All filters must be placed together*/
+			/*-ms-filter: "progid: DXImageTransform.Microsoft.gradient(startColorstr = '#bdb9ad', endColorstr = '#a49f93')";*/
+			/*Element must have a height (not auto)*/
+			/*All filters must be placed together*/
+			background-image: -moz-linear-gradient(top, #bdb9ad, #a49f93);
+			background-image: -ms-linear-gradient(top, #bdb9ad, #a49f93);
+			background-image: -o-linear-gradient(top, #bdb9ad, #a49f93);
+			background-image: -webkit-gradient(linear, center top, center bottom, from(#bdb9ad), to(#a49f93));
+			background-image: -webkit-linear-gradient(top, #bdb9ad, #a49f93);
+			background-image: linear-gradient(top, #bdb9ad, #a49f93);
+			-moz-background-clip: padding;
+			-webkit-background-clip: padding-box;
+			background-clip: padding-box;
+			/*Use "background-clip: padding-box" when using rounded corners to avoid the gradient bleeding through the corners*/
+			/*--IE9 WILL PLACE THE FILTER ON TOP OF THE ROUNDED CORNERS--*/
+
+
+			.tabs {
+				margin-bottom: 12px;
+
+				a {
 					position: relative;
+					width: 142px;
+					display: inline-block;
+					margin: -4px 0 0 -16px;
+					text-align: center;
+					padding: 4px 0;
+					color: #cbcac5;
+					text-transform: uppercase;
+					font-size: 0.846em;
+					background-image: -moz-linear-gradient(top, #7e7d79, #646360);
+					background-image: -ms-linear-gradient(top, #7e7d79, #646360);
+					background-image: -o-linear-gradient(top, #7e7d79, #646360);
+					background-image: -webkit-gradient(linear, center top, center bottom, from(#7e7d79), to(#646360));
+					background-image: -webkit-linear-gradient(top, #7e7d79, #646360);
+					background-image: linear-gradient(top, #7e7d79, #646360);
+					-moz-border-radius: 3px 3px 0px 0px;
+					-webkit-border-radius: 3px 3px 0px 0px;
+					border-radius: 3px 3px 0px 0px;
+					border-bottom: 1px solid #cbc8be;
+					margin-bottom: 10px;
+					text-shadow: none;
 
-					textarea {
-						width: 100%;
-						height: 50px;
-						margin-bottom: 5px;
-					}
-
-					fieldset#ftype {
-						display:none;
-					}
-
-					input[type=reset], input[type=submit]{
-						-moz-border-radius: 1px;
-						-webkit-border-radius: 1px;
-						border-radius: 1px;
-						border: 1px solid #9c9ea0;
-						margin: 6px 0 0 25px;
-						-moz-box-shadow: inset 1px 1px 1px #f5f6f7;
-						-webkit-box-shadow: inset 1px 1px 1px #f5f6f7;
-						box-shadow: inset 1px 1px 1px #f5f6f7;
-						/*Inner elements should not cover inner shadows*/
-						/*IE 7 AND 8 DO NOT SUPPORT INSET SHADOWS*/
-						/*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = '#e1e5e9', endColorstr = '#c9cbce');*/
-						/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
-						/*Element must have a height (not auto)*/
-						/*All filters must be placed together*/
-						/*-ms-filter: "progid: DXImageTransform.Microsoft.gradient(startColorstr = '#e1e5e9', endColorstr = '#c9cbce')";*/
-						/*Element must have a height (not auto)*/
-						/*All filters must be placed together*/
-						background-image: -moz-linear-gradient(top, #e1e5e9, #c9cbce);
-						background-image: -ms-linear-gradient(top, #e1e5e9, #c9cbce);
-						background-image: -o-linear-gradient(top, #e1e5e9, #c9cbce);
-						background-image: -webkit-gradient(linear, center top, center bottom, from(#e1e5e9), to(#c9cbce));
-						background-image: -webkit-linear-gradient(top, #e1e5e9, #c9cbce);
-						background-image: linear-gradient(top, #e1e5e9, #c9cbce);
-						/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
-						opacity: 0.8;
-						/*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity = 80);*/
-						/*-ms-filter must come before filter*/
-						/*filter: alpha(opacity = 80);*/
-						/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
-						/*All filters must be placed together*/
-
-						&:hover{
-							background: #ffffff;
-						}
-					}
-
-					.panel{
-						position:absolute;
-						right: -306px;
-						top: -13px;
-						width:250px;
-						padding: 0 16px 16px 16px;
-						border:solid 3px #4d4b45;
-						z-index: 1;
-
-						-moz-border-radius: 5px;
-						-webkit-border-radius: 5px;
-						border-radius: 5px;
-						/*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
-						-moz-box-shadow: 0px 1px 8px #4d4b45;
-						-webkit-box-shadow: 0px 1px 8px #4d4b45;
-						box-shadow: 0px 1px 8px #4d4b45;
-						/*filter: progid: DXImageTransform.Microsoft.Shadow(strength = 1, direction = 180, color = '#000000');*/
-						/*-ms-filter: "progid: DXImageTransform.Microsoft.Shadow(strength = 1, Direction = 180, Color = '#000000')";*/
-						/*Shadows look very different in IE (Only cardinal directions supported)*/
-						/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
-						/*Element should have a background-color*/
-						/*All filters must be placed together*/
-						/*IE 7 AND 8 DO NOT SUPPORT BLUR PROPERTY OF SHADOWS*/
-						/*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = '#bdb9ad', endColorstr = '#a49f93');*/
-						/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
-						/*Element must have a height (not auto)*/
-						/*All filters must be placed together*/
-						/*-ms-filter: "progid: DXImageTransform.Microsoft.gradient(startColorstr = '#bdb9ad', endColorstr = '#a49f93')";*/
-						/*Element must have a height (not auto)*/
-						/*All filters must be placed together*/
-						background-image: -moz-linear-gradient(top, #bdb9ad, #a49f93);
-						background-image: -ms-linear-gradient(top, #bdb9ad, #a49f93);
-						background-image: -o-linear-gradient(top, #bdb9ad, #a49f93);
-						background-image: -webkit-gradient(linear, center top, center bottom, from(#bdb9ad), to(#a49f93));
-						background-image: -webkit-linear-gradient(top, #bdb9ad, #a49f93);
-						background-image: linear-gradient(top, #bdb9ad, #a49f93);
-						-moz-background-clip: padding;
-						-webkit-background-clip: padding-box;
-						background-clip: padding-box;
-						/*Use "background-clip: padding-box" when using rounded corners to avoid the gradient bleeding through the corners*/
-						/*--IE9 WILL PLACE THE FILTER ON TOP OF THE ROUNDED CORNERS--*/
-
-
-						.tabs {
-							margin-bottom: 12px;
-
-							a {
-								position: relative;
-								width: 142px;
-								display: inline-block;
-								margin: -4px 0 0 -16px;
-								text-align: center;
-								padding: 4px 0;
-								color: #cbcac5;
-								text-transform: uppercase;
-								font-size: 0.846em;
-								background-image: -moz-linear-gradient(top, #7e7d79, #646360);
-								background-image: -ms-linear-gradient(top, #7e7d79, #646360);
-								background-image: -o-linear-gradient(top, #7e7d79, #646360);
-								background-image: -webkit-gradient(linear, center top, center bottom, from(#7e7d79), to(#646360));
-								background-image: -webkit-linear-gradient(top, #7e7d79, #646360);
-								background-image: linear-gradient(top, #7e7d79, #646360);
-								-moz-border-radius: 3px 3px 0px 0px;
-								-webkit-border-radius: 3px 3px 0px 0px;
-								border-radius: 3px 3px 0px 0px;
-								border-bottom: 1px solid #cbc8be;
-								margin-bottom: 10px;
-								text-shadow: none;
-
-								&:hover {
-									background: #9e9b8e;
-									color: #4d4b45;
-									text-shadow: none;
-									text-decoration: none;
-								}
-							}
-
-							a.active {
-								background: #bdb9ad;
-								color: #4d4b45;
-								margin: -6px 0 0 -16px ;
-								padding: 6px 0 4px 0;
-								z-index: 1;
-							}
-
-							a.right {
-								margin-right: -16px;
-								float: right;
-							}
-						}
-
-						.bound{
-							position: absolute;
-							width: 0;
-							height: 0;
-							padding: 137px 0 0 3px;
-							margin: 8px 0 0 -22px;
-							background: url("/bundles/btaskboard/img/bound.png") left top no-repeat;
-						}
-
-						input.date {
-							width: 110px;
-						}
-
-						input, textarea {
-							border: 1px solid #928e84;
-							-moz-border-radius: 3px;
-							-webkit-border-radius: 3px;
-							border-radius: 3px;
-							-moz-box-shadow: inset 1px 1px 2px #cfcdca;
-							-webkit-box-shadow: inset 1px 1px 2px #cfcdca;
-							box-shadow: inset 1px 1px 2px #cfcdca;
-							color: #4d4b45;
-							padding: 4px;
-							float: right;
-						}
-
-						input {
-							vertical-align: center;
-						}
-
-						input[type=radio], input[type=checkbox]{
-							float: none;
-							padding: 0 3px;
-						}
-
-						label {
-							display: inline;
-							font-weight: bold;
-							font-size: 0.923em;
-							line-height: 30px;
-							padding-right: 7px;
-							margin-bottom: 1px;
-						}
-						input.larger{
-							width: 165px;
-						}
-
-						label.bloc {
-							display: block;
-						}
-
-						input:hover, textarea:hover {
-							background-color:#e9e7e4;
-						}
-
-						input:focus, textarea:focus {
-							background-color:#8c8a84;
-							color: #ffffff;
-							outline-color: #f5e7b8;
-							border-color: #f5e7b8;
-						}
+					&:hover {
+						background: #9e9b8e;
+						color: #4d4b45;
+						text-shadow: none;
+						text-decoration: none;
 					}
 				}
 
+				a.active {
+					background: #bdb9ad;
+					color: #4d4b45;
+					margin: -6px 0 0 -16px ;
+					padding: 6px 0 4px 0;
+					z-index: 1;
+				}
 
+				a.right {
+					margin-right: -16px;
+					float: right;
+				}
+			}
 
+			.bound{
+				position: absolute;
+				width: 0;
+				height: 0;
+				padding: 137px 0 0 3px;
+				margin: 8px 0 0 -22px;
+				background: url("/bundles/btaskboard/img/bound.png") left top no-repeat;
+			}
 
+			input.date {
+				width: 110px;
+			}
 
+			input, textarea {
+				border: 1px solid #928e84;
+				-moz-border-radius: 3px;
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+				-moz-box-shadow: inset 1px 1px 2px #cfcdca;
+				-webkit-box-shadow: inset 1px 1px 2px #cfcdca;
+				box-shadow: inset 1px 1px 2px #cfcdca;
+				color: #4d4b45;
+				padding: 4px;
+				float: right;
+			}
 
+			input {
+				vertical-align: center;
+			}
 
+			input[type=radio], input[type=checkbox]{
+				float: none;
+				padding: 0 3px;
+			}
 
+			label {
+				display: inline;
+				font-weight: bold;
+				font-size: 0.923em;
+				line-height: 30px;
+				padding-right: 7px;
+				margin-bottom: 1px;
+			}
+			input.larger{
+				width: 165px;
+			}
+
+			label.bloc {
+				display: block;
+			}
+
+			input:hover, textarea:hover {
+				background-color:#e9e7e4;
+			}
+
+			input:focus, textarea:focus {
+				background-color:#8c8a84;
+				color: #ffffff;
+				outline-color: #f5e7b8;
+				border-color: #f5e7b8;
+			}
+		}
+	}
 
 	#dashboard {
 		position: relative;
@@ -747,6 +758,14 @@ body{
 
 							&:hover {
 								background-position: center -138px;
+							}
+						}
+
+						form.item {
+
+							.panel {
+								right: -330px;
+								top: -10px;
 							}
 						}
 					}
