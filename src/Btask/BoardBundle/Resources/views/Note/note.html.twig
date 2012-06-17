@@ -1,4 +1,4 @@
-<div class="note alert" data-id="{{ note.id }}">
+<div class="note alert" data-id="{{ note.id }}" style="background-color: {{ note.project.color }}">
 	<em>{{ note.created|date("d F Y") }}</em>
 	<h5>{{ note.subject }}</h5>
 	<p>{{ note.detail }}</p>

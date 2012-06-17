@@ -4,9 +4,9 @@
 		<a href="{{ path('BtaskBoardBundle_task_udpate', { 'id': task.id }) }}" class="edit action">edit task</a>
 		<h5>{{ task.subject }}</h5>
 	    {% if task.status == true %}
-		<a href="{{ path('BtaskBoardBundle_task_close', { 'id': task.id }) }}" class="btn close action"></a>
+		<a style="background-color: {{ task.project.color }}" href="{{ path('BtaskBoardBundle_task_close', { 'id': task.id }) }}" class="btn close action"></a>
 		{% else %}
-		<a href="{{ path('BtaskBoardBundle_task_open', { 'id': task.id }) }}" class="btn reopen action"></a>
+		<a style="background-color: {{ task.project.color }}" href="{{ path('BtaskBoardBundle_task_open', { 'id': task.id }) }}" class="btn reopen action"></a>
 		{% endif %}
 		<a class="underling" href="#">geoffroy.perriard@gmail.com</a>
 		<a class="accordion-toggle" data-toggle="collapse" data-parent="#tasks" href="#task-{{ task.id }}">Collapse</a>

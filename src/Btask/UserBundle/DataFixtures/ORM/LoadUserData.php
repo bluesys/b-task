@@ -30,17 +30,37 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $this->manager = $manager;
 
-        for ($i = 1; $i <= 3; $i++) {
-            $user = $this->container->get('fos_user.user_manager')->createUser();
-            $user->setEmail('john.doe'.$i.'@localhost.lo');
-            $user->setPlainPassword('password');
-            $user->setEnabled(true);
+        $user = $this->container->get('fos_user.user_manager')->createUser();
+        $user->setEmail('dumont@bluesystem.ch');
+        $user->setPlainPassword('password');
+        $user->setEnabled(true);
+        $this->manager->persist($user);
+        $this->manager->flush();
+        $this->addReference('cedric', $user);
 
-            $this->manager->persist($user);
-            $this->manager->flush();
+        $user = $this->container->get('fos_user.user_manager')->createUser();
+        $user->setEmail('bossy@bluesystem.ch');
+        $user->setPlainPassword('password');
+        $user->setEnabled(true);
+        $this->manager->persist($user);
+        $this->manager->flush();
+        $this->addReference('denis', $user);
 
-            $this->addReference('user'.$i, $user);
-        }
+        $user = $this->container->get('fos_user.user_manager')->createUser();
+        $user->setEmail('buntschu@bluesystem.ch');
+        $user->setPlainPassword('password');
+        $user->setEnabled(true);
+        $this->manager->persist($user);
+        $this->manager->flush();
+        $this->addReference('nicolas', $user);
+
+        $user = $this->container->get('fos_user.user_manager')->createUser();
+        $user->setEmail('joachim@kameleo.ch');
+        $user->setPlainPassword('password');
+        $user->setEnabled(true);
+        $this->manager->persist($user);
+        $this->manager->flush();
+        $this->addReference('joachim', $user);
     }
 
     public function getOrder()
