@@ -18,7 +18,7 @@
 		margin-bottom: 0;
 
 		.container-fluid {
-			padding: 0 20px;
+			//padding: 0 20px;
 		}
 	}
 
@@ -27,7 +27,7 @@
 
 
 		#dashboard {
-			padding: 20px 20px 0 20px;
+			padding: 0;
 
 			#post-it  {
 				margin-right: 0;
@@ -36,7 +36,19 @@
 					float: none;
 					width: auto;
 					display: block;
-					margin-right: 40px;
+					margin: 10px;
+
+					form.item {
+
+						.panel {
+							right: -17px;
+							top: 150px;
+
+							.bound {
+								display: none;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -56,20 +68,50 @@
 			#content {
 				#streamline {
 				    margin-right: 0;
-				    padding: 0;
+					padding: 5px 0;
 
 				    #tasks {
 				    	float: none;
 				    	margin: 0;
 				    	width: auto;
 
-				    	.task {
-				    		h5 {
-		    			    	overflow: hidden;
-							    text-overflow: ellipsis;
-							    white-space: nowrap;
-							    width: 90px;
-				    		}
+				    	.status {
+				    		padding: 0;
+
+					    	#overdue .accordion-inner .task em.duedate {
+					    		color: #fff;
+					    	}
+
+					    	.accordion-inner .task {
+							    margin: 0 0 5px 0;
+
+					    		h5 {
+			    			    	overflow: hidden;
+								    text-overflow: ellipsis;
+								    white-space: nowrap;
+								    width: 90px;
+					    		}
+
+					    		em.duedate {
+					    			position: relative;
+					    			left: 0;
+					    			padding-right: 0;
+					    			background: none;
+					    			color: #333;
+					    		}
+
+								form.item {
+
+									.panel {
+										right: -12px;
+										top: 150px;
+
+										.bound {
+											display: none;
+										}
+									}
+								}
+					    	}
 				    	}
 				    }
 
@@ -77,10 +119,22 @@
 				    	float: none;
 				    	margin: 0;
 				    	width: auto;
-						padding: 20px 20px 0 20px;
+						padding: 5px 5px;
 
 						.note {
-							margin: 0 0 20px 0;
+							margin: 0 0 5px 0;
+
+							form.item {
+
+								.panel {
+									right: -36px;
+									top: 133px;
+
+									.bound {
+										display: none;
+									}
+								}
+							}
 						}
 				    }
 				}

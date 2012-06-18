@@ -130,6 +130,7 @@ this.prepareProject = function( $e ){
     // prepare edit
     $e.click( function( e ){
         e.preventDefault();
+        $('.project').removeClass('on');
         $(this).addClass('on');
         initView( $('#content'), Routing.generate('BtaskBoardBundle_project', { 'project_slug' : $e.data('slug') }), function(){
             setTasks();
