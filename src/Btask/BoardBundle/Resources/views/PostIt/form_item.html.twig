@@ -18,36 +18,36 @@
    		{{ form_errors(form.type) }}
     	{{ form_widget(form.type) }}
 	</fieldset>
-	<fieldset id="fplanned" class="task">
+	<fieldset id="fplanned" class="task-option">
 		<label>Date de planification</label>
 		{{ form_errors(form.planned) }}
 		{{ form_widget(form.planned, { 'attr': {'class': 'date'} }) }}
 	</fieldset>
-	<fieldset class="task">
+	<fieldset class="task-option">
 		<label>Date d’échéance</label>
 		{{ form_errors(form.due) }}
 		{{ form_widget(form.due, { 'attr': {'class': 'date'} }) }}
 	</fieldset>
 
-	<fieldset class="task note">
+	<fieldset class="task-option note-option">
 		<label class="bloc">Détail</label>
 		{{ form_errors(form.detail) }}
 		{{ form_widget(form.detail) }}
 	</fieldset>
 
-	<fieldset class="task">
+	<fieldset class="task-option">
 		<label>Important ?</label>
 		{{ form_errors(form.priority) }}
 		{{ form_widget(form.priority) }}
 	</fieldset>
 
-	<fieldset class="task">
+	<fieldset class="task-option">
 		<label>Exécutant</label>
 		{{ form_errors(form.executor) }}
 		{{ form_widget(form.executor, { 'attr': {'class': 'larger'} }) }}
 	</fieldset>
 
-	<fieldset class="task note">
+	<fieldset class="task-option note-option">
 		{{ form_errors(form.project) }}
 		{{ form_widget(form.project) }}
 	</fieldset>

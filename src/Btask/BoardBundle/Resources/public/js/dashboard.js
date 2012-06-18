@@ -24,7 +24,7 @@ this.preparePostitEdition = function( $data, $init ){
 
         if( $('.tabs a.active').attr('href') == 'note' ){
             $data.find('fieldset').hide();
-            $data.find('fieldset.note').show();
+            $data.find('fieldset.note-option').show();
             $("#ftype select option").each(function(){
                 if ($(this).text() == "Note")
                     $(this).attr("selected","selected");
@@ -32,7 +32,7 @@ this.preparePostitEdition = function( $data, $init ){
         }
         else if( $('.tabs a.active').attr('href') == 'task' ){
             $data.find('fieldset').hide();
-            $data.find('fieldset.task').show();
+            $data.find('fieldset.task-option').show();
             if( $("#fplanned input").val() != '' ){
                 $("#ftype select option").each(function(){
                     if ($(this).text() == "Task")
