@@ -108,9 +108,11 @@ this.prepareTask = function( $e, project ){
 
                 }
                 else if( $this.hasClass('close')){
-                    $e.remove()
+                    $e.remove();
+                    setTasks();
                 }
                 else{
+
                    setTasks();
                    return;
                 }
