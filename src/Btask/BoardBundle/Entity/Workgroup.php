@@ -40,7 +40,7 @@ class Workgroup
 
     /**
      * @var string $name
-     *
+     * @Gedmo\Sluggable(slugField="slug")
      * @ORM\Column(name="name", type="string", length=255)
      */
     protected $name;
@@ -51,7 +51,7 @@ class Workgroup
     protected $collaborations;
 
     /**
-     * @Gedmo\Slug(fields={"name"}, separator="_")
+     * @Gedmo\Slug(separator="_")
      * @ORM\Column(name="slug", type="string", length=128, unique=true)
      */
     protected $slug;
