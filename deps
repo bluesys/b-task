@@ -86,14 +86,18 @@
     version=1.2.0
 
 [gedmo-doctrine-extensions]
-    git=https://github.com/l3pp4rd/DoctrineExtensions.git
+    git=git://github.com/l3pp4rd/DoctrineExtensions.git
     version=origin/doctrine2.1.x
 
 [StofDoctrineExtensionsBundle]
-    git=https://github.com/stof/StofDoctrineExtensionsBundle.git
+    git=git://github.com/stof/StofDoctrineExtensionsBundle.git
     target=bundles/Stof/DoctrineExtensionsBundle
     version=origin/1.0.x
 
 [FOSJsRoutingBundle]
     git=git://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git
     target=/bundles/FOS/JsRoutingBundle
+
+[lessphp]
+    git=git://github.com/leafo/lessphp.git
+    target=/lessphp

@@ -27,9 +27,8 @@ assetic:
     use_controller: false
     # java: /usr/bin/java
     filters:
-        less:
-            node: /usr/bin/node
-            node_paths: [/home/geoffroy/node_modules]
+        lessphp:
+            file: %kernel.root_dir%/../vendor/lessphp/lessc.inc.php
             apply_to: "\.less$"
         cssrewrite: ~
 
